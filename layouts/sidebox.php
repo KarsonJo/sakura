@@ -5,4 +5,9 @@
 	 */
 
 ?>
-<div class="toc-container"><div class="toc"></div></div>
+<div class="toc-container">
+	<div>
+		<div>目录</div>
+		<div class="toc"></div>
+	</div>
+</div>
