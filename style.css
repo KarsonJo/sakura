@@ -8238,6 +8238,10 @@ a.toc-link {
     .the-feature.from_left_and_right {
         padding-top: 45%;
     }
+
+    .top-feature-v2 {
+        max-width: 100% !important;
+    }
 }
 
 .top-feature-row {
@@ -8249,13 +8253,20 @@ a.toc-link {
 .top-feature-container {
     display: flex;
     gap: 10px;
+    justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 }
+
+/* .top-feature-v2:nth-child(3n) {
+    flex-basis: 100%;
+} */
 
 .top-feature-v2 {
     display: inline-block;
-    /* flex: 1; */
-    width: 100%;
+    max-width: 50%;
+    width: 100%; /*stretch it anyway*/
+    flex: 1 0 30%;
 }
 
 .the-feature {
