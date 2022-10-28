@@ -6,8 +6,8 @@
 
 ?>
 <div class="toc-container">
-	<div>
-		<div>目录</div>
+	<div class="toc-wrapper">
+		<div class="toc-title">目录</div>
 		<div class="toc"></div>
 	</div>
 </div>

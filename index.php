@@ -29,6 +29,8 @@ get_header();
 	</div>
 	<?php } ?>
 	
+	<!-- karson_obsolete -->
+	<!-- should always left and right -->
 	<?php 
 		if(akina_option('top_feature')=='1'){
                 if(akina_option('top_feature_style') == 'left_and_right'){

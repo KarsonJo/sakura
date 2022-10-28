@@ -1,3 +1,4 @@
+<!-- karson_obsolete -->
 <?php 
 
 	/**
