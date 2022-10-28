@@ -625,6 +625,8 @@ function copy_code_block() {
     var clipboard = new ClipboardJS('.copy-code');
 }
 
+// karson_todo
+// change the awkward toc remove functionality
 function tableOfContentScroll(flag) {
     if (document.body.clientWidth <= 1200) {
         return;

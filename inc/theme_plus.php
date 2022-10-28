@@ -275,7 +275,9 @@ function login_ok(){
 <?php 
 }
 
-
+// karson_todo
+// 1.seems tons of duplicate code (for 3 times)
+// 2.check and cut all bar-stripe-loader.svg
 /*
  * 文章，页面头部背景图
  */
@@ -311,9 +313,11 @@ function the_headPattern(){
   }
   if(akina_option('patternimg')) $full_image_url = false;
   if(!is_home() && $full_image_url) : ?>
+  <!-- karson_todo -->
+  <!-- check out what the hell is this -->
   <div class="pattern-center-blank"></div>
   <div class="pattern-center <?php if(is_single()){echo $center;} ?>">
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/moezx/cdn@3.0.1/img/svg/loader/orange.progress-bar-stripe-loader.svg)" data-src="<?php echo $full_image_url; ?>"> </div>
+    <div class="pattern-attachment-img lazyload" data-src="<?php echo $full_image_url; ?>"> </div>
     <header class="pattern-header <?php if(is_single()){echo $header;} ?>"><?php echo $t; ?></header>
   </div>
   <?php else :
