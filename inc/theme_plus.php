@@ -317,7 +317,7 @@ function the_headPattern(){
   <!-- check out what the hell is this -->
   <div class="pattern-center-blank"></div>
   <div class="pattern-center <?php if(is_single()){echo $center;} ?>">
-    <div class="pattern-attachment-img lazyload" data-src="<?php echo $full_image_url; ?>"> </div>
+    <img class=".pattern-center-img pattern-attachment-img lazyload" data-src="<?php echo $full_image_url; ?>"> </img>
     <header class="pattern-header <?php if(is_single()){echo $header;} ?>"><?php echo $t; ?></header>
   </div>
   <?php else :

@@ -11,20 +11,6 @@
 ?>
 <?php header('X-Frame-Options: SAMEORIGIN'); ?>
 <!DOCTYPE html>
-<!-- 
-Theme by Mashiro
-                      /^--^\     /^--^\     /^--^\
-                      \____/     \____/     \____/
-                     /      \   /      \   /      \
-                    |        | |        | |        |
-                     \__  __/   \__  __/   \__  __/
-|^|^|^|^|^|^|^|^|^|^|^|^\ \^|^|^|^/ /^|^|^|^|^\ \^|^|^|^|^|^|^|^|^|^|^|^|
-| | | | | | | | | | | | |\ \| | |/ /| | | | | | \ \ | | | | | | | | | | |
-########################/ /######\ \###########/ /#######################
-| | | | | | | | | | | | \/| | | | \/| | | | | |\/ | | | | | | | | | | | |
-|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|
-
--->
 <html <?php language_attributes(); ?>>
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
@@ -127,4 +113,4 @@ window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
             }else {
                 the_headPattern();
             } ?>
-		    <div id="content" class="site-content">
+

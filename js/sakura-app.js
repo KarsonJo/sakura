@@ -311,14 +311,16 @@ function scrollBar() {
     }
 }
 
+// karson_obsolete
+// unify theme layout
 function checkskinSecter() {
-    if (mashiro_global.variables.skinSecter === false) {
-        $(".pattern-center").removeClass('pattern-center').addClass('pattern-center-sakura');
-        $(".headertop-bar").removeClass('headertop-bar').addClass('headertop-bar-sakura');
-    } else {
-        $(".pattern-center-sakura").removeClass('pattern-center-sakura').addClass('pattern-center');
-        $(".headertop-bar-sakura").removeClass('headertop-bar-sakura').addClass('headertop-bar');
-    }
+    // if (mashiro_global.variables.skinSecter === false) {
+    //     $(".pattern-center").removeClass('pattern-center').addClass('pattern-center-sakura');
+    //     $(".headertop-bar").removeClass('headertop-bar').addClass('headertop-bar-sakura');
+    // } else {
+    //     $(".pattern-center-sakura").removeClass('pattern-center-sakura').addClass('pattern-center');
+    //     $(".headertop-bar-sakura").removeClass('headertop-bar-sakura').addClass('headertop-bar');
+    // }
 }
 
 function checkBgImgCookie() {
@@ -397,10 +399,10 @@ $(document).ready(function () {
                     checkskinSecter();
                 }
                 if (tagid == "dark-bg") {
-                    addComment.I("content").classList.add('notransition');
+                    // addComment.I("content").classList.add('notransition');
                     addComment.I("content").style.backgroundColor = "#fff";
-                    addComment.I("content").offsetHeight;
-                    addComment.I("content").classList.remove('notransition');
+                    // addComment.I("content").offsetHeight;
+                    // addComment.I("content").classList.remove('notransition');
                     $("html").css("background", "#31363b");
                     $("body").addClass("dark");
                     setCookie("dark", "1", 0.33);
@@ -410,7 +412,7 @@ $(document).ready(function () {
                     setCookie("dark", "0", 0.33);
                     setCookie("bgImgSetting", tagid, 30);
                     setTimeout(function () {
-                        addComment.I("content").style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+                        // addComment.I("content").style.backgroundColor = "rgba(255, 255, 255, 0.8)";
                     }, 1000);
                 }
                 switch (tagid) {
