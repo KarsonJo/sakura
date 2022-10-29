@@ -1601,10 +1601,10 @@ var home = location.href,
                     var s = $(document).scrollTop(),
                         cached = $('.site-header');
                     if (s == h1) {
-                        cached.removeClass('yya');
+                        cached.removeClass('scroll-down');
                     }
                     if (s > h1) {
-                        cached.addClass('yya');
+                        cached.addClass('scroll-down');
                     }
             });
             }

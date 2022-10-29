@@ -1004,15 +1004,16 @@ a:hover {
     -webkit-transition: all .4s ease;
     transition: all .4s ease;
     position: fixed;
-    z-index: 9999;
-    top: 0
+    z-index: 0;
+    top: 0;
 }
 
-.yya {
+.scroll-down {
     position: fixed;
     left: 0;
     background: rgba(255, 255, 255, .95);
-    box-shadow: 0 1px 40px -8px rgba(0, 0, 0, .5)
+    box-shadow: 0 1px 40px -8px rgba(0, 0, 0, .5);
+    z-index: 9999;
 }
 
 .gizle {
@@ -1043,12 +1044,13 @@ a:hover {
 }
 
 .site-title a {
-    color: #464646;
-    font-weight: 400
+    color: #eee;
+    font-weight: 400;
 }
 
 .site-title a:hover {
-    color: orange
+    color: #fff;
+    font-weight: bold;
 }
 
 .site-title img {
@@ -3878,7 +3880,8 @@ li.feature-2 {
 .headertop {
     position: relative;
     overflow: hidden;
-    height: 0
+    z-index: 10;
+    height: 0;
 }
 
 .headertop::before {
@@ -5434,7 +5437,9 @@ i.iconfont.down {
         top: 0;
         z-index: 99999;
         display: block;
-        background: 0 0
+        background: 0 0;
+
+        mix-blend-mode: difference;
     }
 
     .iconflat {
@@ -5449,7 +5454,7 @@ i.iconfont.down {
         position: absolute;
         width: 30px;
         height: 3px;
-        background-color: #333;
+        background-color: #fff;
         top: 24px;
         left: 10px
     }
@@ -5457,7 +5462,7 @@ i.iconfont.down {
     .openNav .icon:after,
     .openNav .icon:before {
         transition-duration: .5s;
-        background-color: #333;
+        background-color: #fff;
         position: absolute;
         content: "";
         width: 30px;
@@ -9300,7 +9305,6 @@ span.ar-circle,
 #archives-temp h3,
 span.page-numbers.current,
 .sorry li a:hover,
-.site-title a:hover,
 i.iconfont.js-toggle-search.iconsearch:hover,
 .comment-respond input[type='submit']:hover,
 blockquote:before,
@@ -9371,7 +9375,7 @@ body.dark .site-footer {
 }
 
 body.dark .pattern-center-blank,
-body.dark .yya,
+body.dark .scroll-down,
 body.dark .blank,
 body.dark .changeSkin-gear,
 body.dark .toc-wrapper,
@@ -9427,12 +9431,6 @@ body.dark input.m-search-input {
     background: #bebebe;
 }
 
-body.dark .openNav .icon,
-body.dark .openNav .icon:after,
-body.dark .openNav .icon:before {
-    background-color: #eee;
-}
-
 body.dark .site-header:hover {
     background: #31363b;
 }
@@ -9482,7 +9480,6 @@ body.dark .lower li ul::before {
 body.dark .site-top ul li a,
 body.dark .header-user-menu a,
 body.dark #mo-nav ul li a,
-body.dark .site-title a,
 body.dark header.page-header,
 body.dark h1.cat-title {
     color: #eee;
@@ -9691,7 +9688,6 @@ body.dark .entry-title a:hover,
 body.dark #archives-temp h3,
 body.dark span.page-numbers.current,
 body.dark .sorry li a:hover,
-body.dark .site-title a:hover,
 body.dark .js-toggle-search.iconsearch:hover,
 body.dark .comment-respond input[type='submit']:hover,
 body.dark blockquote:before,
@@ -9757,7 +9753,7 @@ html,
 .comments,
 .site-footer,
 .pattern-center-blank,
-.yya,
+.scroll-down,
 .blank,
 .changeSkin-gear,
 .toc-wrapper,
