@@ -1,10 +1,7 @@
 <?php
 function customizer_css() { ?>
 <style type="text/css">
-<?php // Style Settings
-if ( akina_option('shownav') ) { ?>
-.site-top .lower nav {display: block !important;}
-<?php } // Style Settings ?>
+
 <?php // theme-skin
 if ( akina_option('theme_skin') ) { ?>
 :root {
