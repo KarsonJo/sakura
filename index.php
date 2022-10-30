@@ -30,19 +30,10 @@ get_header();
 		</div>
 	<?php } ?>
 
-	<!-- karson_obsolete -->
-	<!-- should always left and right -->
-	<?php
-	if (akina_option('top_feature') == '1') {
-		if (akina_option('top_feature_style') == 'left_and_right') {
-			get_template_part('layouts/feature_v2');
-		} else {
-			get_template_part('layouts/feature');
-		}
-	}
-	?>
-
 	<div id="primary" class="content-area">
+		<!-- karson_fin_obsolete -->
+		<!-- should always left and right -->
+		<?php get_template_part('layouts/feature_v2'); ?>
 		<main id="main" class="site-main" role="main">
 			<h1 class="main-title" style="font-family: 'Ubuntu', sans-serif;"><i class="fa fa-envira" aria-hidden="true"></i> Discovery</h1>
 			<?php

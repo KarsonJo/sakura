@@ -400,7 +400,7 @@ $(document).ready(function () {
                 }
                 if (tagid == "dark-bg") {
                     // addComment.I("content").classList.add('notransition');
-                    addComment.I("content").style.backgroundColor = "#fff";
+                    // addComment.I("content").style.backgroundColor = "#fff";
                     // addComment.I("content").offsetHeight;
                     // addComment.I("content").classList.remove('notransition');
                     $("html").css("background", "#31363b");

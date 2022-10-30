@@ -461,15 +461,15 @@ function optionsframework_options()
         'std' => '1',
         'type' => 'checkbox');
 
-    $options[] = array(
-        'name' => __('Top-feature style', 'sakura'), /*聚焦样式*/
-        'id' => 'top_feature_style',
-        'std' => "left_and_right",
-        'type' => "radio",
-        'options' => array(
-            'left_and_right' => __('Alternate left and right', 'sakura'), /*左右交替*/
-            'bottom_to_top' => __('From bottom to top', 'sakura'), /*从下往上*/
-        ));
+    // $options[] = array(
+    //     'name' => __('Top-feature style', 'sakura'), /*聚焦样式*/
+    //     'id' => 'top_feature_style',
+    //     'std' => "left_and_right",
+    //     'type' => "radio",
+    //     'options' => array(
+    //         'left_and_right' => __('Alternate left and right', 'sakura'), /*左右交替*/
+    //         'bottom_to_top' => __('From bottom to top', 'sakura'), /*从下往上*/
+    //     ));
 
     $options[] = array(
         'name' => __('Top-feature title', 'sakura'), /*聚焦标题*/
