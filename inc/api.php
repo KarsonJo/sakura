@@ -45,10 +45,6 @@ add_action('rest_api_init', function () {
         'methods' => 'GET',
         'callback' => 'get_qq_avatar',
     ));
-    register_rest_route('sakura/v1', '/bangumi/bilibili', array(
-        'methods' => 'POST',
-        'callback' => 'bgm_bilibili',
-    ));
     register_rest_route('sakura/v1', '/meting/aplayer', array(
         'methods' => 'GET',
         'callback' => 'meting_aplayer',
