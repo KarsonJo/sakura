@@ -2,7 +2,7 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define([], factory);
+		define("POWERMODE", [], factory);
 	else if(typeof exports === 'object')
 		exports["POWERMODE"] = factory();
 	else

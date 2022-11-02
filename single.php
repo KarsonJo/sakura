@@ -32,4 +32,5 @@ get_header(); ?>
 </div>
 
 <?php
+karson_requirejs_package('/page-post');
 get_footer();

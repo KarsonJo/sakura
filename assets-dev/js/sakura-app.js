@@ -79,7 +79,7 @@ function post_list_show_animation() {
             entries.forEach((article) => {
                 if (!window.IntersectionObserver) {
                     article.target.style.willChange = 'auto';
-                    if( article.target.classList.contains("post-list-show") === false){
+                    if (article.target.classList.contains("post-list-show") === false) {
                         article.target.classList.add("post-list-show");
                     }
                 } else {
@@ -144,7 +144,7 @@ function code_highlight_style() {
         }
         var ele_name = $('pre:eq(' + i + ')')[0].children[0].className;
         var lang = ele_name.substr(0, ele_name.indexOf(" ")).replace('language-', '');
-        if (lang.toLowerCase() == "hljs") var lang = $('pre:eq(' + i + ') code').attr("class").replace('hljs', '')?$('pre:eq(' + i + ') code').attr("class").replace('hljs', ''):"text";
+        if (lang.toLowerCase() == "hljs") var lang = $('pre:eq(' + i + ') code').attr("class").replace('hljs', '') ? $('pre:eq(' + i + ') code').attr("class").replace('hljs', '') : "text";
         $('pre:eq(' + i + ')').addClass('highlight-wrap');
         for (var t in attributes) {
             $('pre:eq(' + i + ')').attr(t, attributes[t]);
@@ -166,7 +166,7 @@ function code_highlight_style() {
 }
 try {
     code_highlight_style();
-} catch (e) {}
+} catch (e) { }
 
 if (Poi.reply_link_version == 'new') {
     $('body').on('click', '.comment-reply-link', function () {
@@ -213,7 +213,7 @@ function attach_image() {
                         addComment.createButterbar("图片上传成功~<br>Uploaded successfully~");
                         grin(get_the_url, type = 'Img');
                     } else {
-                        addComment.createButterbar("上传失败！<br>Uploaded failed!<br> 文件名/Filename: "+f.name+"<br>code: "+res.status+"<br>"+res.message, 3000);
+                        addComment.createButterbar("上传失败！<br>Uploaded failed!<br> 文件名/Filename: " + f.name + "<br>code: " + res.status + "<br>" + res.message, 3000);
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -334,29 +334,29 @@ function checkDarkModeCookie() {
     var dark = getCookie("dark"),
         today = new Date(),
         hour = today.getHours();
-        if (mashiro_option.darkmode && ((!dark && (hour > 21 || hour < 7) ) || (dark == '1' && (hour >= 22 || hour <= 6)))) {
+    if (mashiro_option.darkmode && ((!dark && (hour > 21 || hour < 7)) || (dark == '1' && (hour >= 22 || hour <= 6)))) {
+        setTimeout(function () {
+            $("#dark-bg").click();
+        }, 100);
+        $("#moblieDarkLight").html('<i class="fa fa-sun-o" aria-hidden="true"></i>');
+    } else {
+        if (document.body.clientWidth > 860) {
             setTimeout(function () {
-                $("#dark-bg").click();
+                checkBgImgCookie();
             }, 100);
-            $("#moblieDarkLight").html('<i class="fa fa-sun-o" aria-hidden="true"></i>');
         } else {
-            if (document.body.clientWidth > 860) {
-                setTimeout(function () {
-                    checkBgImgCookie();
-                }, 100);
-            } else {
-                $("html").css("background", "unset");
-                $("body").removeClass("dark");
-                $("#moblieDarkLight").html('<i class="fa fa-moon-o" aria-hidden="true"></i>');
-                setCookie("dark", "0", 0.33);
-            }
+            $("html").css("background", "unset");
+            $("body").removeClass("dark");
+            $("#moblieDarkLight").html('<i class="fa fa-moon-o" aria-hidden="true"></i>');
+            setCookie("dark", "0", 0.33);
+        }
     }
 }
 if (!getCookie("darkcache") && (new Date().getHours() > 21 || new Date().getHours() < 7)) {
     removeCookie("dark");
     setCookie("darkcache", "cached", 0.4);
 }
-setTimeout(function() {
+setTimeout(function () {
     checkDarkModeCookie();
 }, 100);
 
@@ -404,7 +404,7 @@ $(document).ready(function () {
                     $("html").css("background", "#31363b");
                     $("body").addClass("dark");
                     setCookie("dark", "1", 0.33);
-                } else{
+                } else {
                     $("html").css("background", "unset");
                     $("body").removeClass("dark");
                     setCookie("dark", "0", 0.33);
@@ -526,19 +526,19 @@ function timeSeriesReload(flag) {
             var al_expand_collapse_click = 0;
             $('#al_expand_collapse').click(function () {
                 if (al_expand_collapse_click == 0) {
-                    $al_post_list.each(function(index){
+                    $al_post_list.each(function (index) {
                         var $this = $(this),
-                        s = setTimeout(function() {
-                            $this.show(400);
-                        }, 50 * index);
+                            s = setTimeout(function () {
+                                $this.show(400);
+                            }, 50 * index);
                     });
                     al_expand_collapse_click++;
                 } else if (al_expand_collapse_click == 1) {
-                    $al_post_list.each(function(index){
+                    $al_post_list.each(function (index) {
                         var $this = $(this),
-                        h = setTimeout(function() {
-                            $this.hide(400);
-                        }, 50 * index);
+                            h = setTimeout(function () {
+                                $this.hide(400);
+                            }, 50 * index);
                     });
                     al_expand_collapse_click--;
                 }
@@ -557,13 +557,13 @@ function coverVideo() {
         video.play();
         try {
             btn.innerHTML = '<i class="fa fa-pause" aria-hidden="true"></i>';
-        } catch (e) {};
+        } catch (e) { };
         //console.info('play:coverVideo()');
     } else {
         video.pause();
         try {
             btn.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i>';
-        } catch (e) {};
+        } catch (e) { };
         //console.info('pause:coverVideo()');
     }
 }
@@ -578,12 +578,12 @@ function killCoverVideo() {
         video.pause();
         try {
             btn.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i>';
-        } catch (e) {};
+        } catch (e) { };
         //console.info('pause:killCoverVideo()');
     }
 }
 
-function loadHls(){
+function loadHls() {
     var video = addComment.I('coverVideo');
     var video_src = $('#coverVideo').attr('data-src');
     if (Hls.isSupported()) {
@@ -603,13 +603,13 @@ function loadHls(){
 
 function coverVideoIni() {
     if ($('video').hasClass('hls')) {
-        if (mashiro_global.variables.has_hls){
+        if (mashiro_global.variables.has_hls) {
             loadHls();
-        }else{
-            $.getScript("https://cdn.jsdelivr.net/gh/mashirozx/Sakura@3.3.3/cdn/js/src/16.hls.js", function(){
+        } else {
+            $.getScript("https://cdn.jsdelivr.net/gh/mashirozx/Sakura@3.3.3/cdn/js/src/16.hls.js", function () {
                 loadHls();
                 mashiro_global.variables.has_hls = true;
-              });
+            });
         }
         //console.info('ini:coverVideoIni()');
     }
@@ -622,6 +622,9 @@ function copy_code_block() {
         });
         $(this).after('<a class="copy-code" href="javascript:" data-clipboard-target="#hljs-' + i + '" title="拷贝代码"><i class="fa fa-clipboard" aria-hidden="true"></i></a>');
     });
+    // karson_todo
+    // wrap it in AMD js style
+    ClipboardJS = require('clipboard');
     var clipboard = new ClipboardJS('.copy-code');
 }
 
@@ -641,11 +644,13 @@ function tableOfContentScroll(flag) {
                 this.id = hyphenated;
                 id++;
             });
-            tocbot.init({
-                tocSelector: '.toc',
-                contentSelector: ['.entry-content', '.links'],
-                headingSelector: 'h1, h2, h3, h4, h5',
-                headingsOffset: heading_fix - window.innerHeight / 2,
+            require(['tocbot'], function() {
+                tocbot.init({
+                    tocSelector: '.toc',
+                    contentSelector: ['.entry-content', '.links'],
+                    headingSelector: 'h1, h2, h3, h4, h5',
+                    headingsOffset: heading_fix - window.innerHeight / 2,
+                });
             });
         }
     }
@@ -660,21 +665,21 @@ var pjaxInit = function () {
     $("p").remove(".head-copyright");
     try {
         code_highlight_style();
-    } catch (e) {};
+    } catch (e) { };
     try {
         getqqinfo();
-    } catch (e) {};
+    } catch (e) { };
     lazyload();
     $("#to-load-aplayer").click(function () {
         try {
             reloadHermit();
-        } catch (e) {};
+        } catch (e) { };
         $("div").remove(".load-aplayer");
     });
     if ($("div").hasClass("aplayer")) {
         try {
             reloadHermit();
-        } catch (e) {};
+        } catch (e) { };
     }
     $('.iconflat').css('width', '50px').css('height', '50px');
     $('.openNav').css('height', '50px');
@@ -718,6 +723,9 @@ $.fn.commentPrivate = function () {
     }
 };
 
+// karson_todo
+// wrap it in AMD js style
+var POWERMODE = require(["POWERMODE"]);
 POWERMODE.colorful = true;
 POWERMODE.shake = false;
 document.body.addEventListener('input', POWERMODE);
@@ -882,30 +890,30 @@ if (mashiro_option.float_player_on) {
                 }
                 aplayers = [];
                 for (var c = document.querySelectorAll('.aplayer'), d = function () {
-                        var d = c[e],
-                            f = d.dataset.id;
-                        if (f) {
-                            var g = d.dataset.api || b;
-                            g = g.replace(':server', d.dataset.server), g = g.replace(':type', d.dataset.type), g = g.replace(':id', d.dataset.id);
-                            var h = new XMLHttpRequest;
-                            h.onreadystatechange = function () {
-                                if (4 === h.readyState && (200 <= h.status && 300 > h.status || 304 === h.status)) {
-                                    var b = JSON.parse(h.responseText);
-                                    a(d, b)
-                                }
-                            }, h.open('get', g, !0), h.send(null)
-                        } else if (d.dataset.url) {
-                            var i = [{
-                                name: d.dataset.name || d.dataset.title || 'Audio name',
-                                artist: d.dataset.artist || d.dataset.author || 'Audio artist',
-                                url: d.dataset.url,
-                                cover: d.dataset.cover || d.dataset.pic,
-                                lrc: d.dataset.lrc,
-                                type: d.dataset.type || 'auto'
-                            }];
-                            a(d, i)
-                        }
-                    }, e = 0; e < c.length; e++) d()
+                    var d = c[e],
+                        f = d.dataset.id;
+                    if (f) {
+                        var g = d.dataset.api || b;
+                        g = g.replace(':server', d.dataset.server), g = g.replace(':type', d.dataset.type), g = g.replace(':id', d.dataset.id);
+                        var h = new XMLHttpRequest;
+                        h.onreadystatechange = function () {
+                            if (4 === h.readyState && (200 <= h.status && 300 > h.status || 304 === h.status)) {
+                                var b = JSON.parse(h.responseText);
+                                a(d, b)
+                            }
+                        }, h.open('get', g, !0), h.send(null)
+                    } else if (d.dataset.url) {
+                        var i = [{
+                            name: d.dataset.name || d.dataset.title || 'Audio name',
+                            artist: d.dataset.artist || d.dataset.author || 'Audio artist',
+                            url: d.dataset.url,
+                            cover: d.dataset.cover || d.dataset.pic,
+                            lrc: d.dataset.lrc,
+                            type: d.dataset.type || 'auto'
+                        }];
+                        a(d, i)
+                    }
+                }, e = 0; e < c.length; e++) d()
             };
         document.addEventListener('DOMContentLoaded', loadMeting, !1);
     }
@@ -1033,12 +1041,12 @@ function mail_me() {
     window.open(mail);
 }
 
-function activate_widget(){
+function activate_widget() {
     if (document.body.clientWidth > 860) {
-        $('.show-hide').on('click', function() {
+        $('.show-hide').on('click', function () {
             $("#secondary").toggleClass("active")
         });
-    }else{
+    } else {
         $("#secondary").remove();
     }
 }
@@ -1291,12 +1299,12 @@ var home = location.href,
                 for (var i = 0; i < ap.length; i++) {
                     try {
                         ap[i].destroy()
-                    } catch (e) {}
+                    } catch (e) { }
                 }
-            } catch (e) {}
+            } catch (e) { }
             try {
                 hermitInit()
-            } catch (e) {}
+            } catch (e) { }
             s.play();
         },
         spause: function () {
@@ -1570,7 +1578,7 @@ var home = location.href,
             });
         },
         NH: function () {
-            if(document.body.clientWidth > 860){
+            if (document.body.clientWidth > 860) {
                 var h1 = 0;
                 $(window).scroll(function () {
                     var s = $(document).scrollTop(),
@@ -1581,7 +1589,7 @@ var home = location.href,
                     if (s > h1) {
                         cached.addClass('scroll-down');
                     }
-            });
+                });
             }
         },
         XLS: function () {
@@ -1709,7 +1717,7 @@ var home = location.href,
                         div.id = 'wp-temp-form-div';
                         div.style.display = 'none';
                         respond.parentNode.insertBefore(div, respond)
-                    }!comm ? (temp = t.I('wp-temp-form-div'), t.I('comment_parent').value = '0', temp.parentNode.insertBefore(respond, temp), temp.parentNode.removeChild(temp)) : comm.parentNode.insertBefore(respond, comm.nextSibling);
+                    } !comm ? (temp = t.I('wp-temp-form-div'), t.I('comment_parent').value = '0', temp.parentNode.insertBefore(respond, temp), temp.parentNode.removeChild(temp)) : comm.parentNode.insertBefore(respond, comm.nextSibling);
                     jQuery("body").animate({
                         scrollTop: jQuery('#respond').offset().top - 180
                     }, 400);
@@ -1730,7 +1738,7 @@ var home = location.href,
                     };
                     try {
                         t.I('comment').focus();
-                    } catch (e) {}
+                    } catch (e) { }
                     return false;
                 },
                 I: function (e) {
@@ -1801,7 +1809,7 @@ var home = location.href,
                 mb_dark_light = document.querySelector("#moblieDarkLight"),
                 changeskin = document.querySelector(".changeSkin-gear");
 
-            $(window).scroll(function() {
+            $(window).scroll(function () {
                 if (cwidth <= 860) {
                     if ($(this).scrollTop() > 20) {
                         mb_to_top.style.transform = "scale(1)";
@@ -1831,13 +1839,13 @@ var home = location.href,
             });
 
             //smooth scroll to top
-            pc_to_top.onclick = function() {
+            pc_to_top.onclick = function () {
                 topFunction();
             }
-            mb_to_top.onclick = function() {
+            mb_to_top.onclick = function () {
                 topFunction();
             }
-            mb_dark_light.onclick = function() {
+            mb_dark_light.onclick = function () {
                 mobile_dark_light();
             }
         }
@@ -1885,8 +1893,8 @@ $(function () {
                     $.getScript("//static.duoshuo.com/embed.js");
                 }
             }
-        }).on('pjax:end', function() {
-            if (window.gtag){
+        }).on('pjax:end', function () {
+            if (window.gtag) {
                 gtag('config', Poi.google_analytics_id, {
                     'page_path': window.location.pathname
                 });

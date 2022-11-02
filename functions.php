@@ -1,5 +1,19 @@
 <?php
 
+$roots_includes = array(
+    '/functions/karson/jsloader.php',
+    '/functions/karson/jsconfig.php'
+  );
+  
+  foreach($roots_includes as $file){
+    if(!$filepath = locate_template($file)) {
+      trigger_error("Error locating `$file` for inclusion!", E_USER_ERROR);
+    }
+  
+    require_once $filepath;
+  }
+  unset($file, $filepath);
+
 /**
  * Sakura functions and definitions.
  *
@@ -171,29 +185,31 @@ function akina_content_width()
 }
 add_action('after_setup_theme', 'akina_content_width', 0);
 
+
 /**
  * Enqueue scripts and styles.
  */
 function sakura_scripts()
 {
-    if (akina_option('jsdelivr_cdn_test')) {
-        wp_enqueue_script('js_lib', get_template_directory_uri() . '/cdn/js/lib.js', array(), SAKURA_VERSION . akina_option('cookie_version', ''), true);
-    } else {
-        wp_enqueue_script('js_lib', 'https://cdn.jsdelivr.net/gh/mashirozx/Sakura@' . SAKURA_VERSION . '/cdn/js/lib.min.js', array(), SAKURA_VERSION, true);
-    }
+    // if (akina_option('jsdelivr_cdn_test')) {
+    //     wp_enqueue_script('js_lib', get_template_directory_uri() . '/assets/js/lib.js', array(), SAKURA_VERSION . akina_option('cookie_version', ''), true);
+    // } else {
+    //     wp_enqueue_script('js_lib', 'https://cdn.jsdelivr.net/gh/mashirozx/Sakura@' . SAKURA_VERSION . '/cdn/js/lib.min.js', array(), SAKURA_VERSION, true);
+    // }
     if (akina_option('app_no_jsdelivr_cdn')) {
         wp_enqueue_style('saukra_css', get_stylesheet_uri(), array(), SAKURA_VERSION);
-        wp_enqueue_script('app', get_template_directory_uri() . '/js/sakura-app.js', array(), SAKURA_VERSION, true);
+        // wp_enqueue_script('app', get_template_directory_uri() . '/assets/js/sakura-app.js', array(), SAKURA_VERSION, true);
     } else {
         wp_enqueue_style('saukra_css', 'https://cdn.jsdelivr.net/gh/mashirozx/Sakura@' . SAKURA_VERSION . '/style.min.css', array(), SAKURA_VERSION);
-        wp_enqueue_script('app', 'https://cdn.jsdelivr.net/gh/mashirozx/Sakura@' . SAKURA_VERSION . '/js/sakura-app.min.js', array(), SAKURA_VERSION, true);
+        // wp_enqueue_script('app', 'https://cdn.jsdelivr.net/gh/mashirozx/Sakura@' . SAKURA_VERSION . '/js/sakura-app.min.js', array(), SAKURA_VERSION, true);
     }
     //wp_enqueue_script('github_card', 'https://cdn.jsdelivr.net/github-cards/latest/widget.js', array(), SAKURA_VERSION, true);
 
     if (is_singular() && comments_open() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
     }
-
+    // karson_fin_obsolete
+    // have moved to jsconfig.php
     // 20161116 @Louie
     $mv_live = akina_option('focus_mvlive') ? 'open' : 'close';
     $movies = akina_option('focus_amv') ? array('url' => akina_option('amv_url'), 'name' => akina_option('amv_title'), 'live' => $mv_live) : 'close';
