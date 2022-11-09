@@ -25,5 +25,5 @@ require.config({
             deps: ['hljs']
         }
     },
-    waitSeconds: 15
+    waitSeconds: 60
 });

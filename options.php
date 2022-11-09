@@ -200,6 +200,7 @@ function optionsframework_options()
         'std' => '',
         'type' => 'text');
 
+        // karson_obsolete
     $options[] = array(
         'name' => __('Expand the nav menu', 'sakura'), /*展开导航菜单*/
         'desc' => __('Check to enable, default shrink', 'sakura'), /*勾选开启，默认收缩*/
@@ -376,15 +377,15 @@ function optionsframework_options()
         'std' => '0',
         'type' => 'checkbox');
 
-    $options[] = array(
-        'name' => __('Social information style', 'sakura'), /*社交信息样式*/
-        'id' => 'social_style',
-        'std' => "v2",
-        'type' => "radio",
-        'options' => array(
-            'v2' => __('Merge with signature', 'sakura'), /*与签名合并*/
-            'v1' => __('Independent line', 'sakura'), /*独立成行*/
-        ));
+    // $options[] = array(
+    //     'name' => __('Social information style', 'sakura'), /*社交信息样式*/
+    //     'id' => 'social_style',
+    //     'std' => "v2",
+    //     'type' => "radio",
+    //     'options' => array(
+    //         'v2' => __('Merge with signature', 'sakura'), /*与签名合并*/
+    //         'v1' => __('Independent line', 'sakura'), /*独立成行*/
+    //     ));
 
     $options[] = array(
         'name' => __('Cover manifest', 'sakura'), /*封面图片库选项*/
@@ -420,12 +421,12 @@ function optionsframework_options()
         'std' => '0',
         'type' => 'checkbox');
 
-    $options[] = array(
-        'name' => __('Live', 'sakura'),
-        'desc' => __('Check to enable, the video will continue to play automatically, you need to enable Pjax', 'sakura'), /*勾选开启，视频自动续播，需要开启Pjax功能*/
-        'id' => 'focus_mvlive',
-        'std' => '0',
-        'type' => 'checkbox');
+    // $options[] = array(
+    //     'name' => __('Live', 'sakura'),
+    //     'desc' => __('Check to enable, the video will continue to play automatically, you need to enable Pjax', 'sakura'), /*勾选开启，视频自动续播，需要开启Pjax功能*/
+    //     'id' => 'focus_mvlive',
+    //     'std' => '0',
+    //     'type' => 'checkbox');
 
     $options[] = array(
         'name' => __('Video address', 'sakura'), /*视频地址*/
@@ -880,12 +881,12 @@ function optionsframework_options()
         'std' => '0',
         'type' => 'checkbox');
 
-    $options[] = array(
-        'name' => __('Time Zone adjustment', 'sakura'), /*时区调整*/
-        'desc' => __('If the comment has a time difference problem adjust here, fill in an integer, the calculation method: actual_time = display_error_time - the_integer_you_entered (unit: hour)', 'sakura'), /*如果评论出现时差问题在这里调整，填入一个整数，计算方法：实际时间=显示错误的时间-你输入的整数（单位：小时）*/
-        'id' => 'time_zone_fix',
-        'std' => '0',
-        'type' => 'text');
+    // $options[] = array(
+    //     'name' => __('Time Zone adjustment', 'sakura'), /*时区调整*/
+    //     'desc' => __('If the comment has a time difference problem adjust here, fill in an integer, the calculation method: actual_time = display_error_time - the_integer_you_entered (unit: hour)', 'sakura'), /*如果评论出现时差问题在这里调整，填入一个整数，计算方法：实际时间=显示错误的时间-你输入的整数（单位：小时）*/
+    //     'id' => 'time_zone_fix',
+    //     'std' => '0',
+    //     'type' => 'text');
     //后台配置
     $options[] = array(
         'name' => __('Dashboard configuration', 'sakura'), /*后台配置*/

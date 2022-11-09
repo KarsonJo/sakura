@@ -68,19 +68,15 @@ if ( akina_option('site_custom_style') ) {
 // Custom style end ?>
 <?php // liststyle
 if ( akina_option('list_type') == 'square') { ?>
-.feature img{ border-radius: 0px; !important; }
-.feature i { border-radius: 0px; !important; }
+.feature img{ border-radius: 0px !important; }
+.feature i { border-radius: 0px !important; }
 <?php } // liststyle ?>
 <?php // comments
 if ( akina_option('toggle-menu') == 'no') { ?>
 .comments .comments-main {display:block !important;}
 .comments .comments-hidden {display:none !important;}
 <?php } // comments ?>
-<?php 
-$image_api = 'background-image: url("'.rest_url('sakura/v1/image/cover').'");';
-$bg_style = akina_option('focus_height') ? 'background-position: center center;background-attachment: inherit;' : '';
-?>
-.centerbg{<?php echo $image_api.$bg_style ?>background-position: center center;background-attachment: inherit;}
+
 .rotating {
     -webkit-animation: rotating 6s linear infinite;
     -moz-animation: rotating 6s linear infinite;

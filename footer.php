@@ -43,11 +43,13 @@ if (akina_option('general_disqus_plugin_support')) {
 	<div class="iconflat no-select">
 		<div class="icon"></div>
 	</div>
+	<!-- karson_obsolete -->
+	<!-- why the hell would this thing in footer? -->
 	<div class="site-branding">
 		<?php if (akina_option('akina_logo')) { ?>
-			<div class="site-title"><a href="<?php bloginfo('url'); ?>"><img src="<?php echo akina_option('akina_logo'); ?>"></a></div>
+			<div class="site-title-mb"><a href="<?php bloginfo('url'); ?>"><img src="<?php echo akina_option('akina_logo'); ?>"></a></div>
 		<?php } else { ?>
-			<h1 class="site-title"><a href="<?php bloginfo('url'); ?>"><?php bloginfo('name'); ?></a></h1>
+			<h1 class="site-title-mb"><a href="<?php bloginfo('url'); ?>"><?php bloginfo('name'); ?></a></h1>
 		<?php } ?>
 	</div>
 </div><!-- m-nav-bar -->

@@ -5,17 +5,14 @@
  */
 
 get_header();
+echo karson_header_banner(karson_header_title(get_the_title()), get_post_thumbnail_id(get_the_ID())); ?>
 
-?>
 <div id="content" class="site-content">
     <?php while (have_posts()) : the_post(); ?>
 
         <article <?php post_class("post-item"); ?>>
             <?php the_content(); ?>
             <div id="archives-temp">
-                <?php if (akina_option('patternimg') || !get_post_thumbnail_id(get_the_ID())) { ?>
-                    <h2><?php the_title(); ?></h2>
-                <?php } ?>
                 <div id="archives-content">
                     <?php
                     $the_query = new WP_Query('posts_per_page=-1&ignore_sticky_posts=1');
@@ -43,9 +40,10 @@ get_header();
                         $output .= '<span class="ar-circle"></span><div class="arrow-left-ar"></div><div class="brick"><a href="' . get_permalink() . '"><span class="time"><i class="iconfont icon-time"></i>' . get_the_time('n-d') . '</span>' . get_the_title() . '<em>(' . get_comments_number('0', '1', '%') . ')</em></a></div>';
                     endwhile;
                     wp_reset_postdata();
-                    $output .= '</div></div>';
                     echo $output;
                     ?>
+                </div>
+            </div>
         </article>
     <?php endwhile; ?>
 </div>

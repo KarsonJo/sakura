@@ -9,8 +9,8 @@
  *
  * @package Akina
  */
-?>
-<?php header('X-Frame-Options: SAMEORIGIN'); ?>
+
+header('X-Frame-Options: SAMEORIGIN'); ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 
@@ -79,17 +79,10 @@
 <body <?php body_class(); ?>>
 	<div class="scrollbar" id="bar"></div>
 	<section id="main-container">
-		<?php
-		if (!akina_option('head_focus')) {
-			$filter = akina_option('focus_img_filter');
-		?>
-			<div class="headertop <?php echo $filter; ?>">
-				<?php get_template_part('layouts/imgbox'); ?>
-			</div>
-		<?php } ?>
-		<div id="page" class="site wrapper">
+		<div class="header-container">
 			<header class="site-header no-select" role="banner">
 				<div class="site-top">
+					<!-- .site-branding -->
 					<div class="site-top-aside site-branding">
 						<?php if (akina_option('akina_logo')) { ?>
 							<div class="site-title">
@@ -104,18 +97,14 @@
 								</span>
 							</span>
 						<?php } ?>
-						<!-- logo end -->
-					</div><!-- .site-branding -->
-
-					<div class="lower"><?php if (!akina_option('shownav')) { ?>
-							<div id="show-nav" class="showNav">
-								<div class="line line1"></div>
-								<div class="line line2"></div>
-								<div class="line line3"></div>
-							</div><?php } ?>
-						<nav><?php wp_nav_menu(array('depth' => 2, 'theme_location' => 'primary', 'container' => false)); ?></nav><!-- #site-navigation -->
 					</div>
-
+					<!-- #site-navigation -->
+					<div class="lower">
+						<nav>
+							<?php wp_nav_menu(array('depth' => 2, 'theme_location' => 'primary', 'container' => false)); ?>
+						</nav>
+					</div>
+					<!-- right menu -->
 					<div class="site-top-aside">
 						<?php if (akina_option('top_search') == 'yes') { ?>
 							<div class="searchbox"><i class="iconfont js-toggle-search iconsearch icon-search"></i></div>
@@ -124,10 +113,19 @@
 					</div>
 				</div>
 			</header><!-- #masthead -->
-			<?php if (get_post_meta(get_the_ID(), 'cover_type', true) == 'hls') {
-				the_video_headPattern_hls();
-			} elseif (get_post_meta(get_the_ID(), 'cover_type', true) == 'normal') {
-				the_video_headPattern_normal();
-			} else {
-				the_headPattern();
-			} ?>
+			<?php if (!akina_option('head_focus') && is_home()) { ?>
+				<div class="headertop <?php echo akina_option('focus_img_filter'); ?>">
+					<?php get_template_part('layouts/imgbox'); ?>
+				</div>
+			<?php } ?>
+		</div>
+		<div id="page" class="site wrapper">
+			<?php
+			// if (get_post_meta(get_the_ID(), 'cover_type', true) == 'hls') {
+			// 	the_video_headPattern_hls();
+			// } elseif (get_post_meta(get_the_ID(), 'cover_type', true) == 'normal') {
+			// 	the_video_headPattern_normal();
+			// } else {
+			// 	the_headPattern();
+			// }
+			?>

@@ -7,20 +7,22 @@
  *
  * @package Akina
  */
+get_header();
+echo karson_header_banner(
+	karson_header_title(
+		sprintf(__("Search results for \" %s \"", "sakura"), get_search_query()) /*关于“ '.get_search_query().' ”的搜索结果*/
+	),
+	get_random_bg_url()
+); ?>
 
-get_header(); ?>
+<div class="pd-mid"></div>
+
 <div id="content" class="site-content">
 	<section id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 
 			<?php
-			if (have_posts()) : ?>
-				<?php if (akina_option('patternimg') || !get_random_bg_url()) { ?>
-					<header class="page-header">
-						<h1 class="page-title"><?php printf(__('search result: %s', 'sakura')/*搜索结果*/, '<span>' . get_search_query() . '</span>'); ?></h1>
-					</header><!-- .page-header -->
-				<?php } ?>
-				<?php
+			if (have_posts()) {
 				/* Start the Loop */
 				while (have_posts()) : the_post();
 
@@ -34,8 +36,7 @@ get_header(); ?>
 				endwhile;
 
 				the_posts_navigation();
-
-			else : ?>
+			} else { ?>
 				<div class="search-box">
 					<!-- search start -->
 					<form class="s-search">
@@ -46,8 +47,7 @@ get_header(); ?>
 				</div>
 			<?php
 				get_template_part('tpl/content', 'none');
-
-			endif; ?>
+			} ?>
 
 			<style>
 				.nav-previous,

@@ -7,8 +7,8 @@
 function sakura_js_variables()
 {
     // 20161116 @Louie
-    $mv_live = akina_option('focus_mvlive') ? 'open' : 'close';
-    $movies = akina_option('focus_amv') ? array('url' => akina_option('amv_url'), 'name' => akina_option('amv_title'), 'live' => $mv_live) : 'close';
+    // $mv_live = akina_option('focus_mvlive') ? 'open' : 'close';
+    $movies = akina_option('focus_amv') ? array('url' => akina_option('amv_url'), 'name' => akina_option('amv_title')/* , 'live' => $mv_live*/) : 'close';
     $auto_height = akina_option('focus_height') ? 'fixed' : 'auto';
     $code_lamp = 'close';
     // if (wp_is_mobile()) {

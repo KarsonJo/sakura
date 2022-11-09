@@ -74,6 +74,8 @@ mashiro_option.float_player_on = true;
 mashiro_option.meting_api_url = "<?php echo rest_url('sakura/v1/meting/aplayer'); ?>";
 <?php endif; ?>
 
+// karson_todo
+// unify the url call string to a method
 mashiro_option.cover_api = "<?php echo rest_url('sakura/v1/image/cover'); ?>";
 
 mashiro_option.windowheight = /Mobile|Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent) ? 'fixed' : 'auto';

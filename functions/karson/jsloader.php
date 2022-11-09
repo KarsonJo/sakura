@@ -6,7 +6,7 @@
 
 // karson_todo
 // may move to options later
-define('KARSON_THEME_DEVELOP', false);
+define('KARSON_THEME_DEVELOP', true);
 
 function karson_asset_folder()
 {
@@ -28,32 +28,6 @@ function karson_requirejs_main()
     ob_start(); ?>
     <script>
         var themeUri = "<?php echo $dir_url . karson_asset_folder() ?>";
-        // require.config({
-        //     baseUrl: "<?php echo $dir_url ?>/assets",
-        //     paths: {
-        //         hljs: "components/code-block/highlight.pack",
-        //         clipboard: "components/code-block/clipboard.min",
-        //         hljsnum: "components/code-block/highlightjs-line-numbers.min",
-        //         powermode: "components/activate-power-mode",
-        //         lazyload: "components/lazyload.min",
-        //         socialshare: "components/social-share.min",
-        //         loadCSS: "components/loadCSS",
-        //         tocbot: "components/tocbot/tocbot.min",
-        //         sakura: "js/sakura-app",
-        //     },
-        //     shim: {
-        //         socialshare: {
-        //             exports: 'social-share'
-        //         },
-        //         loadCSS: {
-        //             exports: 'loadCSS'
-        //         },
-        //         tocbot: {
-        //             exports: 'tocbot'
-        //         }
-        //     },
-        //     waitSeconds: 15
-        // });
     </script>
 <?php
     $script = ob_get_clean();
@@ -63,6 +37,11 @@ function karson_requirejs_main()
 
     // load common required js list
     karson_requirejs_package();
+}
+
+function karson_partial_debug_css()
+{
+    wp_enqueue_style('header_css', get_template_directory_uri() . '/assets-dev/css/header.css' );
 }
 
 /**
@@ -81,5 +60,6 @@ function karson_requirejs_package($path = '')
     wp_enqueue_script($path, get_template_directory_uri() . karson_asset_folder() . '/require' . $path . $filename, array('requirejs'), SAKURA_VERSION, true);
 }
 
+add_action('wp_enqueue_scripts', 'karson_partial_debug_css');
 //priority 101 just in case other scripts conflit with require.js asynchronous load
 add_action('wp_enqueue_scripts', 'karson_requirejs_main', 101);

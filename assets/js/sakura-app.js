@@ -6,7 +6,6 @@
  */
 mashiro_global.variables = new function () {
     this.has_hls = false;
-    this.skinSecter = true;
 }
 mashiro_global.ini = new function () {
     this.normalize = function () { // initial functions when page first load (首次加载页面时的初始化函数)
@@ -309,17 +308,9 @@ function scrollBar() {
     }
 }
 
-// karson_obsolete
+// karson_fin_obsolete
 // unify theme layout
-function checkskinSecter() {
-    // if (mashiro_global.variables.skinSecter === false) {
-    //     $(".pattern-center").removeClass('pattern-center').addClass('pattern-center-sakura');
-    //     $(".headertop-bar").removeClass('headertop-bar').addClass('headertop-bar-sakura');
-    // } else {
-    //     $(".pattern-center-sakura").removeClass('pattern-center-sakura').addClass('pattern-center');
-    //     $(".headertop-bar-sakura").removeClass('headertop-bar-sakura').addClass('headertop-bar');
-    // }
-}
+// function checkskinSecter() {}
 
 function checkBgImgCookie() {
     var bgurl = getCookie("bgImgSetting");
@@ -389,13 +380,6 @@ $(document).ready(function () {
         cached.find("li").each(function () {
             var tagid = this.id;
             cached.on("click", "#" + tagid, function () {
-                if (tagid == "white-bg" || tagid == "dark-bg") {
-                    mashiro_global.variables.skinSecter = true;
-                    checkskinSecter();
-                } else {
-                    mashiro_global.variables.skinSecter = false;
-                    checkskinSecter();
-                }
                 if (tagid == "dark-bg") {
                     // addComment.I("content").classList.add('notransition');
                     // addComment.I("content").style.backgroundColor = "#fff";
@@ -1564,15 +1548,15 @@ var home = location.href,
                     $('html').css('overflow-y', 'unset');
                 }
             });
-            $('#show-nav').on('click', function () {
-                if ($('#show-nav').hasClass('showNav')) {
-                    $('#show-nav').removeClass('showNav').addClass('hideNav');
-                    $('.site-top .lower nav').addClass('navbar');
-                } else {
-                    $('#show-nav').removeClass('hideNav').addClass('showNav');
-                    $('.site-top .lower nav').removeClass('navbar');
-                }
-            });
+            // $('#show-nav').on('click', function () {
+            //     if ($('#show-nav').hasClass('showNav')) {
+            //         $('#show-nav').removeClass('showNav').addClass('hideNav');
+            //         $('.site-top .lower nav').addClass('navbar');
+            //     } else {
+            //         $('#show-nav').removeClass('hideNav').addClass('showNav');
+            //         $('.site-top .lower nav').removeClass('navbar');
+            //     }
+            // });
             $("#loading").click(function () {
                 $("#loading").fadeOut(500);
             });
