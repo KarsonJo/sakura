@@ -46,6 +46,10 @@
     /* z-index: 10; */
 }
 
+.site-header:only-child {
+    background: rgba(255, 255, 255, .95);
+}
+
 .lower li:hover ul {
     display: inline-block;
     -webkit-transition: all .4s;
@@ -248,6 +252,7 @@
     left: 0;
     right: 0;
     background-attachment: fixed;
+    z-index: 1;
 }
 
 .headertop.filter-undertint::before {

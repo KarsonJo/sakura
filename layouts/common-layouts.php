@@ -10,13 +10,13 @@
  */
 function karson_header_banner($content_slot, $full_image_url)
 {
-	ob_start(); ?>
-	<div class="pattern-center">
-		<img class="pattern-attachment-img lazyload fallback-img rainbow" <?php echo $full_image_url ? 'data-src="' . $full_image_url . '"' : 'src' ?>> </img>
-		<?php if ($content_slot) echo $content_slot; ?>
-	</div>
+    ob_start(); ?>
+    <div class="pattern-center">
+        <img class="pattern-attachment-img lazyload fallback-img rainbow" <?php echo $full_image_url ? 'data-src="' . $full_image_url . '"' : 'src' ?>> </img>
+        <?php if ($content_slot) echo $content_slot; ?>
+    </div>
 <?php
-	return ob_get_clean();
+    return ob_get_clean();
 } ?>
 
 
@@ -28,13 +28,13 @@ function karson_header_banner($content_slot, $full_image_url)
  */
 function karson_header_title($title)
 {
-	ob_start();
-	if ($title) { ?>
-		<h1 class="entry-title search-title">
-			<?php echo $title ?>
-		</h1>
-	<?php }
-	return ob_get_clean();
+    ob_start();
+    if ($title) { ?>
+        <h1 class="entry-title search-title">
+            <?php echo $title ?>
+        </h1>
+    <?php }
+    return ob_get_clean();
 }
 
 /**
@@ -45,18 +45,18 @@ function karson_header_title($title)
  */
 function karson_three_layout_container($left, $main, $right)
 {
-	ob_start(); ?>
-	<div class="site-post-wrapper">
-		<div class="site-post-aside">
-			<?php if ($left) echo $left; ?>
-		</div>
-		<?php echo $main ?>
-		<div class="site-post-aside">
-			<?php if ($right) echo $right; ?>
-		</div>
-	</div>
+    ob_start(); ?>
+    <div class="site-post-wrapper">
+        <div class="site-post-aside">
+            <?php if ($left) echo $left; ?>
+        </div>
+        <?php echo $main ?>
+        <div class="site-post-aside">
+            <?php if ($right) echo $right; ?>
+        </div>
+    </div>
 <?php
-	return ob_get_clean();
+    return ob_get_clean();
 }
 
 /**
@@ -64,13 +64,27 @@ function karson_three_layout_container($left, $main, $right)
  */
 function karson_toc_menu()
 {
-	ob_start(); ?>
-	<div class="toc-container">
-		<div class="toc-wrapper">
-			<div class="toc-title">目录</div>
-			<div class="toc"></div>
-		</div>
-	</div>
-<?php
-	return ob_get_clean();
-} ?>
+    ob_start(); ?>
+    <div class="toc-container">
+        <div class="toc-wrapper">
+            <div class="toc-title">目录</div>
+            <div class="toc"></div>
+        </div>
+    </div>
+    <?php
+    return ob_get_clean();
+}
+
+function karson_page_banner()
+{
+    ob_start();
+    $full_image_url = karson_post_cover();
+    if ($full_image_url) {
+        echo karson_header_banner(karson_header_title(get_the_title()), $full_image_url);
+    } else { ?>
+        <header class="entry-header">
+            <h1 class="entry-title"><?php the_title(); ?></h1>
+        </header><!-- .entry-header -->
+<?php }
+    return ob_get_clean();
+}

@@ -5,7 +5,7 @@
 ?>
 <figure id="center-figure" class="abs-stretch">
     <img id="centerbg" class="abs-stretch" src="<?php echo rest_url('sakura/v1/image/cover'); ?>"></img>
-    <?php /* load video */ if (akina_option('focus_amv')/* || akina_option('focus_height')*/) { ?>
+    <?php if (akina_option('focus_amv')) { ?>
         <div id="video-container" class="abs-stretch">
             <video id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto"></video>
             <div id="video-btn" class="loadvideo videolive"></div>

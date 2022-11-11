@@ -11,7 +11,7 @@ mashiro_global.ini = new function () {
     this.normalize = function () { // initial functions when page first load (首次加载页面时的初始化函数)
         lazyload();
         social_share();
-        post_list_show_animation();
+        // post_list_show_animation();
         copy_code_block();
         coverVideoIni();
         // checkskinSecter();
@@ -78,16 +78,16 @@ function post_list_show_animation() {
             entries.forEach((article) => {
                 if (!window.IntersectionObserver) {
                     article.target.style.willChange = 'auto';
-                    if (article.target.classList.contains("post-list-show") === false) {
-                        article.target.classList.add("post-list-show");
+                    if (article.target.classList.contains("peek-in") === false) {
+                        article.target.classList.add("peek-in");
                     }
                 } else {
-                    if (article.target.classList.contains("post-list-show")) {
+                    if (article.target.classList.contains("peek-in")) {
                         article.target.style.willChange = 'auto';
                         io.unobserve(article.target)
                     } else {
                         if (article.isIntersecting) {
-                            article.target.classList.add("post-list-show");
+                            article.target.classList.add("peek-in");
                             article.target.style.willChange = 'auto';
                             io.unobserve(article.target)
                         }
@@ -1272,7 +1272,7 @@ loadCSS("https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriwea
 })();
 
 // scroll down check
-(function() {
+(function () {
     $(window).scroll(function () {
         s = $(document).scrollTop();
         h1 = 0;
@@ -1290,7 +1290,7 @@ loadCSS("https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriwea
 (function () {
     var videoSelect = $('#bgvideo');
     var videoElem = videoSelect[0];
-    if (typeof videoElem === 'undefined'){
+    if (typeof videoElem === 'undefined') {
         return;
     }
 
@@ -1357,8 +1357,7 @@ loadCSS("https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriwea
             else {
                 playVideo();
             }
-        }
-        else {
+        } else {
             pauseVideo(true);
         }
     }
@@ -1376,6 +1375,65 @@ loadCSS("https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriwea
     function ShowStatus(msg) { $('.video-stu').html(msg).addClass('show'); }
 
     function HideStatus() { $('.video-stu').removeClass('show'); }
+})();
+
+// ajax load main post
+(function () {
+    init_post("#pagination", "#main .post");
+
+    function init_post(pagination_selector, post_selector){
+        elem_peek_in_anim($(post_selector));
+        $('body').on('click', pagination_selector + ' a', function () {
+            clearTimeout();
+            load_post(pagination_selector, post_selector);
+            return false;
+        });
+    }
+
+    function elem_peek_in_anim(articles) {
+        var options = {
+            root: null,
+            threshold: [0.66]
+        }
+
+        var io = new IntersectionObserver(peek_in, options);
+
+        articles.each(function () {
+            // hide if first time in viewbox
+            // cannot just set in css because we don't want the content invisible if js crashes
+            var article = $(this);
+            article.addClass('transparent');
+            io.observe(article[0])
+        })
+
+        function peek_in(entries) {
+            entries.forEach((entry) => {
+                $(entry.target).removeClass('transparent').addClass("peek-in");
+                io.unobserve(entry.target);
+            })
+        }
+    }
+
+    function load_post(pagination_selector, post_selector) {
+        var $pagi_link = $(pagination_selector + " a"); //pagiation link
+
+        $pagi_link.addClass("loading").text("");
+        $.ajax({
+            type: "POST",
+            url: $pagi_link.attr("href")
+            
+        }).done(function (data) {
+            var posts = $(data).find(post_selector);
+            lazyload(posts.find('.lazyload'));
+
+            $(post_selector).first().parent().append(posts); //append to the container relatively
+            $(pagination_selector).replaceWith($(data).find(pagination_selector)) //replace pagination object
+
+            elem_peek_in_anim(posts);
+        }).fail(function () {
+            $pagi_link.removeClass("loading").text("请重试");
+        });
+    }
 })();
 
 var home = location.href,
@@ -1547,73 +1605,21 @@ var home = location.href,
                     $('html').css('overflow-y', 'unset');
                 }
             });
-            // $('#show-nav').on('click', function () {
-            //     if ($('#show-nav').hasClass('showNav')) {
-            //         $('#show-nav').removeClass('showNav').addClass('hideNav');
-            //         $('.site-top .lower nav').addClass('navbar');
-            //     } else {
-            //         $('#show-nav').removeClass('hideNav').addClass('showNav');
-            //         $('.site-top .lower nav').removeClass('navbar');
-            //     }
-            // });
+
             $("#loading").click(function () {
                 $("#loading").fadeOut(500);
             });
         },
         XLS: function () {
             $body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
-            var load_post_timer;
             var intersectionObserver = new IntersectionObserver(function (entries) {
                 if (entries[0].intersectionRatio <= 0) return;
-                var page_next = $('#pagination a').attr("href");
-                var load_key = addComment.I("add_post_time");
-                if (page_next != undefined && load_key) {
-                    var load_time = addComment.I("add_post_time").title;
-                    if (load_time != "233") {
-                        console.log("%c 自动加载时倒计时 %c", "background:#9a9da2; color:#ffffff; border-radius:4px;", "", "", load_time);
-                        load_post_timer = setTimeout(function () {
-                            load_post();
-                        }, load_time * 1000);
-                    }
-                }
+
             });
             intersectionObserver.observe(
                 document.querySelector('.footer-device')
             );
-            $('body').on('click', '#pagination a', function () {
-                clearTimeout(load_post_timer);
-                load_post();
-                return false;
-            });
 
-            function load_post() {
-                $('#pagination a').addClass("loading").text("");
-                $.ajax({
-                    type: "POST",
-                    url: $('#pagination a').attr("href") + "#main",
-                    success: function (data) {
-                        result = $(data).find("#main .post");
-                        nextHref = $(data).find("#pagination a").attr("href");
-                        $("#main").append(result.fadeIn(500));
-                        $("#pagination a").removeClass("loading").text("Previous");
-                        $('#add_post span').removeClass("loading").text("");
-                        lazyload();
-                        post_list_show_animation();
-                        if (nextHref != undefined) {
-                            $("#pagination a").attr("href", nextHref);
-                            //加载完成上滑
-                            var tempScrollTop = $(window).scrollTop();
-                            $(window).scrollTop(tempScrollTop);
-                            $body.animate({
-                                scrollTop: tempScrollTop + 100
-                            }, 666)
-                        } else {
-                            $("#pagination").html("<span>很高兴你翻到这里，但是真的没有了...</span>");
-                        }
-                    }
-                });
-                return false;
-            }
         },
         XCS: function () {
             var __cancel = jQuery('#cancel-comment-reply-link'),

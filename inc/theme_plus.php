@@ -36,6 +36,10 @@ function get_random_bg_url()
 }
 
 
+function poi_time_since_post($comment_date = false, $text = false)
+{
+  return poi_time_since(get_post_time('U', true), $comment_date, $text);
+}
 /*
  * 订制时间样式
  * karson_todo
@@ -596,21 +600,6 @@ function get_next_thumbnail_url()
     }
   }
 }
-
-/**
- * 文章摘要
- */
-function changes_post_excerpt_more($more)
-{
-  return ' ...';
-}
-function changes_post_excerpt_length($length)
-{
-  return 65;
-}
-add_filter('excerpt_more', 'changes_post_excerpt_more');
-add_filter('excerpt_length', 'changes_post_excerpt_length', 999);
-
 
 /*
  * SEO优化

@@ -42,6 +42,7 @@ function karson_requirejs_main()
 function karson_partial_debug_css()
 {
     wp_enqueue_style('header_css', get_template_directory_uri() . '/assets-dev/css/header.css' );
+    wp_enqueue_style('index_css', get_template_directory_uri() . '/assets-dev/css/index.css' );
 }
 
 /**

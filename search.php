@@ -15,8 +15,6 @@ echo karson_header_banner(
 	get_random_bg_url()
 ); ?>
 
-<div class="pd-mid"></div>
-
 <div id="content" class="site-content">
 	<section id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">

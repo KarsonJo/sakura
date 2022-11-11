@@ -179,12 +179,12 @@ function optionsframework_options()
         'std' => get_template_directory_uri().'/images/favicon.ico',
         'type' => 'text');
 
-    $options[] = array(
-        'name' => __('Custom keywords and descriptions ', 'sakura'), /*自定义关键词和描述*/
-        'desc' => __('Customize keywords and descriptions after opening', 'sakura'), /*开启之后可自定义填写关键词和描述*/
-        'id' => 'akina_meta',
-        'std' => '0',
-        'type' => 'checkbox');
+    // $options[] = array(
+    //     'name' => __('Custom keywords and descriptions ', 'sakura'), /*自定义关键词和描述*/
+    //     'desc' => __('Customize keywords and descriptions after opening', 'sakura'), /*开启之后可自定义填写关键词和描述*/
+    //     'id' => 'akina_meta',
+    //     'std' => '0',
+    //     'type' => 'checkbox');
 
     $options[] = array(
         'name' => __('Site keywords', 'sakura'), /*网站关键词*/
@@ -300,27 +300,6 @@ function optionsframework_options()
         'options' => array(
             'ajax' => __('Ajax load', 'sakura'), /*ajax加载*/
             'np' => __('Previous and next page', 'sakura'), /*上一页和下一页*/
-        ));
-
-    $options[] = array(
-        'name' => __('Automatically load the next page', 'sakura'), /*自动加载下一页*/
-        'desc' => __('(seconds) Set to automatically load the next page time, the default is not automatically loaded', 'sakura'), /*（秒）设置自动加载下一页时间，默认不自动加载*/
-        'id' => 'auto_load_post',
-        'std' => '233',
-        'type' => 'select',
-        'options' => array(
-            '0' => __('0', 'sakura'),
-            '1' => __('1', 'sakura'),
-            '2' => __('2', 'sakura'),
-            '3' => __('3', 'sakura'),
-            '4' => __('4', 'sakura'),
-            '5' => __('5', 'sakura'),
-            '6' => __('6', 'sakura'),
-            '7' => __('7', 'sakura'),
-            '8' => __('8', 'sakura'),
-            '9' => __('9', 'sakura'),
-            '10' => __('10', 'sakura'),
-            '233' => __('Do not load automatically', 'sakura'), /*不自动加载*/
         ));
 
     $options[] = array(

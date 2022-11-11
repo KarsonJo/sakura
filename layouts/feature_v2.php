@@ -8,9 +8,7 @@
  */
 
 ?>
-<div class="top-feature-row">
-    <h1 class="fes-title" style="font-family: 'Ubuntu', sans-serif;"><i class="fa fa-anchor" aria-hidden="true"></i> <?php echo akina_option('feature_title', '�۽�'); ?></h1>
-    <div class="top-feature-container">
+<div class="top-feature-container">
         <div class="top-feature-v2">
             <div class="the-feature square from_left_and_right">
                 <a href="<?php echo akina_option('feature1_link', '#'); ?>" target="_blank">
@@ -45,4 +43,3 @@
             </div>
         </div>
     </div>
-</div>

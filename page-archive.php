@@ -5,7 +5,7 @@
  */
 
 get_header();
-echo karson_header_banner(karson_header_title(get_the_title()), get_post_thumbnail_id(get_the_ID())); ?>
+echo karson_page_banner();?>
 
 <div id="content" class="site-content">
     <?php while (have_posts()) : the_post(); ?>

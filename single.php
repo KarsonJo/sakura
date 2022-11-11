@@ -16,7 +16,7 @@ get_header();
  * content (title & authoer info etc.) in header cover
  */
 $full_image_url = karson_post_cover();
-$post_time = poi_time_since(get_post_time('U', true), false, true);
+$post_time = poi_time_since_post(false, true);
 $post_view_count = get_post_views(get_the_ID());
 $post_view_str =  $post_view_count . ' ' . _n("View", "Views", $post_view_count, "sakura");/*次阅读*/
 

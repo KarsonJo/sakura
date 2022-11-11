@@ -14,14 +14,7 @@
  */
 
 get_header();
-$full_image_url = karson_post_cover();
-if ($full_image_url) {
-	echo karson_header_banner(karson_header_title(get_the_title()), $full_image_url);
-} else { ?>
-	<header class="entry-header">
-		<?php the_title('<h1 class="entry-title">', '</h1>'); ?>
-	</header><!-- .entry-header -->
-<?php }
+echo karson_page_banner();
 
 ob_start() ?>
 <div id="content" class="site-content">
