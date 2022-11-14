@@ -9163,11 +9163,6 @@ blockquote:after {
     background: var(--theme-main-color);
 }
 
-/* .changeSkin-gear,
-.toc {
-    background: rgba(255, 255, 255, <?php echo akina_option('sakura_skin_alpha', '') ?>);
-} */
-
 .entry-content th {
     background-color: var(--theme-main-color);
 }

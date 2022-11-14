@@ -27,13 +27,12 @@ if (akina_option('general_disqus_plugin_support')) {
 				<img src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/wordpress-rotating-ball-o.svg">
 				<img src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/disqus-preloader.svg">
 			</div>
-			<p style="color: #666666;"><?php echo akina_option('footer_info', ''); ?></p>
+			<p><?php echo akina_option('footer_info', ''); ?></p>
 		</div>
 		<div class="footer-device">
-			<p style="font-family: 'Ubuntu', sans-serif;">
-				<span style="color: #b9b9b9;">
-					<?php /* 能保留下面两个链接吗？算是我一个小小的心愿吧~ */ ?>
-					Theme <a href="https://2heng.xin/theme-sakura/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> by <a href="https://2heng.xin/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Mashiro</a>
+			<p>
+				<span>
+					Theme <a href="https://2heng.xin/theme-sakura/" target="_blank">Sakura</a> <i class="iconfont icon-sakura rotating"></i> by <a href="https://2heng.xin/" target="_blank">Mashiro</a>
 				</span>
 			</p>
 		</div>
@@ -67,9 +66,6 @@ if (akina_option('general_disqus_plugin_support')) {
 	</div>
 	<?php wp_nav_menu(array('depth' => 2, 'theme_location' => 'primary', 'container' => false)); ?>
 </div><!-- m-nav-center end -->
-<a class="cd-top faa-float animated "></a>
-<button id="moblieGoTop" title="Go to top"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
-<button id="moblieDarkLight"><i class="fa fa-moon-o" aria-hidden="true"></i></button>
 <!-- search start -->
 <form class="js-search search-form search-form--modal" method="get" action="<?php echo home_url(); ?>" role="search">
 	<div class="search-form__inner">
@@ -101,55 +97,62 @@ if (akina_option('general_disqus_plugin_support')) {
 		</script>
 	</div>
 <?php } ?>
-<div class="changeSkin-gear no-select" style="bottom: -999px;">
-	<div class="keys">
+<div class="pc-menu">
+	<div class="skin-menu no-select">
+		<ul class="menu-list">
+			<li id="white-bg" class="selected" data="none">
+				<i class="fa fa-television" aria-hidden="true"></i>
+			</li>
+			<!--Default-->
+			<li id="sakura-bg" data-src="https://cdn.jsdelivr.net/gh/spirit1431007/cdn@1.6/img/sakura.png">
+				<i class="iconfont icon-sakura"></i>
+			</li>
+			<!--Sakura-->
+			<li id="gribs-bg" data-src="https://cdn.jsdelivr.net/gh/spirit1431007/cdn@1.6/img/plaid2dbf8.jpg">
+				<i class="fa fa-slack" aria-hidden="true"></i>
+			</li>
+			<!--Grids-->
+			<li id="KAdots-bg" data-src="https://cdn.jsdelivr.net/gh/spirit1431007/cdn@1.6/img/star02.png">
+				<i class="iconfont icon-dots"></i>
+			</li>
+			<!--Dots-->
+			<li id="totem-bg" data-src="https://cdn.jsdelivr.net/gh/spirit1431007/cdn@1.6/img/kyotoanimation.png">
+				<i class="fa fa-superpowers" aria-hidden="true"></i>
+			</li>
+			<!--Orange-->
+			<li id="pixiv-bg" data-src="https://cdn.jsdelivr.net/gh/spirit1431007/cdn@1.6/img/dot_orange.gif">
+				<i class="iconfont icon-pixiv"></i>
+			</li>
+			<!--Start-->
+			<li id="bing-bg" data-src="https://api.mashiro.top/bing/">
+				<i class="iconfont icon-bing"></i>
+			</li>
+			<!--Bing-->
+			<li id="dark-bg" class="dark-toggle" data-src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.2/other-sites/api-index/images/me.png">
+				<i class="fa fa-moon-o" aria-hidden="true"></i>
+				<i class="fa fa-sun-o" aria-hidden="true"></i>
+			</li>
+			<!--Night-->
+		</ul>
+		<ul class="font-family-controls">
+			<li id="font-btn1" data-tag="serif">Serif</li>
+			<li id="font-btn2" data-tag="sans-serif">Sans Serif</li>
+		</ul>
+	</div>
+	<div class="changeSkin-gear no-select">
 		<span id="open-skinMenu">
 			<i class="iconfont icon-gear inline-block rotating"></i>&nbsp; 切换主题 | SCHEME TOOL
 		</span>
 	</div>
 </div>
-<div class="skin-menu no-select">
-	<div class="theme-controls row-container">
-		<ul class="menu-list">
-			<li id="white-bg">
-				<i class="fa fa-television" aria-hidden="true"></i>
-			</li>
-			<!--Default-->
-			<li id="sakura-bg">
-				<i class="iconfont icon-sakura"></i>
-			</li>
-			<!--Sakura-->
-			<li id="gribs-bg">
-				<i class="fa fa-slack" aria-hidden="true"></i>
-			</li>
-			<!--Grids-->
-			<li id="KAdots-bg">
-				<i class="iconfont icon-dots"></i>
-			</li>
-			<!--Dots-->
-			<li id="totem-bg">
-				<i class="fa fa-superpowers" aria-hidden="true"></i>
-			</li>
-			<!--Orange-->
-			<li id="pixiv-bg">
-				<i class="iconfont icon-pixiv"></i>
-			</li>
-			<!--Start-->
-			<li id="bing-bg">
-				<i class="iconfont icon-bing"></i>
-			</li>
-			<!--Bing-->
-			<li id="dark-bg">
-				<i class="fa fa-moon-o" aria-hidden="true"></i>
-			</li>
-			<!--Night-->
-		</ul>
-	</div>
-	<div class="font-family-controls row-container">
-		<button type="button" class="control-btn-serif selected" data-mode="serif" onclick="mashiro_global.font_control.change_font()">Serif</button>
-		<button type="button" class="control-btn-sans-serif" data-mode="sans-serif" onclick="mashiro_global.font_control.change_font()">Sans Serif</button>
+<div class="mobile-menu">
+	<div id="mobileGoTop" title="Go to top"><i class="fa fa-chevron-up" aria-hidden="true"></i></div>
+	<div id="mobileDark" class="dark-toggle">
+		<i class="fa fa-moon-o" aria-hidden="true"></i>
+		<i class="fa fa-sun-o" aria-hidden="true"></i>
 	</div>
 </div>
+
 <canvas id="night-mode-cover"></canvas>
 <?php if (akina_option('sakura_widget')) : ?>
 	<aside id="secondary" class="widget-area" role="complementary" style="left: -400px;">

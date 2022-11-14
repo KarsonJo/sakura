@@ -13,19 +13,19 @@
     will-change: transform;
     height: 300px;
     border-radius: 10px;
-    box-shadow: 0 1px 20px -8px rgba(0, 0, 0, .5);
+    box-shadow: 0 1px 20px -8px rgba(0, 0, 0, .8);
     display: flex;
     flex-direction: row-reverse;
 }
 
 .post-list-thumb i {
     margin-right: 5px;
-    color: #989898;
+    color: var(--text-tertiary);
     font-size: 14px
 }
 
 .post-list-thumb a {
-    color: #504E4E
+    color: var(--text-primary);
 }
 
 .post-list-thumb .post-title h3 {
@@ -40,8 +40,8 @@
 .post-date,
 .post-meta,
 .post-meta a {
-    color: #888;
-    font-size: 12px
+    color: var(--text-tertiary);
+    font-size: 12px;
 }
 
 .comments-number {
@@ -84,7 +84,6 @@
 
 .float-content i {
     font-size: 25px;
-    color: #666
 }
 
 .float-content p {

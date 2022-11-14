@@ -1,0 +1,15 @@
+.site-info {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.footer-device {
+    font-family: 'Ubuntu', sans-serif;
+    color: var(--text-tertiary);
+}
+
+.footer-device i {
+    color: #ffc0cb;
+    display: inline-block;
+}

@@ -693,7 +693,9 @@ function akina_body_classes($classes)
         $classes[] = 'hfeed';
     }
     // 定制中文字体class
-    $classes[] = 'chinese-font';
+    //karson_todo
+    //change this to language selection
+    $classes[] = 'font-sans-serif';
     /*if(!wp_is_mobile()) {
     $classes[] = 'serif';
     }*/

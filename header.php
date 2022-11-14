@@ -172,6 +172,7 @@ header('X-Frame-Options: SAMEORIGIN'); ?>
 	<div class="scrollbar" id="bar"></div>
 	<section id="main-container">
 		<div class="header-container">
+			<a class="cd-top faa-float animated "></a>
 			<header class="site-header no-select" role="banner">
 				<div class="site-top">
 					<!-- .site-branding -->

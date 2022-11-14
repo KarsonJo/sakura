@@ -3,13 +3,30 @@ function customizer_css() { ?>
 <style type="text/css">
 
 <?php // theme-skin
-if ( akina_option('theme_skin') ) { ?>
-:root {
-    --theme-main-color:  <?php echo akina_option('theme_skin'); ?>;
-}
 
-.changeSkin-gear,.toc-wrapper{
-    background:rgba(255,255,255,<?php echo akina_option('sakura_skin_alpha','') ?>);
+function hex2rgb($hex) {
+    $hex = str_replace("#", "", $hex);
+ 
+    if(strlen($hex) == 3) {
+       $r = hexdec(substr($hex,0,1).substr($hex,0,1));
+       $g = hexdec(substr($hex,1,1).substr($hex,1,1));
+       $b = hexdec(substr($hex,2,1).substr($hex,2,1));
+    } else {
+       $r = hexdec(substr($hex,0,2));
+       $g = hexdec(substr($hex,2,2));
+       $b = hexdec(substr($hex,4,2));
+    }
+    $rgb = array($r, $g, $b);
+    //return implode(",", $rgb); // returns the rgb values separated by commas
+    return $rgb; // returns an array with the rgb values
+ }
+
+if ( akina_option('theme_skin') ) { 
+    $rgb = hex2rgb(akina_option('theme_skin'))?>
+body {
+    --theme-red: <?php echo $rgb[0] ?>;
+    --theme-green: <?php echo $rgb[1] ?>;
+    --theme-blue: <?php echo $rgb[2] ?>;
 }
 
 <?php if(akina_option('entry_content_theme') == "sakura"){ ?>
@@ -42,13 +59,6 @@ if ( akina_option('toggle-menu') == 'no') { ?>
 .comments .comments-hidden {display:none !important;}
 <?php } // comments ?>
 
-.rotating {
-    -webkit-animation: rotating 6s linear infinite;
-    -moz-animation: rotating 6s linear infinite;
-    -ms-animation: rotating 6s linear infinite;
-    -o-animation: rotating 6s linear infinite;
-    animation: rotating 6s linear infinite;
-}
 <?php if(akina_option('comment_info_box_width', '')): ?>
 .cmt-popup {
     --widthA: <?php echo akina_option('comment_info_box_width', ''); ?>%;

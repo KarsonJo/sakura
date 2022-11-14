@@ -37,16 +37,7 @@ function setCookie(name, value, days) {
     document.cookie = name + mashiro_option.cookie_version_control + "=" + (value || "") + expires + "; path=/";
 }
 
-function getCookie(name) {
-    var nameEQ = name + mashiro_option.cookie_version_control + "=";
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-}
+const getCookie = (name) => document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || '';
 
 function removeCookie(name) {
     document.cookie = name + mashiro_option.cookie_version_control + '=; Max-Age=-99999999;';
@@ -66,70 +57,8 @@ function imgError(ele, type) {
 }
 
 function post_list_show_animation() {
-    if ($("article").hasClass("post-list-thumb")) {
-        var options = {
-            root: null,
-            threshold: [0.66]
-        }
-        var io = new IntersectionObserver(callback, options);
-        var articles = document.querySelectorAll('.post-list-thumb');
-
-        function callback(entries) {
-            entries.forEach((article) => {
-                if (!window.IntersectionObserver) {
-                    article.target.style.willChange = 'auto';
-                    if (article.target.classList.contains("peek-in") === false) {
-                        article.target.classList.add("peek-in");
-                    }
-                } else {
-                    if (article.target.classList.contains("peek-in")) {
-                        article.target.style.willChange = 'auto';
-                        io.unobserve(article.target)
-                    } else {
-                        if (article.isIntersecting) {
-                            article.target.classList.add("peek-in");
-                            article.target.style.willChange = 'auto';
-                            io.unobserve(article.target)
-                        }
-                    }
-                }
-            })
-        }
-        articles.forEach((article) => {
-            io.observe(article)
-        })
-    }
+    console.log("obsolete");
 }
-mashiro_global.font_control = new function () {
-    this.change_font = function () {
-        if ($("body").hasClass("serif")) {
-            $("body").removeClass("serif");
-            $(".control-btn-serif").removeClass("selected");
-            $(".control-btn-sans-serif").addClass("selected");
-            setCookie("font_family", "sans-serif", 30);
-        } else {
-            $("body").addClass("serif");
-            $(".control-btn-serif").addClass("selected");
-            $(".control-btn-sans-serif").removeClass("selected");
-            setCookie("font_family", "serif", 30);
-            if (document.body.clientWidth <= 860) {
-                addComment.createButterbar("将从网络加载字体，流量请注意");
-            }
-        }
-    }
-    this.ini = function () {
-        if (document.body.clientWidth > 860) {
-            if (!getCookie("font_family") || getCookie("font_family") == "serif")
-                $("body").addClass("serif");
-        }
-        if (getCookie("font_family") == "sans-serif") {
-            $("body").removeClass("sans-serif");
-            $(".control-btn-serif").removeClass("selected");
-            $(".control-btn-sans-serif").addClass("selected");
-        }
-    }
-}
-mashiro_global.font_control.ini();
 
 function code_highlight_style() {
     function gen_top_bar(i) {
@@ -308,60 +237,12 @@ function scrollBar() {
     }
 }
 
-// karson_fin_obsolete
-// unify theme layout
-// function checkskinSecter() {}
-
 function checkBgImgCookie() {
     var bgurl = getCookie("bgImgSetting");
     if (!bgurl) {
         $("#white-bg").click();
     } else {
         $("#" + bgurl).click();
-    }
-}
-
-function checkDarkModeCookie() {
-    var dark = getCookie("dark"),
-        today = new Date(),
-        hour = today.getHours();
-    if (mashiro_option.darkmode && ((!dark && (hour > 21 || hour < 7)) || (dark == '1' && (hour >= 22 || hour <= 6)))) {
-        setTimeout(function () {
-            $("#dark-bg").click();
-        }, 100);
-        $("#moblieDarkLight").html('<i class="fa fa-sun-o" aria-hidden="true"></i>');
-    } else {
-        if (document.body.clientWidth > 860) {
-            setTimeout(function () {
-                checkBgImgCookie();
-            }, 100);
-        } else {
-            $("html").css("background", "unset");
-            $("body").removeClass("dark");
-            $("#moblieDarkLight").html('<i class="fa fa-moon-o" aria-hidden="true"></i>');
-            setCookie("dark", "0", 0.33);
-        }
-    }
-}
-if (!getCookie("darkcache") && (new Date().getHours() > 21 || new Date().getHours() < 7)) {
-    removeCookie("dark");
-    setCookie("darkcache", "cached", 0.4);
-}
-setTimeout(function () {
-    checkDarkModeCookie();
-}, 100);
-
-function mobile_dark_light() {
-    if ($("body").hasClass("dark")) {
-        $("html").css("background", "unset");
-        $("body").removeClass("dark");
-        $("#moblieDarkLight").html('<i class="fa fa-moon-o" aria-hidden="true"></i>');
-        setCookie("dark", "0", 0.33);
-    } else {
-        $("html").css("background", "#31363b");
-        $("#moblieDarkLight").html('<i class="fa fa-sun-o" aria-hidden="true"></i>');
-        $("body").addClass("dark");
-        setCookie("dark", "1", 0.33);
     }
 }
 
@@ -372,108 +253,9 @@ function no_right_click() {
 }
 no_right_click();
 $(document).ready(function () {
-    function checkskin_bg(a) {
-        return a == "none" ? "" : a
-    }
-    function changeBG() {
-        var cached = $(".menu-list");
-        cached.find("li").each(function () {
-            var tagid = this.id;
-            cached.on("click", "#" + tagid, function () {
-                if (tagid == "dark-bg") {
-                    // addComment.I("content").classList.add('notransition');
-                    // addComment.I("content").style.backgroundColor = "#fff";
-                    // addComment.I("content").offsetHeight;
-                    // addComment.I("content").classList.remove('notransition');
-                    $("html").css("background", "#31363b");
-                    $("body").addClass("dark");
-                    setCookie("dark", "1", 0.33);
-                } else {
-                    $("html").css("background", "unset");
-                    $("body").removeClass("dark");
-                    setCookie("dark", "0", 0.33);
-                    setCookie("bgImgSetting", tagid, 30);
-                    setTimeout(function () {
-                        // addComment.I("content").style.backgroundColor = "rgba(255, 255, 255, 0.8)";
-                    }, 1000);
-                }
-                switch (tagid) {
-                    case "white-bg":
-                        $("body").css("background-image", "url(" + checkskin_bg(mashiro_option.skin_bg0) + ")");
-                        break;
-                    case "sakura-bg":
-                        $("body").css("background-image", "url(" + checkskin_bg(mashiro_option.skin_bg1) + ")");
-                        break;
-                    case "gribs-bg":
-                        $("body").css("background-image", "url(" + checkskin_bg(mashiro_option.skin_bg2) + ")");
-                        break;
-                    case "pixiv-bg":
-                        $("body").css("background-image", "url(" + checkskin_bg(mashiro_option.skin_bg3) + ")");
-                        break;
-                    case "KAdots-bg":
-                        $("body").css("background-image", "url(" + checkskin_bg(mashiro_option.skin_bg4) + ")");
-                        break;
-                    case "totem-bg":
-                        $("body").css("background-image", "url(" + checkskin_bg(mashiro_option.skin_bg5) + ")");
-                        break;
-                    case "bing-bg":
-                        $("body").css("background-image", "url(" + checkskin_bg(mashiro_option.skin_bg6) + ")");
-                        break;
-                    // case "dark-bg":
-                    //     $("body").css("background-image", "url(" + checkskin_bg(mashiro_option.skin_bg7) + ")");
-                    //     break;
-                }
-                closeSkinMenu();
-            });
-        });
-    }
-    changeBG();
 
-    function closeSkinMenu() {
-        $(".skin-menu").removeClass('show');
-        setTimeout(function () {
-            $(".changeSkin-gear").css("visibility", "visible");
-        }, 300);
-    }
-    $(".changeSkin-gear").click(function () {
-        $(".skin-menu").toggleClass('show');
-    })
-    $(".skin-menu #close-skinMenu").click(function () {
-        closeSkinMenu();
-    });
     add_upload_tips();
 });
-
-// karson_todo
-// move to header.js
-mashiro_global.bgn = 1;
-
-function loadBG(idx) {
-    $("#centerbg").attr("src", mashiro_option.cover_api + "?" + idx);
-}
-
-function nextBG() {
-    loadBG(++mashiro_global.bgn);
-}
-
-function preBG() {
-    loadBG(--mashiro_global.bgn);
-}
-
-$(document).ready(function () {
-    $("#bg-next").click(function () {
-        nextBG();
-    });
-    $("#bg-pre").click(function () {
-        preBG();
-    });
-});
-
-function topFunction() {
-    $('body,html').animate({
-        scrollTop: 0
-    })
-}
 
 function timeSeriesReload(flag) {
     var cached = $('#archives');
@@ -537,41 +319,6 @@ function timeSeriesReload(flag) {
     }
 }
 timeSeriesReload();
-
-/*视频feature*/
-function coverVideo() {
-    var video = addComment.I("coverVideo");
-    var btn = addComment.I("coverVideo-btn");
-
-    if (video.paused) {
-        video.play();
-        try {
-            btn.innerHTML = '<i class="fa fa-pause" aria-hidden="true"></i>';
-        } catch (e) { };
-        //console.info('play:coverVideo()');
-    } else {
-        video.pause();
-        try {
-            btn.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i>';
-        } catch (e) { };
-        //console.info('pause:coverVideo()');
-    }
-}
-
-function killCoverVideo() {
-    var video = addComment.I("coverVideo");
-    var btn = addComment.I("coverVideo-btn");
-
-    if (video.paused) {
-        //console.info('none:killCoverVideo()');
-    } else {
-        video.pause();
-        try {
-            btn.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i>';
-        } catch (e) { };
-        //console.info('pause:killCoverVideo()');
-    }
-}
 
 function loadHls() {
     var video = addComment.I('coverVideo');
@@ -651,7 +398,6 @@ var pjaxInit = function () {
     no_right_click();
     click_to_view_image();
     original_emoji_click();
-    mashiro_global.font_control.ini();
     $("p").remove(".head-copyright");
     try {
         code_highlight_style();
@@ -1262,6 +1008,129 @@ loadCSS("https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriwea
     }])
 });
 
+(function () {
+    var bgn = 1;
+
+    function loadBG(idx) {
+        $("#centerbg").attr("src", mashiro_option.cover_api + "?" + idx);
+    }
+
+    function nextBG() {
+        loadBG(++bgn);
+    }
+
+    function preBG() {
+        loadBG(--bgn);
+    }
+
+    $(document).ready(function () {
+        $("#bg-next").click(function () {
+            nextBG();
+        });
+        $("#bg-pre").click(function () {
+            preBG();
+        });
+    });
+})();
+
+// theme style control (background and font)
+(function () {
+    // karson_todo
+    // separate dark mode and theme
+    const $menuList = $(".menu-list");
+    const $fontList = $(".font-family-controls");
+    const fontClassPrefix = "font-";
+    const fontClassRegex = new RegExp(`(^|\\s)${fontClassPrefix}\\S+`, "g");
+    const darkId = "dark-bg";
+
+    function skinValid(skin) {
+        return skin != "none";
+    }
+
+    function isNight() {
+        var hour = new Date().getHours();
+        return hour > 22 || hour < 7;
+    }
+
+    function initClickEvent() {
+        $menuList.on("click", "li", function () {
+            setSkin($(this));
+            // closeSkinMenu();
+            return false;
+        })
+        $fontList.on("click", "li", function () {
+            setFont($(this));
+            return false;
+        })
+        $("#mobileDark").on("click", function () {
+            setSkin($(this));
+            return false;
+        })
+    }
+
+    function readTheme() {
+        if (isNight()) {
+            setDarkMode(true);
+        }
+        simulateClick(getCookie("bgImgSetting"));
+        simulateClick(getCookie("fontFamily"));
+    }
+
+    function simulateClick(id) {
+        if (id) {
+            $("#" + id).click();
+        }
+    }
+
+    function setSkin($elem) {
+        // toggle dark mode?
+        if ($elem.hasClass('dark-toggle')) {
+            toggleDarkMode();
+            return;
+        }
+        // switch skin!
+        var src = $elem.data("src");
+
+        $("body").css("background-image", skinValid(src) ? "url(" + src + ")" : "none");
+        setCookie("bgImgSetting", $elem[0].id, 30);
+
+        updateSelect($menuList, $elem);
+    }
+
+    function updateSelect($ctn, $elem) {
+        $ctn.find(".selected").removeClass("selected");
+        $elem.addClass("selected");
+    }
+
+    function toggleDarkMode() {
+        $("body").toggleClass("dark");
+    }
+
+    function setDarkMode(enabled) {
+        enabled ? $("body").addClass("dark") : $("body").removeClass("dark");
+    }
+
+    function closeSkinMenu() {
+        $(".skin-menu").removeClass('show');
+    }
+
+    function setFont($elem) {
+        $("body").removeClass((_, name) => (name.match(fontClassRegex) || []).join(' ')).addClass(fontClassPrefix + $elem.data("tag"));
+        setCookie("fontFamily", $elem[0].id, 30);
+    }
+
+    //click events
+    $(".changeSkin-gear").click(function (e) {
+        // if (e.target !== e.currentTarget) return;
+        $(".skin-menu").toggleClass('show');
+    })
+
+    $(document).ready(function () {
+        initClickEvent();
+        readTheme();
+    });
+})();
+
 // header cover
 (function () {
     if (Poi.windowheight == 'auto' && mashiro_option.windowheight == 'auto') {
@@ -1275,13 +1144,12 @@ loadCSS("https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriwea
 (function () {
     $(window).scroll(function () {
         s = $(document).scrollTop();
-        h1 = 0;
-        cached = $('.site-header');
-        if (s > h1) {
-            cached.addClass('scroll-down');
+        // $body = $('.site-header');
+        if (s > 0) {
+            $("body").addClass('scroll-down');
         }
         else {
-            cached.removeClass('scroll-down');
+            $("body").removeClass('scroll-down');
         }
     });
 })();
@@ -1379,18 +1247,18 @@ loadCSS("https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriwea
 
 // ajax load main post
 (function () {
-    init_post("#pagination", "#main .post");
+    initPost("#pagination", "#main .post");
 
-    function init_post(pagination_selector, post_selector){
-        elem_peek_in_anim($(post_selector));
+    function initPost(pagination_selector, post_selector) {
+        elemPeekInAnim($(post_selector));
         $('body').on('click', pagination_selector + ' a', function () {
             clearTimeout();
-            load_post(pagination_selector, post_selector);
+            loadPost(pagination_selector, post_selector);
             return false;
         });
     }
 
-    function elem_peek_in_anim(articles) {
+    function elemPeekInAnim(articles) {
         var options = {
             root: null,
             threshold: [0.66]
@@ -1414,27 +1282,43 @@ loadCSS("https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriwea
         }
     }
 
-    function load_post(pagination_selector, post_selector) {
+    function loadPost(pagination_selector, post_selector) {
         var $pagi_link = $(pagination_selector + " a"); //pagiation link
 
         $pagi_link.addClass("loading").text("");
         $.ajax({
             type: "POST",
             url: $pagi_link.attr("href")
-            
-        }).done(function (data) {
-            var posts = $(data).find(post_selector);
-            lazyload(posts.find('.lazyload'));
+        })
+            .done(function (data) {
+                var posts = $(data).find(post_selector);
+                lazyload(posts.find('.lazyload'));
 
-            $(post_selector).first().parent().append(posts); //append to the container relatively
-            $(pagination_selector).replaceWith($(data).find(pagination_selector)) //replace pagination object
+                $(post_selector).first().parent().append(posts); //append to the container relatively
+                $(pagination_selector).replaceWith($(data).find(pagination_selector)) //replace pagination object
 
-            elem_peek_in_anim(posts);
-        }).fail(function () {
-            $pagi_link.removeClass("loading").text("请重试");
-        });
+                elemPeekInAnim(posts);
+            })
+            .fail(function () {
+                $pagi_link.removeClass("loading").text("请重试");
+            });
     }
 })();
+
+//go top
+(function () {
+    var pc_to_top = document.querySelector(".cd-top"),
+        mb_to_top = document.querySelector("#mobileGoTop");
+
+    pc_to_top.onclick = topFunction;
+    mb_to_top.onclick = topFunction;
+
+    function topFunction() {
+        $('body,html').animate({
+            scrollTop: 0
+        })
+    }
+})()
 
 var home = location.href,
     Siren = {
@@ -1610,17 +1494,6 @@ var home = location.href,
                 $("#loading").fadeOut(500);
             });
         },
-        XLS: function () {
-            $body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
-            var intersectionObserver = new IntersectionObserver(function (entries) {
-                if (entries[0].intersectionRatio <= 0) return;
-
-            });
-            intersectionObserver.observe(
-                document.querySelector('.footer-device')
-            );
-
-        },
         XCS: function () {
             var __cancel = jQuery('#cancel-comment-reply-link'),
                 __cancel_text = __cancel.text(),
@@ -1777,59 +1650,10 @@ var home = location.href,
             POWERMODE.shake = false;
             document.body.addEventListener('input', POWERMODE)
         },
-        GT: function () {
-            var cwidth = document.body.clientWidth,
-                cheight = window.innerHeight,
-                pc_to_top = document.querySelector(".cd-top"),
-                mb_to_top = document.querySelector("#moblieGoTop"),
-                mb_dark_light = document.querySelector("#moblieDarkLight"),
-                changeskin = document.querySelector(".changeSkin-gear");
-
-            $(window).scroll(function () {
-                if (cwidth <= 860) {
-                    if ($(this).scrollTop() > 20) {
-                        mb_to_top.style.transform = "scale(1)";
-                        mb_dark_light.style.transform = "scale(1)";
-                    } else {
-                        mb_to_top.style.transform = "scale(0)";
-                        mb_dark_light.style.transform = "scale(0)";
-                    }
-                } else {
-                    if ($(this).scrollTop() > 100) {
-                        pc_to_top.classList.add("cd-is-visible");
-                        changeskin.style.bottom = "0";
-                        if (cheight > 950) {
-                            pc_to_top.style.top = "0";
-                        } else {
-                            pc_to_top.style.top = cheight - 950 + "px";
-                        }
-                    } else {
-                        changeskin.style.bottom = "-999px";
-                        pc_to_top.style.top = "-999px";
-                        pc_to_top.classList.remove("cd-fade-out", "cd-is-visible");
-                    }
-                    if ($(this).scrollTop() > 1200) {
-                        pc_to_top.classList.add("cd-fade-out");
-                    }
-                }
-            });
-
-            //smooth scroll to top
-            pc_to_top.onclick = function () {
-                topFunction();
-            }
-            mb_to_top.onclick = function () {
-                topFunction();
-            }
-            mb_dark_light.onclick = function () {
-                mobile_dark_light();
-            }
-        }
     }
 $(function () {
     // Siren.AH();
-    Siren.GT();//mod
-    Siren.XLS();
+    // Siren.GT();//mod
     Siren.XCS();
     Siren.XCP();
     Siren.CE();
