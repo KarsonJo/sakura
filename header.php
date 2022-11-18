@@ -171,8 +171,8 @@ header('X-Frame-Options: SAMEORIGIN'); ?>
 <body <?php body_class(); ?>>
 	<div class="scrollbar" id="bar"></div>
 	<section id="main-container">
+		<a class="cd-top faa-float animated "></a>
 		<div class="header-container">
-			<a class="cd-top faa-float animated "></a>
 			<header class="site-header no-select" role="banner">
 				<div class="site-top">
 					<!-- .site-branding -->
@@ -211,12 +211,3 @@ header('X-Frame-Options: SAMEORIGIN'); ?>
 			<?php } ?>
 		</div>
 		<div id="page" class="site wrapper">
-			<?php
-			// if (get_post_meta(get_the_ID(), 'cover_type', true) == 'hls') {
-			// 	the_video_headPattern_hls();
-			// } elseif (get_post_meta(get_the_ID(), 'cover_type', true) == 'normal') {
-			// 	the_video_headPattern_normal();
-			// } else {
-			// 	the_headPattern();
-			// }
-			?>

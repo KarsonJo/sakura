@@ -8,12 +8,7 @@
  * @package Akina
  */
 get_header();
-echo karson_header_banner(
-	karson_header_title(
-		sprintf(__("Search results for \" %s \"", "sakura"), get_search_query()) /*关于“ '.get_search_query().' ”的搜索结果*/
-	),
-	get_random_bg_url()
-); ?>
+echo karson_header_banner(karson_header_title(sprintf(__("Search results for \" %s \"", "sakura"), get_search_query())), get_random_bg_url()); ?>
 
 <div id="content" class="site-content">
 	<section id="primary" class="content-area">

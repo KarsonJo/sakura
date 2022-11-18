@@ -5,16 +5,16 @@ $roots_includes = array(
     '/functions/karson/jsconfig.php',
     '/functions/karson/post-util.php',
     'layouts/common-layouts.php',
-  );
-  
-  foreach($roots_includes as $file){
-    if(!$filepath = locate_template($file)) {
-      trigger_error("Error locating `$file` for inclusion!", E_USER_ERROR);
+);
+
+foreach ($roots_includes as $file) {
+    if (!$filepath = locate_template($file)) {
+        trigger_error("Error locating `$file` for inclusion!", E_USER_ERROR);
     }
-  
+
     require_once $filepath;
-  }
-  unset($file, $filepath);
+}
+unset($file, $filepath);
 
 /**
  * Sakura functions and definitions.
@@ -423,7 +423,7 @@ function convertip($ip)
 }
 //Comment Location End
 
-/**
+/**    
  * COMMENT FORMATTING
  *
  * 标准的 lazyload 输出头像
@@ -454,20 +454,20 @@ if (!function_exists('akina_comment_format')) {
                                 <div class="right">
                                     <div class="info"><time datetime="<?php comment_date('Y-m-d'); ?>"><?php echo poi_time_since(strtotime($comment->comment_date_gmt), true); //comment_date(get_option('date_format'));  
                                                                                                         ?></time><?php echo siren_get_useragent($comment->comment_agent); ?><?php echo mobile_get_useragent_icon($comment->comment_agent); ?>&nbsp;<?php if (akina_option('open_location')) {
-                                                                                                                                                                                                                                                                                                                                                                            _e('Location', 'sakura'); /*来自*/ ?>: <?php echo convertip(get_comment_author_ip());
-                                                                                                                                                                                                                                                                                                                                                                                                                                                } ?>
+                                                                                                                                                                                                                                                        _e('Location', 'sakura'); /*来自*/ ?>: <?php echo convertip(get_comment_author_ip());
+                                                                                                                                                                                                                                                                                            } ?>
                                     <?php if (current_user_can('manage_options') and (wp_is_mobile() == false)) {
                                         $comment_ID = $comment->comment_ID;
                                         $i_private = get_comment_meta($comment_ID, '_private', true);
                                         $flag = '';
-                                        $flag .= ' <i class="fa fa-snowflake-o" aria-hidden="true"></i> <a href="javascript:;" data-actionp="set_private" data-idp="' . get_comment_id() . '" id="sp" class="sm" style="color:rgba(0,0,0,.35)">' . __("Private", "sakura") . ': <span class="has_set_private">';
+                                        $flag .= ' <i class="fa fa-snowflake-o" aria-hidden="true"></i> <a href="javascript:;" data-actionp="set_private" data-idp="' . get_comment_id() . '" id="sp">' . __("Private", "sakura") . ': <span class="has_set_private">';
                                         if (!empty($i_private)) {
                                             $flag .= __("Yes", "sakura") . ' <i class="fa fa-lock" aria-hidden="true"></i>';
                                         } else {
                                             $flag .= __("No", "sakura") . ' <i class="fa fa-unlock" aria-hidden="true"></i>';
                                         }
                                         $flag .= '</span></a>';
-                                        $flag .= edit_comment_link('<i class="fa fa-pencil-square-o" aria-hidden="true"></i> ' . __("Edit", "mashiro"), ' <span style="color:rgba(0,0,0,.35)">', '</span>');
+                                        $flag .= edit_comment_link('<i class="fa fa-pencil-square-o" aria-hidden="true"></i> ' . __("Edit", "mashiro"), ' <span>', '</span>');
                                         echo $flag;
                                     } ?></div>
                                 </div>
@@ -696,6 +696,7 @@ function akina_body_classes($classes)
     //karson_todo
     //change this to language selection
     $classes[] = 'font-sans-serif';
+    $classes[] = 'line-numbers';
     /*if(!wp_is_mobile()) {
     $classes[] = 'serif';
     }*/
@@ -1295,16 +1296,37 @@ function bili_smile_filter_rss($content)
 }
 add_filter('comment_text_rss', 'bili_smile_filter_rss'); //替换评论rss关键词
 
-function toc_support($content)
+// function toc_support($content)
+// {
+//     $content = str_replace('[toc]', '<div class="has-toc have-toc"></div>', $content); // TOC 支持
+//     $content = str_replace('[begin]', '<span class="begin">', $content); // 首字格式支持
+//     $content = str_replace('[/begin]', '</span>', $content); // 首字格式支持
+//     return $content;
+// }
+
+// add_filter('the_content', 'toc_support');
+// add_filter('the_excerpt_rss', 'toc_support');
+// add_filter('the_content_feed', 'toc_support');
+
+// karson_todo
+// shortcode may not be the best way to do so.
+function toc_table_shortcode()
 {
-    $content = str_replace('[toc]', '<div class="has-toc have-toc"></div>', $content); // TOC 支持
-    $content = str_replace('[begin]', '<span class="begin">', $content); // 首字格式支持
-    $content = str_replace('[/begin]', '</span>', $content); // 首字格式支持
-    return $content;
+    return '<div id="have-toc"></div>';
 }
-add_filter('the_content', 'toc_support');
-add_filter('the_excerpt_rss', 'toc_support');
-add_filter('the_content_feed', 'toc_support');
+
+function initial_captical_shortcode($attr, $content)
+{
+    if (is_null($content)) return $content;
+    ob_start() ?>
+        <span class="initial-cap"><?php echo $content ?></span>
+    <?php return ob_get_clean();
+}
+
+add_shortcode('toc', 'toc_table_shortcode');
+add_shortcode('initial', 'initial_captical_shortcode');
+add_shortcode('begin', 'initial_captical_shortcode');
+
 
 // 显示访客当前 IP
 function get_the_user_ip()
@@ -1755,7 +1777,7 @@ function html_tag_parser($content)
     }
     return $content;
 }
-add_filter('the_content', 'html_tag_parser'); //替换文章关键词
+// add_filter('the_content', 'html_tag_parser'); //替换文章关键词
 //add_filter( 'comment_text', 'html_tag_parser' );//替换评论关键词
 
 /*

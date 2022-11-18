@@ -24,9 +24,9 @@ function hex2rgb($hex) {
 if ( akina_option('theme_skin') ) { 
     $rgb = hex2rgb(akina_option('theme_skin'))?>
 body {
-    --theme-red: <?php echo $rgb[0] ?>;
-    --theme-green: <?php echo $rgb[1] ?>;
-    --theme-blue: <?php echo $rgb[2] ?>;
+    --theme-r1: <?php echo $rgb[0] ?>;
+    --theme-g1: <?php echo $rgb[1] ?>;
+    --theme-b1: <?php echo $rgb[2] ?>;
 }
 
 <?php if(akina_option('entry_content_theme') == "sakura"){ ?>

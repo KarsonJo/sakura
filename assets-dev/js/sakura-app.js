@@ -4,25 +4,23 @@
  * @url https://2heng.xin
  * @date 2019.8.3
  */
-mashiro_global.variables = new function () {
-    this.has_hls = false;
-}
+
 mashiro_global.ini = new function () {
     this.normalize = function () { // initial functions when page first load (首次加载页面时的初始化函数)
         lazyload();
         social_share();
         // post_list_show_animation();
-        copy_code_block();
-        coverVideoIni();
+        // copy_code_block();
+        // coverVideoIni();
         // checkskinSecter();
-        scrollBar();
+        // scrollBar();
     }
     this.pjax = function () { // pjax reload functions (pjax 重载函数)
         pjaxInit();
         social_share();
         post_list_show_animation();
-        copy_code_block();
-        coverVideoIni();
+        // copy_code_block();
+        // coverVideoIni();
         // checkskinSecter();
     }
 }
@@ -61,40 +59,8 @@ function post_list_show_animation() {
 }
 
 function code_highlight_style() {
-    function gen_top_bar(i) {
-        var attributes = {
-            'autocomplete': 'off',
-            'autocorrect': 'off',
-            'autocapitalize': 'off',
-            'spellcheck': 'false',
-            'contenteditable': 'false',
-            'design': 'by Mashiro'
-        }
-        var ele_name = $('pre:eq(' + i + ')')[0].children[0].className;
-        var lang = ele_name.substr(0, ele_name.indexOf(" ")).replace('language-', '');
-        if (lang.toLowerCase() == "hljs") var lang = $('pre:eq(' + i + ') code').attr("class").replace('hljs', '') ? $('pre:eq(' + i + ') code').attr("class").replace('hljs', '') : "text";
-        $('pre:eq(' + i + ')').addClass('highlight-wrap');
-        for (var t in attributes) {
-            $('pre:eq(' + i + ')').attr(t, attributes[t]);
-        }
-        $('pre:eq(' + i + ') code').attr('data-rel', lang.toUpperCase());
-    }
-    $('pre code').each(function (i, block) {
-        hljs.highlightBlock(block);
-    });
-    for (var i = 0; i < $('pre').length; i++) {
-        gen_top_bar(i);
-    }
-    hljs.initLineNumbersOnLoad();
-    $('pre').on('click', function (e) {
-        if (e.target !== this) return;
-        $(this).toggleClass('code-block-fullscreen');
-        $('html').toggleClass('code-block-fullscreen-html-scroll');
-    });
+    console.log("obsolete");
 }
-try {
-    code_highlight_style();
-} catch (e) { }
 
 if (Poi.reply_link_version == 'new') {
     $('body').on('click', '.comment-reply-link', function () {
@@ -206,46 +172,6 @@ function cmt_showPopup(ele) {
     });
 }
 
-function scrollBar() {
-    if (document.body.clientWidth > 860) {
-        $(window).scroll(function () {
-            var s = $(window).scrollTop(),
-                a = $(document).height(),
-                b = $(window).height(),
-                result = parseInt(s / (a - b) * 100),
-                cached = $("#bar");
-            cached.css("width", result + "%");
-            // if (false) {
-            //     if (result >= 0 && result <= 19)
-            //         cached.css("background", "#cccccc");
-            //     if (result >= 20 && result <= 39)
-            //         cached.css("background", "#50bcb6");
-            //     if (result >= 40 && result <= 59)
-            //         cached.css("background", "#85c440");
-            //     if (result >= 60 && result <= 79)
-            //         cached.css("background", "#f2b63c");
-            //     if (result >= 80 && result <= 99)
-            //         cached.css("background", "#FF0000");
-            //     if (result == 100)
-            //         cached.css("background", "#5aaadb");
-            // } else {
-            //     cached.css("background", "orange");
-            // }
-            $(".toc-container").css("height", $(".site-content").outerHeight());
-            $(".skin-menu").removeClass('show');
-        });
-    }
-}
-
-function checkBgImgCookie() {
-    var bgurl = getCookie("bgImgSetting");
-    if (!bgurl) {
-        $("#white-bg").click();
-    } else {
-        $("#" + bgurl).click();
-    }
-}
-
 function no_right_click() {
     $('.post-thumb img').bind('contextmenu', function (e) {
         return false;
@@ -320,79 +246,12 @@ function timeSeriesReload(flag) {
 }
 timeSeriesReload();
 
-function loadHls() {
-    var video = addComment.I('coverVideo');
-    var video_src = $('#coverVideo').attr('data-src');
-    if (Hls.isSupported()) {
-        var hls = new Hls();
-        hls.loadSource(video_src);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, function () {
-            video.play();
-        });
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = video_src;
-        video.addEventListener('loadedmetadata', function () {
-            video.play();
-        });
-    }
-}
-
-function coverVideoIni() {
-    if ($('video').hasClass('hls')) {
-        if (mashiro_global.variables.has_hls) {
-            loadHls();
-        } else {
-            $.getScript("https://cdn.jsdelivr.net/gh/mashirozx/Sakura@3.3.3/cdn/js/src/16.hls.js", function () {
-                loadHls();
-                mashiro_global.variables.has_hls = true;
-            });
-        }
-        //console.info('ini:coverVideoIni()');
-    }
-}
-
-function copy_code_block() {
-    $('pre code').each(function (i, block) {
-        $(block).attr({
-            id: 'hljs-' + i
-        });
-        $(this).after('<a class="copy-code" href="javascript:" data-clipboard-target="#hljs-' + i + '" title="拷贝代码"><i class="fa fa-clipboard" aria-hidden="true"></i></a>');
-    });
-    // karson_todo
-    // wrap it in AMD js style
-    ClipboardJS = require('clipboard');
-    var clipboard = new ClipboardJS('.copy-code');
-}
-
-// karson_todo
+// karson_fin_todo
 // change the awkward toc remove functionality
-function tableOfContentScroll(flag) {
-    if (document.body.clientWidth <= 1200) {
-        return;
-    } else if ($("div").hasClass("have-toc") == false && $("div").hasClass("has-toc") == false) {
-        $(".toc-container").remove();
-    } else {
-        if (flag) {
-            var id = 1,
-                heading_fix = mashiro_option.entry_content_theme == "sakura" ? $("article").hasClass("type-post") ? $("div").hasClass("pattern-attachment-img") ? -75 : 200 : 375 : window.innerHeight / 2;
-            $(".entry-content , .links").children("h1,h2,h3,h4,h5").each(function () {
-                var hyphenated = "toc-head-" + id;
-                this.id = hyphenated;
-                id++;
-            });
-            require(['tocbot'], function () {
-                tocbot.init({
-                    tocSelector: '.toc',
-                    contentSelector: ['.entry-content', '.links'],
-                    headingSelector: 'h1, h2, h3, h4, h5',
-                    headingsOffset: heading_fix - window.innerHeight / 2,
-                });
-            });
-        }
-    }
+function tableOfContentScroll() {
+    console.log("obsolete");
 }
-tableOfContentScroll(flag = true);
+
 var pjaxInit = function () {
     add_upload_tips();
     no_right_click();
@@ -428,7 +287,7 @@ var pjaxInit = function () {
     smileBoxToggle();
     timeSeriesReload();
     add_copyright();
-    tableOfContentScroll(flag = true);
+    tableOfContentScroll();
 }
 $(document).on("click", ".sm", function () {
     var msg = "您真的要设为私密吗？";
@@ -461,7 +320,6 @@ $.fn.commentPrivate = function () {
 
 // karson_todo
 // wrap it in AMD js style
-var POWERMODE = require(["POWERMODE"]);
 POWERMODE.colorful = true;
 POWERMODE.shake = false;
 document.body.addEventListener('input', POWERMODE);
@@ -1008,6 +866,32 @@ loadCSS("https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriwea
     }])
 });
 
+// (function () {
+//     try {
+//         $("pre").has("code").addClass('highlight-wrap');
+//         $("pre code").each(function (i, block) {
+//             hljs.highlightBlock(block);
+//         });
+//     } 
+//     catch (e) { }
+// })();
+
+//table of content
+(function () {
+    if ($("#have-toc").length) {
+        $(".toc-container").addClass("visible");
+        $(".entry-content , .links").children("h1,h2,h3,h4,h5").each(function (i) {
+            this.id = "toc-head-" + i;
+        });
+        tocbot.init({
+            tocSelector: '.toc',
+            contentSelector: ['.entry-content', '.links'],
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+    }
+})();
+
+// switch background
 (function () {
     var bgn = 1;
 
@@ -1120,14 +1004,18 @@ loadCSS("https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriwea
     }
 
     //click events
-    $(".changeSkin-gear").click(function (e) {
+    $(".changeSkin-gear").click(() => {
         // if (e.target !== e.currentTarget) return;
         $(".skin-menu").toggleClass('show');
     })
 
-    $(document).ready(function () {
+    $(document).ready(() => {
         initClickEvent();
         readTheme();
+    });
+
+    $(window).scroll(() => {
+        $(".skin-menu").removeClass('show');
     });
 })();
 
@@ -1142,16 +1030,19 @@ loadCSS("https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriwea
 
 // scroll down check
 (function () {
-    $(window).scroll(function () {
-        s = $(document).scrollTop();
-        // $body = $('.site-header');
-        if (s > 0) {
-            $("body").addClass('scroll-down');
-        }
-        else {
-            $("body").removeClass('scroll-down');
-        }
-    });
+    var $bar = $("#bar");
+
+    // const scrollProgress = () => $(window).scrollTop() / ($(document).height() - $(window).height()) * 100
+
+    function updateScroll(){
+        var p = $(window).scrollTop() / ($(document).height() - $(window).height()) * 100;
+        p > 0 ? $("body").addClass('scroll-down') : $("body").removeClass('scroll-down');
+        if ($bar.length) $bar.css("width", p + "%");
+    }
+
+    updateScroll();
+
+    $(window).scroll(updateScroll);
 })();
 
 // simple video controller
@@ -1357,9 +1248,8 @@ var home = location.href,
                 });
             }
             $('.js-toggle-search').on('click', function () {
-                $('.js-toggle-search').toggleClass('is-active');
-                $('.js-search').toggleClass('is-visible');
-                $('html').css('overflow-y', 'hidden');
+                $('.js-search').addClass('visible');
+                $('html').addClass('no-overflow');
                 if (mashiro_option.live_search) {
                     var QueryStorage = [];
                     search_a(Poi.api + "sakura/v1/cache_search/json?_wpnonce=" + Poi.nonce);
@@ -1428,7 +1318,7 @@ var home = location.href,
                             $(this).click(function () {
                                 $("#Ty").attr('href', $(this).attr('href'));
                                 $("#Ty").click();
-                                $(".search_close").click();
+                                $(".search-close").click();
                             });
                         });
                     }
@@ -1482,17 +1372,16 @@ var home = location.href,
                     }
                 }
             });
-            $('.search_close').on('click', function () {
-                if ($('.js-search').hasClass('is-visible')) {
-                    $('.js-toggle-search').toggleClass('is-active');
-                    $('.js-search').toggleClass('is-visible');
-                    $('html').css('overflow-y', 'unset');
+            $('.search-close').on('click', function () {
+                if ($('.js-search').hasClass('visible')) {
+                    $('.js-search').toggleClass('visible');
+                    $('html').removeClass('no-overflow');
                 }
             });
 
-            $("#loading").click(function () {
-                $("#loading").fadeOut(500);
-            });
+            // $("#loading").click(function () {
+            //     $("#loading").fadeOut(500);
+            // });
         },
         XCS: function () {
             var __cancel = jQuery('#cancel-comment-reply-link'),
@@ -1660,61 +1549,6 @@ $(function () {
     Siren.MN();
     Siren.IA();
     // Siren.LV();
-    if (Poi.pjax) {
-        $(document).pjax('a[target!=_top]', '#page', {
-            fragment: '#page',
-            timeout: 8000,
-        }).on('pjax:beforeSend', () => { //离开页面停止播放
-            $('.normal-cover-video').each(function () {
-                this.pause();
-                this.src = '';
-                this.load = '';
-            });
-        }).on('pjax:send', function () {
-            $("#bar").css("width", "0%");
-            if (mashiro_option.NProgressON) NProgress.start();
-            Siren.MNH();
-        }).on('pjax:complete', function () {
-            // Siren.AH();
-            Siren.CE();
-            if (mashiro_option.NProgressON) NProgress.done();
-            mashiro_global.ini.pjax();
-            $("#loading").fadeOut(500);
-            if (Poi.codelamp == 'open') {
-                self.Prism.highlightAll(event)
-            };
-            if ($('.ds-thread').length > 0) {
-                if (typeof DUOSHUO !== 'undefined') {
-                    DUOSHUO.EmbedThread('.ds-thread');
-                } else {
-                    $.getScript("//static.duoshuo.com/embed.js");
-                }
-            }
-        }).on('pjax:end', function () {
-            if (window.gtag) {
-                gtag('config', Poi.google_analytics_id, {
-                    'page_path': window.location.pathname
-                });
-            }
-        }).on('submit', '.search-form,.s-search', function (event) {
-            event.preventDefault();
-            $.pjax.submit(event, '#page', {
-                fragment: '#page',
-                timeout: 8000,
-            });
-            if ($('.js-search.is-visible').length > 0) {
-                $('.js-toggle-search').toggleClass('is-active');
-                $('.js-search').toggleClass('is-visible');
-                $('html').css('overflow-y', 'unset');
-            }
-        });
-        window.addEventListener('popstate', function (e) {
-            // Siren.AH();
-            Siren.CE();
-            timeSeriesReload(true);
-            post_list_show_animation();
-        }, false);
-    }
     $.fn.postLike = function () {
         if ($(this).hasClass('done')) {
             return false;

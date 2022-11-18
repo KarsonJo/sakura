@@ -6,4 +6,5 @@
 //     }
 
 // })
-require(["hljs", "clipboard", "tocbot", "hljsnum"]);
+// require(["hljs", "clipboard", "tocbot", "hljsnum"]);
+require(["tocbot"]);

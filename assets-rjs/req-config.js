@@ -10,6 +10,7 @@ require.config({
         loadCSS: "components/loadCSS",
         tocbot: "components/tocbot/tocbot.min",
         sakura: "js/sakura-app",
+        "jquery-pjax": "components/jquery.pjax.min"
     },
     shim: {
         socialshare: {

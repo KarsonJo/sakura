@@ -12,24 +12,11 @@
 
 ?>
 </div><!-- #content -->
-<?php
-if (akina_option('general_disqus_plugin_support')) {
-	get_template_part('layouts/duoshuo');
-} else {
-	comments_template('', true);
-}
-?>
-</div><!-- #page Pjax container-->
+<!--</div> #page Pjax container-->
 <footer id="colophon" class="site-footer" role="contentinfo">
 	<div class="site-info" theme-info="Sakura v<?php echo SAKURA_VERSION; ?>">
-		<div class="footertext">
-			<div class="img-preload">
-				<img src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/wordpress-rotating-ball-o.svg">
-				<img src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/disqus-preloader.svg">
-			</div>
-			<p><?php echo akina_option('footer_info', ''); ?></p>
-		</div>
-		<div class="footer-device">
+		<p><?php echo akina_option('footer_info', ''); ?></p>
+		<div class="footer-device Ubuntu-font">
 			<p>
 				<span>
 					Theme <a href="https://2heng.xin/theme-sakura/" target="_blank">Sakura</a> <i class="iconfont icon-sakura rotating"></i> by <a href="https://2heng.xin/" target="_blank">Mashiro</a>
@@ -54,6 +41,8 @@ if (akina_option('general_disqus_plugin_support')) {
 </div><!-- m-nav-bar -->
 </section><!-- #section -->
 <!-- m-nav-center -->
+<!-- karson_todo -->
+<!-- refactor mobile nav -->
 <div id="mo-nav">
 	<div class="m-avatar">
 		<?php $ava = akina_option('focus_logo') ? akina_option('focus_logo') : get_template_directory_uri() . '/images/avatar.jpg'; ?>
@@ -66,37 +55,6 @@ if (akina_option('general_disqus_plugin_support')) {
 	</div>
 	<?php wp_nav_menu(array('depth' => 2, 'theme_location' => 'primary', 'container' => false)); ?>
 </div><!-- m-nav-center end -->
-<!-- search start -->
-<form class="js-search search-form search-form--modal" method="get" action="<?php echo home_url(); ?>" role="search">
-	<div class="search-form__inner">
-		<?php if (akina_option('live_search')) { ?>
-			<div class="micro">
-				<i class="iconfont icon-search"></i>
-				<input id="search-input" class="text-input" type="search" name="s" placeholder="<?php _e('Want to find something?', 'sakura') /*想要找点什么呢*/ ?>" required>
-			</div>
-			<div class="ins-section-wrapper">
-				<a id="Ty" href="#"></a>
-				<div class="ins-section-container" id="PostlistBox"></div>
-			</div>
-		<?php } else { ?>
-			<div class="micro">
-				<p class="micro mb-"><?php _e('Want to find something?', 'sakura') /*想要找点什么呢*/ ?></p>
-				<i class="iconfont icon-search"></i>
-				<input class="text-input" type="search" name="s" placeholder="<?php _e('Search', 'sakura') ?>" required>
-			</div>
-		<?php } ?>
-	</div>
-	<div class="search_close"></div>
-</form>
-<!-- search end -->
-<?php wp_footer(); ?>
-<?php if (akina_option('site_statistics')) { ?>
-	<div class="site-statistics">
-		<script type="text/javascript">
-			<?php echo akina_option('site_statistics'); ?>
-		</script>
-	</div>
-<?php } ?>
 <div class="pc-menu">
 	<div class="skin-menu no-select">
 		<ul class="menu-list">
@@ -152,6 +110,37 @@ if (akina_option('general_disqus_plugin_support')) {
 		<i class="fa fa-sun-o" aria-hidden="true"></i>
 	</div>
 </div>
+<!-- search start -->
+<form class="js-search search-form search-form--modal" method="get" action="<?php echo home_url(); ?>" role="search">
+	<div class="search-form__inner">
+		<?php if (akina_option('live_search')) { ?>
+			<div class="micro">
+				<i class="iconfont icon-search"></i>
+				<input id="search-input" class="text-input" type="search" name="s" placeholder="<?php _e('Want to find something?', 'sakura') /*想要找点什么呢*/ ?>" required>
+			</div>
+			<div class="ins-section-wrapper">
+				<a id="Ty" href="#"></a>
+				<div class="ins-section-container" id="PostlistBox"></div>
+			</div>
+		<?php } else { ?>
+			<div class="micro">
+				<div class="micro mb-"><?php _e('Want to find something?', 'sakura') /*想要找点什么呢*/ ?></div>
+				<i class="iconfont icon-search"></i>
+				<input class="text-input" type="search" name="s" placeholder="<?php _e('Search', 'sakura') ?>" required>
+			</div>
+		<?php } ?>
+	</div>
+	<div class="search-close"></div>
+</form>
+<!-- search end -->
+<?php wp_footer(); ?>
+<?php if (akina_option('site_statistics')) { ?>
+	<div class="site-statistics">
+		<script type="text/javascript">
+			<?php echo akina_option('site_statistics'); ?>
+		</script>
+	</div>
+<?php } ?>
 
 <canvas id="night-mode-cover"></canvas>
 <?php if (akina_option('sakura_widget')) : ?>

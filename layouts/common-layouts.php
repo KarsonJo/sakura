@@ -30,7 +30,7 @@ function karson_header_title($title)
 {
     ob_start();
     if ($title) { ?>
-        <h1 class="entry-title search-title">
+        <h1 class="entry-title">
             <?php echo $title ?>
         </h1>
     <?php }

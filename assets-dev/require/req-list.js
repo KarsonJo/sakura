@@ -1,4 +1,4 @@
-require(["powermode", "lazyload", "socialshare", "loadCSS"], function () {
+require(["powermode", "lazyload", "socialshare", "loadCSS", "jquery-pjax"], function () {
         require(["sakura"], function () {
                
         });

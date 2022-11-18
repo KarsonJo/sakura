@@ -131,14 +131,6 @@ function optionsframework_options()
         'desc' => __('Custom theme color', 'sakura'), /*自定义主题颜色*/
         'type' => "color",
     );
-
-    $options[] = array(
-        'name' => __('Theme scheme tool transparency', 'sakura'), /*切换主题菜单透明度*/
-        'desc' => __('Adjust the theme scheme menu transparency, fill  in decimals between 0 and 1, the smaller the value, the more transparent. The default value is 0.8', 'sakura'), /*调整切换主题菜单透明度，值越小越透明。默认透明度0.8*/
-        'id' => 'sakura_skin_alpha',
-        'std' => '0.8',
-        'type' => 'text');
-
     $options[] = array(
         'name' => __('Change web background', 'sakura'), /*切换网页背景*/
         'desc' => __('The foreground switches the background of the webpage. There are 8 urls separated by commas. The order corresponds to the foreground scheme tool button position (the order of the buttons is from left to right, top to bottom). If no background is needed, fill in the corresponding position as none.<strong>Note: If the theme is updated from v3.2.3 and below, be sure to change the [Version Control] parameter under the [Other] tab of this configuration page to any new value!</strong>', 'sakura'), /*前台切换网页背景，共8个url，使用英文逗号分隔，顺序对应前台切换主题按钮位置（按钮顺序从左至右，从上至下）,如不需要背景则填写对应位置为none。<strong>注意：如果主题是从v3.2.3及以下更新过来的，请务必将本配置页的【其他】标签下的【版本控制】参数修改为任意新值！</strong>*/
@@ -853,12 +845,12 @@ function optionsframework_options()
         'std' => '0',
         'type' => 'checkbox');
 
-    $options[] = array(
-        'name' => __('Enable disqus', 'sakura'), /*开启多说插件支持*/
-        'desc' => __('Enable disqus for comment', 'sakura'), /*多说已经凉了*/
-        'id' => 'general_disqus_plugin_support',
-        'std' => '0',
-        'type' => 'checkbox');
+    // $options[] = array(
+    //     'name' => __('Enable disqus', 'sakura'), /*开启多说插件支持*/
+    //     'desc' => __('Enable disqus for comment', 'sakura'), /*多说已经凉了*/
+    //     'id' => 'general_disqus_plugin_support',
+    //     'std' => '0',
+    //     'type' => 'checkbox');
 
     // $options[] = array(
     //     'name' => __('Time Zone adjustment', 'sakura'), /*时区调整*/
@@ -1082,13 +1074,6 @@ function optionsframework_options()
         'id' => 'cookie_version',
         'std' => '',
         'type' => 'text');
-
-    $options[] = array(
-        'name' => __('Enable PJAX (recommand on)', 'sakura'), /*开启PJAX局部刷新（建议开启）*/
-        'desc' => __('The principle is the same as Ajax', 'sakura'), /*原理与Ajax相同*/
-        'id' => 'poi_pjax',
-        'std' => '0',
-        'type' => 'checkbox');
 
     $options[] = array(
         'name' => __('Enable NProgress progress bar', 'sakura'), /*开启NProgress加载进度条*/
