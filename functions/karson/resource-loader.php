@@ -46,8 +46,18 @@ function karson_requirejs_main()
     // wp_enqueue_script("powermode", $dir_url . '/assets-dev/components/activate-power-mode.js', array('jQuery-CDN'), SAKURA_VERSION);
     wp_enqueue_script("lazyload-defer", $dir_url . '/assets-dev/components/lazyload.min.js', array('jQuery-CDN'), SAKURA_VERSION);
     wp_enqueue_script("powermode-defer", $dir_url . '/assets-dev/components/activate-power-mode.js', array('jQuery-CDN'), SAKURA_VERSION);
+    ob_start(); ?>
+    <script>
+        window.addEventListener("DOMContentLoaded", function() {
+            POWERMODE.colorful = true;
+            POWERMODE.shake = false;
+            document.body.addEventListener('input', POWERMODE);
+        });
+    </script>
+<?php
+    wp_add_inline_script('powermode-defer', ob_get_clean(), 'after');
     wp_enqueue_script("socialshare-defer", $dir_url . '/assets-dev/components/social-share.min.js', array('jQuery-CDN'), SAKURA_VERSION);
-    wp_enqueue_script("loadCSS-defer", $dir_url . '/assets-dev/components/loadCSS.js', array('jQuery-CDN'), SAKURA_VERSION);
+    // wp_enqueue_script("loadCSS-defer", $dir_url . '/assets-dev/components/loadCSS.js', array('jQuery-CDN'), SAKURA_VERSION);
     wp_enqueue_script("tocbot-defer", $dir_url . '/assets-dev/components/tocbot/tocbot.min.js', array('jQuery-CDN'), SAKURA_VERSION);
     wp_enqueue_script("sakura-defer", $dir_url . '/assets-dev/js/sakura-app.js', array('jQuery-CDN'), SAKURA_VERSION);
 
@@ -60,6 +70,26 @@ function karson_partial_debug_css()
     wp_enqueue_style('footer_css', get_template_directory_uri() . '/assets-dev/css/footer.css');
     wp_enqueue_style('header_css', get_template_directory_uri() . '/assets-dev/css/header.css');
     wp_enqueue_style('index_css', get_template_directory_uri() . '/assets-dev/css/index.css');
+}
+
+function karson_defer_css()
+{
+
+    if (akina_option('jsdelivr_cdn_test')) {
+        $jsdelivr_css_src = get_template_directory_uri() . "/cdn/css/lib.css?" . SAKURA_VERSION . akina_option('cookie_version', '');
+    } else {
+        $jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/mashirozx/Sakura@" .  SAKURA_VERSION  . "/cdn/css/lib.min.css";
+    }
+    if (akina_option('entry_content_theme') == "sakura") {
+        $entry_content_theme_src =  get_template_directory_uri() . "/cdn/theme/sakura.css?" . SAKURA_VERSION . akina_option('cookie_version', '');
+    } elseif (akina_option('entry_content_theme') == "github") {
+        $entry_content_theme_src = get_template_directory_uri() . "/cdn/theme/github.css?" . SAKURA_VERSION . akina_option('cookie_version', '');
+    }
+    wp_enqueue_style('lib-defer', $jsdelivr_css_src);
+    wp_enqueue_style('theme-defer', $entry_content_theme_src);
+    wp_enqueue_style('iconfont-defer', 'https://at.alicdn.com/t/font_679578_qyt5qzzavdo39pb9.css');
+    wp_enqueue_style('aplayer-defer', 'https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css');
+    wp_enqueue_style('googlefont-defer', 'https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC');
 }
 
 /**
@@ -75,6 +105,7 @@ function karson_requirejs_package($path = '')
 }
 
 add_action('wp_enqueue_scripts', 'karson_partial_debug_css');
+add_action('wp_enqueue_scripts', 'karson_defer_css');
 //priority 101 just in case other scripts conflit with require.js asynchronous load
 add_action('wp_enqueue_scripts', 'karson_requirejs_main');
 
@@ -94,26 +125,38 @@ if (!is_admin()) {
     //         return str_replace('text/javascript', 'module', $url);
     // }
     // add_filter('clean_url', 'add_defer', 11, 1);
-    
+
 }
 
-//support async or defer attribute for script named with suffix -async or -defer
-if(!is_admin()) {
-    function add_asyncdefer_attribute($tag, $handle) {
+//===== one time executing function =====
+
+/**support async or defer attribute for script named with suffix -async or -defer
+/* https://www.filamentgroup.com/lab/load-css-simpler/
+ */
+if (!is_admin()) {
+    function js_asyncdefer_feature($tag, $handle, $src)
+    {
         // if the unique handle/name of the registered script has 'async' in it
         if (strpos($handle, '-async') !== false) {
             // return the tag with the async attribute
-            return str_replace( '<script ', '<script async ', $tag );
+            return str_replace('<script ', '<script async ', $tag);
         }
         // if the unique handle/name of the registered script has 'defer' in it
         else if (strpos($handle, '-defer') !== false) {
             // return the tag with the defer attribute
-            return str_replace( '<script ', '<script defer ', $tag );
+            return str_replace('<script ', '<script defer ', $tag); //js
         }
         // otherwise skip
-        else {
-            return $tag;
-        }
+        return $tag;
     }
-    add_filter('script_loader_tag', 'add_asyncdefer_attribute', 10, 2);
+    add_filter('script_loader_tag', 'js_asyncdefer_feature', 10, 3);
+
+    function css_defer_feature($tag, $handle)
+    {
+        if (strpos($handle, '-defer') !== false) {
+            return str_replace("media='all'", 'media="print" onload="this.media=\'all\';"', $tag);
+        }
+        return $tag;
+    }
+    add_filter('style_loader_tag', 'css_defer_feature', 10, 2);
 }

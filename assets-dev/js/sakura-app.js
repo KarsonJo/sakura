@@ -15,14 +15,6 @@ mashiro_global.ini = new function () {
         // checkskinSecter();
         // scrollBar();
     }
-    this.pjax = function () { // pjax reload functions (pjax 重载函数)
-        pjaxInit();
-        social_share();
-        post_list_show_animation();
-        // copy_code_block();
-        // coverVideoIni();
-        // checkskinSecter();
-    }
 }
 
 function setCookie(name, value, days) {
@@ -252,43 +244,6 @@ function tableOfContentScroll() {
     console.log("obsolete");
 }
 
-var pjaxInit = function () {
-    add_upload_tips();
-    no_right_click();
-    click_to_view_image();
-    original_emoji_click();
-    $("p").remove(".head-copyright");
-    try {
-        code_highlight_style();
-    } catch (e) { };
-    try {
-        getqqinfo();
-    } catch (e) { };
-    lazyload();
-    $("#to-load-aplayer").click(function () {
-        try {
-            reloadHermit();
-        } catch (e) { };
-        $("div").remove(".load-aplayer");
-    });
-    if ($("div").hasClass("aplayer")) {
-        try {
-            reloadHermit();
-        } catch (e) { };
-    }
-    $('.iconflat').css('width', '50px').css('height', '50px');
-    $('.openNav').css('height', '50px');
-    $("#bg-next").click(function () {
-        nextBG();
-    });
-    $("#bg-pre").click(function () {
-        preBG();
-    });
-    smileBoxToggle();
-    timeSeriesReload();
-    add_copyright();
-    tableOfContentScroll();
-}
 $(document).on("click", ".sm", function () {
     var msg = "您真的要设为私密吗？";
     if (confirm(msg) == true) {
@@ -317,12 +272,6 @@ $.fn.commentPrivate = function () {
         return false;
     }
 };
-
-// karson_todo
-// wrap it in AMD js style
-POWERMODE.colorful = true;
-POWERMODE.shake = false;
-document.body.addEventListener('input', POWERMODE);
 
 function motionSwitch(ele) {
     var motionEles = [".bili", ".menhera", ".tieba"];
@@ -649,232 +598,6 @@ setTimeout(function () {
 }, 100);
 
 mashiro_global.ini.normalize();
-loadCSS(mashiro_option.jsdelivr_css_src);
-loadCSS(mashiro_option.entry_content_theme_src);
-loadCSS("https://at.alicdn.com/t/font_679578_qyt5qzzavdo39pb9.css");
-loadCSS("https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css");
-loadCSS("https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC");
-(function webpackUniversalModuleDefinition(b, a) {
-    if (typeof exports === "object" && typeof module === "object") {
-        module.exports = a()
-    } else {
-        if (typeof define === "function" && define.amd) {
-            define([], a)
-        } else {
-            if (typeof exports === "object") {
-                exports.POWERMODE = a()
-            } else {
-                b.POWERMODE = a()
-            }
-        }
-    }
-})(this, function () {
-    return (function (c) {
-        var b = {};
-
-        function a(e) {
-            if (b[e]) {
-                return b[e].exports
-            }
-            var d = b[e] = {
-                exports: {},
-                id: e,
-                loaded: false
-            };
-            c[e].call(d.exports, d, d.exports, a);
-            d.loaded = true;
-            return d.exports
-        }
-        a.m = c;
-        a.c = b;
-        a.p = "";
-        return a(0)
-    })([function (j, e, a) {
-        var b = document.createElement("canvas");
-        b.width = window.innerWidth;
-        b.height = window.innerHeight;
-        b.style.cssText = "position:fixed;top:0;left:0;pointer-events:none;z-index:999999";
-        window.addEventListener("resize", function () {
-            b.width = window.innerWidth;
-            b.height = window.innerHeight
-        });
-        document.body.appendChild(b);
-        var c = b.getContext("2d");
-        var l = [];
-        var k = 0;
-        m.shake = true;
-
-        function h(o, n) {
-            return Math.random() * (n - o) + o
-        }
-
-        function g(n) {
-            if (m.colorful) {
-                var o = h(0, 360);
-                return "hsla(" + h(o - 10, o + 10) + ", 100%, " + h(50, 80) + "%, " + 1 + ")"
-            } else {
-                return window.getComputedStyle(n).color
-            }
-        }
-
-        function f() {
-            var o = document.activeElement;
-            var n;
-            if (o.tagName === "TEXTAREA" || (o.tagName === "INPUT" && o.getAttribute("type") === "text")) {
-                var p = a(1)(o, o.selectionStart);
-                n = o.getBoundingClientRect();
-                return {
-                    x: p.left + n.left,
-                    y: p.top + n.top,
-                    color: g(o)
-                }
-            }
-            var r = window.getSelection();
-            if (r.rangeCount) {
-                var q = r.getRangeAt(0);
-                var s = q.startContainer;
-                if (s.nodeType === document.TEXT_NODE) {
-                    s = s.parentNode
-                }
-                n = q.getBoundingClientRect();
-                return {
-                    x: n.left,
-                    y: n.top,
-                    color: g(s)
-                }
-            }
-            return {
-                x: 0,
-                y: 0,
-                color: "transparent"
-            }
-        }
-
-        function d(o, p, n) {
-            return {
-                x: o,
-                y: p,
-                alpha: 1,
-                color: n,
-                velocity: {
-                    x: -1 + Math.random() * 2,
-                    y: -3.5 + Math.random() * 2
-                }
-            }
-        }
-
-        function m() {
-            var n = f();
-            var p = 5 + Math.round(Math.random() * 10);
-            while (p--) {
-                l[k] = d(n.x, n.y, n.color);
-                k = (k + 1) % 500
-            }
-            if (m.shake) {
-                var o = 1 + 2 * Math.random();
-                var q = o * (Math.random() > 0.5 ? -1 : 1);
-                var r = o * (Math.random() > 0.5 ? -1 : 1);
-                document.body.style.marginLeft = q + "px";
-                document.body.style.marginTop = r + "px";
-                setTimeout(function () {
-                    document.body.style.marginLeft = "";
-                    document.body.style.marginTop = ""
-                }, 75)
-            }
-        }
-        m.colorful = false;
-
-        function i() {
-            requestAnimationFrame(i);
-            c.clearRect(0, 0, b.width, b.height);
-            for (var n = 0; n < l.length; ++n) {
-                var o = l[n];
-                if (o.alpha <= 0.1) {
-                    continue
-                }
-                o.velocity.y += 0.075;
-                o.x += o.velocity.x;
-                o.y += o.velocity.y;
-                o.alpha *= 0.96;
-                c.globalAlpha = o.alpha;
-                c.fillStyle = o.color;
-                c.fillRect(Math.round(o.x - 1.5), Math.round(o.y - 1.5), 3, 3)
-            }
-        }
-        requestAnimationFrame(i);
-        j.exports = m
-    }, function (b, a) {
-        (function () {
-            var e = ["direction", "boxSizing", "width", "height", "overflowX", "overflowY", "borderTopWidth", "borderRightWidth", "borderBottomWidth", "borderLeftWidth", "borderStyle", "paddingTop", "paddingRight", "paddingBottom", "paddingLeft", "fontStyle", "fontVariant", "fontWeight", "fontStretch", "fontSize", "fontSizeAdjust", "lineHeight", "fontFamily", "textAlign", "textTransform", "textIndent", "textDecoration", "letterSpacing", "wordSpacing", "tabSize", "MozTabSize"];
-            var d = window.mozInnerScreenX != null;
-
-            function c(k, m, l) {
-                var h = l && l.debug || false;
-                if (h) {
-                    var j = document.querySelector("#input-textarea-caret-position-mirror-div");
-                    if (j) {
-                        j.parentNode.removeChild(j)
-                    }
-                }
-                var i = document.createElement("div");
-                i.id = "input-textarea-caret-position-mirror-div";
-                document.body.appendChild(i);
-                var o = i.style;
-                var f = window.getComputedStyle ? getComputedStyle(k) : k.currentStyle;
-                o.whiteSpace = "pre-wrap";
-                if (k.nodeName !== "INPUT") {
-                    o.wordWrap = "break-word"
-                }
-                o.position = "absolute";
-                if (!h) {
-                    o.visibility = "hidden"
-                }
-                e.forEach(function (p) {
-                    o[p] = f[p]
-                });
-                if (d) {
-                    if (k.scrollHeight > parseInt(f.height)) {
-                        o.overflowY = "scroll"
-                    }
-                } else {
-                    o.overflow = "hidden"
-                }
-                i.textContent = k.value.substring(0, m);
-                if (k.nodeName === "INPUT") {
-                    i.textContent = i.textContent.replace(/\s/g, "\u00a0")
-                }
-                var n = document.createElement("span");
-                n.textContent = k.value.substring(m) || ".";
-                i.appendChild(n);
-                var g = {
-                    top: n.offsetTop + parseInt(f.borderTopWidth),
-                    left: n.offsetLeft + parseInt(f.borderLeftWidth)
-                };
-                if (h) {
-                    n.style.backgroundColor = "#aaa"
-                } else {
-                    document.body.removeChild(i)
-                }
-                return g
-            }
-            if (typeof b != "undefined" && typeof b.exports != "undefined") {
-                b.exports = c
-            } else {
-                window.getCaretCoordinates = c
-            }
-        }())
-    }])
-});
-
-// (function () {
-//     try {
-//         $("pre").has("code").addClass('highlight-wrap');
-//         $("pre code").each(function (i, block) {
-//             hljs.highlightBlock(block);
-//         });
-//     } 
-//     catch (e) { }
-// })();
 
 //table of content
 (function () {
@@ -1534,11 +1257,7 @@ var home = location.href,
                 });
             });
         },
-        IA: function () {
-            POWERMODE.colorful = true;
-            POWERMODE.shake = false;
-            document.body.addEventListener('input', POWERMODE)
-        },
+
     }
 $(function () {
     // Siren.AH();
@@ -1547,7 +1266,6 @@ $(function () {
     Siren.XCP();
     Siren.CE();
     Siren.MN();
-    Siren.IA();
     // Siren.LV();
     $.fn.postLike = function () {
         if ($(this).hasClass('done')) {

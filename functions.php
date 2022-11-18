@@ -1,7 +1,7 @@
 <?php
 
 $roots_includes = array(
-    '/functions/karson/jsloader.php',
+    '/functions/karson/resource-loader.php',
     '/functions/karson/jsconfig.php',
     '/functions/karson/post-util.php',
     'layouts/common-layouts.php',

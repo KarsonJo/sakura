@@ -12,6 +12,7 @@
 
 ?>
 </div><!-- #content -->
+<?php comments_template('', true); ?>
 <!--</div> #page Pjax container-->
 <footer id="colophon" class="site-footer" role="contentinfo">
 	<div class="site-info" theme-info="Sakura v<?php echo SAKURA_VERSION; ?>">
