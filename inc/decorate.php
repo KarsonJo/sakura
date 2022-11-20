@@ -34,12 +34,6 @@ body {
     background-color: var(--theme-main-color);
 }
 <?php } ?>
-<?php if(akina_option('live_search')){ ?>
-.search-form--modal .search-form__inner {
-    bottom: unset !important;
-    top: 10% !important;
-}
-<?php } ?>
 
 
 <?php } // theme-skin ?>
@@ -53,11 +47,6 @@ if ( akina_option('list_type') == 'square') { ?>
 .feature img{ border-radius: 0px !important; }
 .feature i { border-radius: 0px !important; }
 <?php } // liststyle ?>
-<?php // comments
-if ( akina_option('toggle-menu') == 'no') { ?>
-.comments .comments-main {display:block !important;}
-.comments .comments-hidden {display:none !important;}
-<?php } // comments ?>
 
 <?php if(akina_option('comment_info_box_width', '')): ?>
 .cmt-popup {

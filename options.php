@@ -268,16 +268,6 @@ function optionsframework_options()
         ));
 
     $options[] = array(
-        'name' => __('Comment shrink', 'sakura'), /*评论收缩*/
-        'id' => 'toggle-menu',
-        'std' => "yes",
-        'type' => "radio",
-        'options' => array(
-            'yes' => __('Open', 'sakura'), /*开启*/
-            'no' => __('Close', 'sakura'), /*关闭*/
-        ));
-
-    $options[] = array(
         'name' => __('Display author information at the end of the article?', 'sakura'), /*文章末尾显示作者信息？*/
         'desc' => __('Check to enable', 'sakura'), /*勾选启用*/
         'id' => 'show_authorprofile',
@@ -1074,14 +1064,7 @@ function optionsframework_options()
         'id' => 'cookie_version',
         'std' => '',
         'type' => 'text');
-
-    $options[] = array(
-        'name' => __('Enable NProgress progress bar', 'sakura'), /*开启NProgress加载进度条*/
-        'desc' => __('Default off, check on', 'sakura'), /*默认不开启，勾选开启*/
-        'id' => 'nprogress_on',
-        'std' => '0',
-        'type' => 'checkbox');
-
+        
     $options[] = array(
         'name' => __('Enable sidebar widget', 'sakura'), /*支持侧栏小部件*/
         'desc' => __('Default off, check on', 'sakura'), /*默认不开启，勾选开启*/

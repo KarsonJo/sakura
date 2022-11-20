@@ -200,7 +200,7 @@ header('X-Frame-Options: SAMEORIGIN'); ?>
 					<!-- right menu -->
 					<div class="site-top-aside">
 						<?php if (akina_option('top_search') == 'yes') { ?>
-							<div class="searchbox"><i class="iconfont js-toggle-search iconsearch icon-search"></i></div>
+							<div class="searchbox"><i class="iconfont search-btn iconsearch icon-search"></i></div>
 						<?php }
 						header_user_menu(); ?>
 					</div>

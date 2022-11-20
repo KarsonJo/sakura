@@ -17,6 +17,7 @@ mashiro_global.ini = new function () {
     }
 }
 
+// ===== utility functions =====
 function setCookie(name, value, days) {
     var expires = "";
     if (days) {
@@ -44,6 +45,44 @@ function imgError(ele, type) {
         default:
             ele.src = 'https://view.moezx.cc/images/2018/05/13/image-404.png';
     }
+}
+
+// https://www.educative.io/answers/how-to-dynamically-load-a-js-file-in-javascript
+// https://stackoverflow.com/questions/27424109/iterate-over-array-of-winjs-promises-and-break-if-one-completed-successful?rq=1
+/**
+ * dynamically load javascript.
+ * fallback if former one fails.
+ * promise supported.
+ * @param {*} urls source array in priority
+ * @param {boolean} async
+ * @param {string} type 
+ * @returns Promise object
+ */
+function jsLoader(urls, async = true, type = "text/javascript") {
+    var load = (url) => {
+        return () => new Promise((resolve, reject) => {
+            const scriptEle = document.createElement("script");
+            try {
+                scriptEle.type = type;
+                scriptEle.async = async;
+                scriptEle.src = url;
+
+                scriptEle.addEventListener("load", () => resolve());
+                scriptEle.addEventListener("error", () => { console.log("fallback to next src..."); rejectHandler(); });
+
+                document.body.appendChild(scriptEle);
+            } catch (error) {
+                rejectHandler(error);
+            }
+
+            var rejectHandler = (e) => {
+                document.body.removeChild(scriptEle);
+                reject(e);
+            }
+        });
+    };
+
+    return urls.reduce((p, url) => p.catch(load(url)), Promise.reject()).catch((e) => { console.log("oops, all src failed"); throw e; });
 }
 
 function post_list_show_animation() {
@@ -599,6 +638,27 @@ setTimeout(function () {
 
 mashiro_global.ini.normalize();
 
+// active power mode
+(function () {
+    const $elem = $("textarea, .powermode"); //select all textarea and powermode class
+
+    var io = new IntersectionObserver(init, { root: null, threshold: [0] })
+
+    function init(entries) {
+        if (entries.some((x) => x.intersectionRatio > 0)) {
+            jsLoader(themeNova.cdn.powermode)
+                .then(() => {
+                    POWERMODE.colorful = true; // make power mode colorful
+                    POWERMODE.shake = false; // turn off shake
+                    $elem.each((_, x) => x.addEventListener('input', POWERMODE));
+                })
+            io.disconnect();
+        }
+    }
+
+    $elem.each((_, x) => io.observe(x));
+})();
+
 //table of content
 (function () {
     if ($("#have-toc").length) {
@@ -614,7 +674,7 @@ mashiro_global.ini.normalize();
     }
 })();
 
-// switch background
+// switch cover image
 (function () {
     var bgn = 1;
 
@@ -648,7 +708,6 @@ mashiro_global.ini.normalize();
     const $fontList = $(".font-family-controls");
     const fontClassPrefix = "font-";
     const fontClassRegex = new RegExp(`(^|\\s)${fontClassPrefix}\\S+`, "g");
-    const darkId = "dark-bg";
 
     function skinValid(skin) {
         return skin != "none";
@@ -742,7 +801,7 @@ mashiro_global.ini.normalize();
     });
 })();
 
-// header cover
+// header cover mode
 (function () {
     if (Poi.windowheight == 'auto' && mashiro_option.windowheight == 'auto') {
         $('.headertop').addClass('height-full');
@@ -757,7 +816,7 @@ mashiro_global.ini.normalize();
 
     // const scrollProgress = () => $(window).scrollTop() / ($(document).height() - $(window).height()) * 100
 
-    function updateScroll(){
+    function updateScroll() {
         var p = $(window).scrollTop() / ($(document).height() - $(window).height()) * 100;
         p > 0 ? $("body").addClass('scroll-down') : $("body").removeClass('scroll-down');
         if ($bar.length) $bar.css("width", p + "%");
@@ -932,30 +991,31 @@ mashiro_global.ini.normalize();
             scrollTop: 0
         })
     }
-})()
+})();
+
+// ===== scattered initialize here =====
+//eg. click events
+(function () {
+    //mobile navigation
+    $('.iconflat').on('click', () => {
+        $('body').toggleClass('navOpen');
+        $('#main-container,#mo-nav,.openNav').toggleClass('open');
+    });
+
+    //search
+    $('.search-btn').on('click', () => {
+        $('.search-panel').addClass('visible');
+        $('html').addClass('no-overflow');
+    });
+    $('.search-close').on('click', ()=> {
+        $('.search-panel').removeClass('visible');
+        $('html').removeClass('no-overflow');
+    });
+})();
 
 var home = location.href,
     Siren = {
-        s: $('#bgvideo')[0],
-        MN: function () {
-            $('.iconflat').on('click', function () {
-                $('body').toggleClass('navOpen');
-                $('#main-container,#mo-nav,.openNav').toggleClass('open');
-            });
-        },
-        MNH: function () {
-            if ($('body').hasClass('navOpen')) {
-                $('body').toggleClass('navOpen');
-                $('#main-container,#mo-nav,.openNav').toggleClass('open');
-            }
-        },
         CE: function () {
-            $('.comments-hidden').show();
-            $('.comments-main').hide();
-            $('.comments-hidden').click(function () {
-                $('.comments-main').slideDown(500);
-                $('.comments-hidden').hide();
-            });
             $('.archives').hide();
             $('.archives:first').show();
             $('#archives-temp h3').click(function () {
@@ -970,141 +1030,6 @@ var home = location.href,
                     ignoreClass: 'fancybox',
                 });
             }
-            $('.js-toggle-search').on('click', function () {
-                $('.js-search').addClass('visible');
-                $('html').addClass('no-overflow');
-                if (mashiro_option.live_search) {
-                    var QueryStorage = [];
-                    search_a(Poi.api + "sakura/v1/cache_search/json?_wpnonce=" + Poi.nonce);
-
-                    var otxt = addComment.I("search-input"),
-                        list = addComment.I("PostlistBox"),
-                        Record = list.innerHTML,
-                        searchFlag = null;
-                    otxt.oninput = function () {
-                        if (searchFlag = null) {
-                            clearTimeout(searchFlag);
-                        }
-                        searchFlag = setTimeout(function () {
-                            query(QueryStorage, otxt.value, Record);
-                            div_href();
-                        }, 250);
-                    };
-
-                    function search_a(val) {
-                        if (sessionStorage.getItem('search') != null) {
-                            QueryStorage = JSON.parse(sessionStorage.getItem('search'));
-                            query(QueryStorage, $("#search-input").val(), Record);
-                            div_href();
-                        } else {
-                            var _xhr = new XMLHttpRequest();
-                            _xhr.open("GET", val, true)
-                            _xhr.send();
-                            _xhr.onreadystatechange = function () {
-                                if (_xhr.readyState == 4 && _xhr.status == 200) {
-                                    json = _xhr.responseText;
-                                    if (json != "") {
-                                        sessionStorage.setItem('search', json);
-                                        QueryStorage = JSON.parse(json);
-                                        query(QueryStorage, otxt.value, Record);
-                                        div_href();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    if (!Object.values) Object.values = function (obj) {
-                        if (obj !== Object(obj))
-                            throw new TypeError('Object.values called on a non-object');
-                        var val = [],
-                            key;
-                        for (key in obj) {
-                            if (Object.prototype.hasOwnProperty.call(obj, key)) {
-                                val.push(obj[key]);
-                            }
-                        }
-                        return val;
-                    }
-
-                    function Cx(arr, q) {
-                        q = q.replace(q, "^(?=.*?" + q + ").+$").replace(/\s/g, ")(?=.*?");
-                        i = arr.filter(
-                            v => Object.values(v).some(
-                                v => new RegExp(q + '').test(v)
-                            )
-                        );
-                        return i;
-                    }
-
-                    function div_href() {
-                        $(".ins-selectable").each(function () {
-                            $(this).click(function () {
-                                $("#Ty").attr('href', $(this).attr('href'));
-                                $("#Ty").click();
-                                $(".search-close").click();
-                            });
-                        });
-                    }
-
-                    function search_result(keyword, link, fa, title, iconfont, comments, text) {
-                        if (keyword) {
-                            var s = keyword.trim().split(" "),
-                                a = title.indexOf(s[s.length - 1]),
-                                b = text.indexOf(s[s.length - 1]);
-                            title = a < 60 ? title.slice(0, 80) : title.slice(a - 30, a + 30);
-                            title = title.replace(s[s.length - 1], '<mark class="search-keyword"> ' + s[s.length - 1].toUpperCase() + ' </mark>');
-                            text = b < 60 ? text.slice(0, 80) : text.slice(b - 30, b + 30);
-                            text = text.replace(s[s.length - 1], '<mark class="search-keyword"> ' + s[s.length - 1].toUpperCase() + ' </mark>');
-                        }
-                        return '<div class="ins-selectable ins-search-item" href="' + link + '"><header><i class="fa fa-' + fa + '" aria-hidden="true"></i>' + title + '<i class="iconfont icon-' + iconfont + '"> ' + comments + '</i>' + '</header><p class="ins-search-preview">' + text + '</p></div>';
-                    }
-
-                    function query(B, A, z) {
-                        var x, v, s, y = "",
-                            w = "",
-                            u = "",
-                            r = "",
-                            p = "",
-                            F = "",
-                            H = "",
-                            G = '<section class="ins-section"><header class="ins-section-header">',
-                            D = "</section>",
-                            E = "</header>",
-                            C = Cx(B, A.trim());
-                        for (x = 0; x < Object.keys(C).length; x++) {
-                            H = C[x];
-                            switch (v = H.type) {
-                                case "post":
-                                    w = w + search_result(A, H.link, "file", H.title, "mark", H.comments, H.text);
-                                    break;
-                                case "tag":
-                                    p = p + search_result("", H.link, "tag", H.title, "none", "", "");
-                                    break;
-                                case "category":
-                                    r = r + search_result("", H.link, "folder", H.title, "none", "", "");
-                                    break;
-                                case "page":
-                                    u = u + search_result(A, H.link, "file", H.title, "mark", H.comments, H.text);
-                                    break;
-                                case "comment":
-                                    F = F + search_result(A, H.link, "comment", H.title, "none", "", H.text);
-                                    break
-                            }
-                        }
-                        w && (y = y + G + "文章" + E + w + D), u && (y = y + G + "页面" + E + u + D), r && (y = y + G + "分类" + E + r + D), p && (y = y + G + "标签" + E + p + D), F && (y = y + G + "评论" + E + F + D), s = addComment.I("PostlistBox"), s.innerHTML = y
-                    }
-                }
-            });
-            $('.search-close').on('click', function () {
-                if ($('.js-search').hasClass('visible')) {
-                    $('.js-search').toggleClass('visible');
-                    $('html').removeClass('no-overflow');
-                }
-            });
-
-            // $("#loading").click(function () {
-            //     $("#loading").fadeOut(500);
-            // });
         },
         XCS: function () {
             var __cancel = jQuery('#cancel-comment-reply-link'),
@@ -1260,13 +1185,9 @@ var home = location.href,
 
     }
 $(function () {
-    // Siren.AH();
-    // Siren.GT();//mod
     Siren.XCS();
     Siren.XCP();
     Siren.CE();
-    Siren.MN();
-    // Siren.LV();
     $.fn.postLike = function () {
         if ($(this).hasClass('done')) {
             return false;

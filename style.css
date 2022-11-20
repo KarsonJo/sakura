@@ -229,10 +229,6 @@ html {
     overflow-x: hidden
 }
 
-input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 1000px #fff inset
-}
-
 ::selection {
     background: #444;
     color: #fff
@@ -660,7 +656,7 @@ input[type=submit]:focus {
     box-shadow: inset 0 -1px 0 rgba(255, 255, 255, .5), inset 0 2px 5px rgba(0, 0, 0, .15)
 }
 
-input[type=color],
+/* input[type=color],
 input[type=date],
 input[type=datetime-local],
 input[type=datetime],
@@ -678,7 +674,7 @@ input[type=week],
 textarea {
     border: 1px solid #ccc;
     border-radius: 3px
-}
+} */
 
 select {
     border: 1px solid #ccc
@@ -997,10 +993,6 @@ a:hover {
     width: 70%
 }
 
-.entry-title a {
-    color: var(--bg-color-primary);
-}
-
 .entry-title a:hover {
     color: var(--theme-main-color);
 }
@@ -1010,7 +1002,7 @@ a:hover {
     right: 0;
     top: 16px;
     font-size: 12px;
-    color: #989898;
+    color: var(--text-tertiary);
     letter-spacing: 0
 }
 
@@ -1028,7 +1020,7 @@ i.iconfont.hotpost {
     min-height: 60px;
     margin: 0 0 0 17%;
     font-size: 15px;
-    color: rgba(0, 0, 0, .66);
+    color: var(--text-secondary);
     letter-spacing: 0;
     line-height: 30px
 }
@@ -1045,11 +1037,7 @@ i.iconfont.hotpost {
 
 .post-more i {
     font-size: 25px;
-    color: #666
-}
-
-.post-more i:hover {
-    color: #000
+    color: var(--text-secondary);
 }
 
 .info-meta {
@@ -1069,7 +1057,6 @@ i.iconfont.hotpost {
 }
 
 .info-meta span {
-    color: #000;
     font-size: 13px;
     vertical-align: bottom
 }
@@ -1082,10 +1069,6 @@ i.iconfont.hotpost {
 
 .comnum {
     float: left
-}
-
-.info-meta a {
-    color: #000
 }
 
 .post-list:hover .info-meta {
@@ -1211,10 +1194,6 @@ h1.page-title {
     padding: 10px 15px;
     color: #828282;
     margin-bottom: 30px
-}
-
-h1.page-title.mb- {
-    margin-top: 100px
 }
 
 /* .cd-top {
@@ -1635,7 +1614,6 @@ body.scroll-down .cd-top {
     font-size: 13px;
     line-height: 30px;
     margin: 15px 0 0;
-    color: #7d8588;
     letter-spacing: 0;
     display: inline-block;
     padding: 10px 20px;
@@ -2413,11 +2391,6 @@ a.page-numbers {
     }
 }
 
-.comments .comments-hidden {
-    display: none;
-    cursor: pointer
-}
-
 .comments .comments-main {
     overflow: hidden;
     -webkit-transition: height 0s ease-out;
@@ -3172,7 +3145,7 @@ li.feature-2 {
     visibility: visible
 }
 
-i.iconfont.js-toggle-search.iconsearch {
+i.iconfont.search-btn.iconsearch {
     color: #666;
     cursor: pointer;
     font-size: 26px;
@@ -3185,8 +3158,7 @@ i.iconfont.js-toggle-search.iconsearch {
         1px 1px 0 #fff;
 }
 
-.search-form--modal {
-    transition: visibility .25s ease, opacity .25s ease;
+.search-panel {
     overflow: hidden;
     z-index: 9999;
     position: fixed;
@@ -3197,39 +3169,21 @@ i.iconfont.js-toggle-search.iconsearch {
     background: var(--bg-color-trans-l);
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
-    visibility: hidden;
-    opacity: 0
+    display: flex;
 }
 
-.search-form--modal .search-form__inner {
-    max-width: 640px;
-    padding: 0 20px;
-    margin: auto;
-    text-align: left;
-    position: absolute;
-    width: 100%;
-    left: 0;
-    right: 0;
-    height: 285px;
-    top: 0;
-    bottom: 0
+.search-panel:not(.visible) {
+    display: none;
 }
 
-.search-form--modal .search-form__inner .mb- {
-    font-size: 24px;
-    padding: 10px 20px;
-}
-
-.search-form.visible {
-    visibility: visible;
-    opacity: .99;
+.search-panel.visible {
     animation: elastic .5s;
-    /* background-image: url(https://cdn.jsdelivr.net/gh/moezx/cdn@3.2.1/img/other/iloli.gif); */
+    background-image: url(https://cdn.jsdelivr.net/gh/moezx/cdn@3.2.1/img/other/iloli.gif);
     background-repeat: no-repeat;
     background-position: bottom right
 }
 
-.search-form .search-close {
+.search-panel .search-close {
     position: absolute;
     width: 30px;
     height: 30px;
@@ -3240,6 +3194,13 @@ i.iconfont.js-toggle-search.iconsearch {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.search-panel>:first-child {
+    max-width: 640px;
+    flex: 1;
+    margin: 50px auto;
+    padding: 12px 24px;
 }
 
 .search-close:after,
@@ -3266,44 +3227,23 @@ i.iconfont.js-toggle-search.iconsearch {
     background-color: var(--theme-main-color);
 }
 
-.search-form i {
-    font-size: 32px;
+.search-panel i {
     font-size: 2rem;
-    line-height: 1;
-    color: #ddd;
-    position: absolute;
-    bottom: 15px;
-    margin-top: -16px;
-    left: 16px
 }
 
-.search-form input {
-    font-size: 24px;
+.search-panel input {
     font-size: 1.5rem;
-    background: var(--bg-color-container);
-    padding: 12px 24px 12px 64px;
-    width: 100%;
+    background: transparent;
+    border: 0;
     outline: 0;
-    border-radius: 50px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box
+    width: 100%;
 }
 
-.search-form input::-webkit-input-placeholder {
-    color: #ddd
-}
-
-.search-form input:-moz-placeholder {
-    color: #ddd
-}
-
-.search-form input::-moz-placeholder {
-    color: #ddd
-}
-
-.search-form input:-ms-input-placeholder {
-    color: #ddd
+.search-panel input::-webkit-input-placeholder,
+.search-panel input:-moz-placeholder,
+.search-panel input::-moz-placeholder ,
+.search-panel input:-ms-input-placeholder {
+    color: var(--text-tertiary);
 }
 
 .s-search {
@@ -3338,129 +3278,13 @@ i.iconfont.js-toggle-search.iconsearch {
     list-style-type: decimal
 }
 
-.micro {
-    position: relative
-}
-
-.ins-section-wrapper a {
-    -webkit-transition: none;
-    transition: none;
-}
-
-.ins-section-wrapper header {
-    position: unset;
-    width: auto;
-}
-
-.ins-selectable {
-    cursor: pointer;
-}
-
-.ins-section-wrapper {
-    left: 0;
-    right: 0;
-    top: 45px;
-    bottom: 0;
-    margin-top: 45px;
-    height: 70vh;
-    overflow-y: auto;
-    position: absolute;
-    border-radius: 14px 0 0 14px;
-    scroll-behavior: smooth;
-}
-
-.ins-section-container {
-    position: relative;
-    background: transparent;
-    border-radius: 5px;
-    font-family: none;
-}
-
-.ins-section {
-    font-size: 14px;
-}
-
-.ins-section .iconfont.icon-mark {
-    font-size: 13px;
-    color: #ccc;
-    bottom: unset;
-    margin-top: unset;
-    line-height: unset;
-    margin-left: 16px;
-    left: unset;
-    position: unset;
-}
-
-.ins-section .fa {
-    font-size: 18px;
-    color: #333;
-    bottom: unset;
-    left: 12px;
-    margin-top: -3px;
-    line-height: unset;
-}
-
-body.dark .ins-section .fa {
-    color: #ccc;
-}
-
-.ins-section .ins-section-header,
-.ins-section .ins-search-item {
-    padding: 8px 15px;
-    cursor: url(https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/cursor/ayuda.cur), auto;
-}
-
-.ins-section .ins-search-item .search-keyword {
-    font-size: 15px;
-    border-radius: 5px;
-}
-
-.ins-section .ins-section-header {
-    position: sticky;
-    top: 0;
-    background: var(--bg-color-trans-l);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-    text-align: center;
-    padding: 8px 15px;
-    z-index: 1;
-    color: #9a9a9a;
-    border-bottom: 1px solid #e2e2e2;
-}
-
-.ins-section .ins-search-item header,
-.ins-section .ins-search-item .ins-search-preview {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    color: #9a9a9a;
-    margin-left: 20px;
-}
-
-.ins-section .ins-search-item header i {
-    margin-right: 8px;
-}
-
-.ins-section .ins-search-item .ins-search-preview {
-    font-size: 12px;
-    color: #9a9a9a;
-    margin: 5px 0 0 0px;
-    cursor: url(https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/cursor/ayuda.cur), auto;
-}
-
-.ins-section .ins-search-item:hover,
-.ins-section .ins-search-item.active {
-    color: #fff;
-    background: rgba(0, 0, 0, 0.1);
-}
-
-.ins-section .ins-search-item:hover .ins-slug,
-.ins-section .ins-search-item.active .ins-slug,
-.ins-section .ins-search-item:hover .ins-search-preview,
-.ins-section .ins-search-item.active .ins-search-preview,
-.ins-section .ins-search-item:hover header,
-.ins-section .ins-search-item:hover .iconfont {
-    color: #333;
+.search-panel .search-form {
+    display: flex;
+    margin: auto;
+    border-radius: 50px;
+    background: var(--bg-color-container);
+    border: 1px solid var(--text-secondary);
+    gap: 12px;
 }
 
 .sorry ul {
@@ -3514,12 +3338,12 @@ body.dark .ins-section .fa {
     color: #fff
 }
 
-.text-input:hover,
+.hover-glow:hover,
 .err-button.back a:hover {
-    -webkit-box-shadow: 0 0 4px var(--theme-main-color);
-    -moz-box-shadow: 0 0 4px var(--theme-main-color);
-    -o-box-shadow: 0 0 4px var(--theme-main-color);
-    box-shadow: 0 0 4px var(--theme-main-color);
+    -webkit-box-shadow: 0 0 6px var(--theme-main-color);
+    -moz-box-shadow: 0 0 6px var(--theme-main-color);
+    -o-box-shadow: 0 0 6px var(--theme-main-color);
+    box-shadow: 0 0 6px var(--theme-main-color);
 }
 
 #baguetteBox-overlay {
@@ -6360,7 +6184,7 @@ li>ol {
     padding: 0 20px;
 }
 
-.toc-container.visible{
+.toc-container.visible {
     visibility: visible;
 }
 
@@ -7656,7 +7480,7 @@ span.ar-circle,
 #archives-temp h3,
 span.page-numbers.current,
 .sorry li a:hover,
-i.iconfont.js-toggle-search.iconsearch:hover,
+i.iconfont.search-btn.iconsearch:hover,
 blockquote:before,
 blockquote:after {
     color: var(--theme-main-color);
@@ -7696,17 +7520,6 @@ blockquote:after {
 }
 
 /* ===End=== */
-body.dark .ins-section .ins-search-item:hover,
-body.dark .ins-section .ins-search-item.active,
-body.dark .ins-section .ins-search-item:hover .ins-slug,
-body.dark .ins-section .ins-search-item.active .ins-slug,
-body.dark .ins-section .ins-search-item:hover .ins-search-preview,
-body.dark .ins-section .ins-search-item.active .ins-search-preview,
-body.dark .ins-section .ins-search-item:hover header,
-body.dark .ins-section .ins-search-item:hover .iconfont {
-    color: #fff;
-    background: var(--theme-dark-color1);
-}
 
 body.dark .art-content #archives .al_mon_list .al_mon,
 body.dark .art-content #archives .al_mon_list span,
@@ -7774,7 +7587,7 @@ html,
 .site-footer,
 
 .toc-wrapper,
-.search-form input {
+.search-panel input {
     transition: background 1s;
 }
 

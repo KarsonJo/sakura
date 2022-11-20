@@ -112,27 +112,17 @@
 	</div>
 </div>
 <!-- search start -->
-<form class="js-search search-form search-form--modal" method="get" action="<?php echo home_url(); ?>" role="search">
-	<div class="search-form__inner">
-		<?php if (akina_option('live_search')) { ?>
-			<div class="micro">
-				<i class="iconfont icon-search"></i>
-				<input id="search-input" class="text-input" type="search" name="s" placeholder="<?php _e('Want to find something?', 'sakura') /*想要找点什么呢*/ ?>" required>
-			</div>
-			<div class="ins-section-wrapper">
-				<a id="Ty" href="#"></a>
-				<div class="ins-section-container" id="PostlistBox"></div>
-			</div>
-		<?php } else { ?>
-			<div class="micro">
-				<div class="micro mb-"><?php _e('Want to find something?', 'sakura') /*想要找点什么呢*/ ?></div>
-				<i class="iconfont icon-search"></i>
-				<input class="text-input" type="search" name="s" placeholder="<?php _e('Search', 'sakura') ?>" required>
-			</div>
-		<?php } ?>
-	</div>
+<div class="search-panel" method="get" action="<?php echo home_url(); ?>" role="search">
+	<?php if (akina_option('live_search')) { ?>
+		<?php echo do_shortcode('[wpdreams_ajaxsearchlite]'); ?>
+	<?php } else { ?>
+		<form class="search-form hover-glow">
+			<i class="iconfont icon-search"></i>
+			<input class="text-input" type="search" name="s" placeholder="<?php _e('Want to find something?', 'sakura') /*想要找点什么呢*/ ?>" required>
+		</form>
+	<?php } ?>
 	<div class="search-close"></div>
-</form>
+</div>
 <!-- search end -->
 <?php wp_footer(); ?>
 <?php if (akina_option('site_statistics')) { ?>

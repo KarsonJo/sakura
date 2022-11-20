@@ -128,10 +128,6 @@ msgstr ""
 msgid "Want to find something?"
 msgstr ""
 
-#: footer.php:86
-msgid "Search"
-msgstr ""
-
 #: footer.php:145
 msgid "Widgets"
 msgstr ""

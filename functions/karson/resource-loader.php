@@ -45,7 +45,7 @@ function karson_requirejs_main()
 
     // wp_enqueue_script("powermode", $dir_url . '/assets-dev/components/activate-power-mode.js', array('jQuery-CDN'), SAKURA_VERSION);
     wp_enqueue_script("lazyload-defer", $dir_url . '/assets-dev/components/lazyload.min.js', array('jQuery-CDN'), SAKURA_VERSION);
-    wp_enqueue_script("powermode-defer", $dir_url . '/assets-dev/components/activate-power-mode.js', array('jQuery-CDN'), SAKURA_VERSION);
+    // wp_enqueue_script("powermode-defer", $dir_url . '/assets-dev/components/activate-power-mode.js', array('jQuery-CDN'), SAKURA_VERSION);
     ob_start(); ?>
     <script>
         window.addEventListener("DOMContentLoaded", function() {
@@ -57,7 +57,6 @@ function karson_requirejs_main()
 <?php
     wp_add_inline_script('powermode-defer', ob_get_clean(), 'after');
     wp_enqueue_script("socialshare-defer", $dir_url . '/assets-dev/components/social-share.min.js', array('jQuery-CDN'), SAKURA_VERSION);
-    // wp_enqueue_script("loadCSS-defer", $dir_url . '/assets-dev/components/loadCSS.js', array('jQuery-CDN'), SAKURA_VERSION);
     wp_enqueue_script("tocbot-defer", $dir_url . '/assets-dev/components/tocbot/tocbot.min.js', array('jQuery-CDN'), SAKURA_VERSION);
     wp_enqueue_script("sakura-defer", $dir_url . '/assets-dev/js/sakura-app.js', array('jQuery-CDN'), SAKURA_VERSION);
 
@@ -106,27 +105,7 @@ function karson_requirejs_package($path = '')
 
 add_action('wp_enqueue_scripts', 'karson_partial_debug_css');
 add_action('wp_enqueue_scripts', 'karson_defer_css');
-//priority 101 just in case other scripts conflit with require.js asynchronous load
 add_action('wp_enqueue_scripts', 'karson_requirejs_main');
-
-if (!is_admin()) {
-    // add_filter('script_loader_tag', function ($tag) {
-    //     if (strpos($tag, ' src'))
-    //         return str_replace(' src', ' defer src', $tag);
-    //     else
-    //         return str_replace('text/javascript', 'module', $tag);
-    // });
-
-    // function add_defer($url)
-    // {
-    //     if (strpos($url, ' src'))
-    //         return "$url' defer";
-    //     else
-    //         return str_replace('text/javascript', 'module', $url);
-    // }
-    // add_filter('clean_url', 'add_defer', 11, 1);
-
-}
 
 //===== one time executing function =====
 

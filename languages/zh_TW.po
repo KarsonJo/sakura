@@ -130,10 +130,6 @@ msgstr "網站"
 msgid "Want to find something?"
 msgstr "想要找點什麼呢？"
 
-#: footer.php:86
-msgid "Search"
-msgstr "搜索"
-
 #: footer.php:145
 msgid "Widgets"
 msgstr "小工具"

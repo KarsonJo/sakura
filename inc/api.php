@@ -20,10 +20,6 @@ add_action('rest_api_init', function () {
         'methods' => 'POST',
         'callback' => 'upload_image',
     ));
-    register_rest_route('sakura/v1', '/cache_search/json', array(
-        'methods' => 'GET',
-        'callback' => 'cache_search_json',
-    ));
     register_rest_route('sakura/v1', '/image/cover', array(
         'methods' => 'GET',
         'callback' => 'cover_gallery',
@@ -135,32 +131,6 @@ function update_database() {
     } else {
         return new WP_REST_Response("Invalid access", 200);
     }
-}
-
-/*
- * 定制实时搜索 rest api
- * @rest api接口路径：https://sakura.2heng.xin/wp-json/sakura/v1/cache_search/json
- * @可在cache_search_json()函数末尾通过设置 HTTP header 控制 json 缓存时间
- */
-function cache_search_json() {
-    if (!check_ajax_referer('wp_rest', '_wpnonce', false)) {
-        $output = array(
-            'status' => 403,
-            'success' => false,
-            'message' => 'Unauthorized client.'
-        );
-        $result = new WP_REST_Response($output, 403);
-    } else {
-        $output = Cache::search_json();
-        $result = new WP_REST_Response($output, 200);
-    }
-    $result->set_headers(
-        array(
-            'Content-Type' => 'application/json',
-            'Cache-Control' => 'max-age=3600', // json 缓存控制
-        )
-    );
-    return $result;
 }
 
 /**
