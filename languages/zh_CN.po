@@ -102,10 +102,6 @@ msgstr "输入QQ号将自动拉取昵称和头像"
 msgid "Nickname or QQ number"
 msgstr "昵称或QQ号"
 
-#: comments.php:93
-msgid "Name* "
-msgstr "昵称 "
-
 #: comments.php:95
 msgid "You will receive notification by email"
 msgstr "你将收到回复通知"

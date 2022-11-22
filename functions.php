@@ -207,9 +207,6 @@ function sakura_scripts()
     }
     //wp_enqueue_script('github_card', 'https://cdn.jsdelivr.net/github-cards/latest/widget.js', array(), SAKURA_VERSION, true);
 
-    if (is_singular() && comments_open() && get_option('thread_comments')) {
-        wp_enqueue_script('comment-reply');
-    }
     // karson_fin_obsolete
     // have moved to jsconfig.php
     // // 20161116 @Louie
@@ -434,55 +431,67 @@ function convertip($ip)
  *
  */
 if (!function_exists('akina_comment_format')) {
-    function akina_comment_format($comment, $args, $depth)
+    function akina_comment_format($comment, $tags, $depth)
     {
-        $GLOBALS['comment'] = $comment;
-?>
+        global $post;
+        $GLOBALS['comment'] = $comment; ?>
         <li <?php comment_class(); ?> id="comment-<?php echo esc_attr(comment_ID()); ?>">
             <div class="contents">
-                <div class="comment-arrow">
-                    <div class="main shadow">
-                        <div class="profile">
-                            <a href="<?php comment_author_url(); ?>" target="_blank" rel="nofollow"><?php echo str_replace('src=', 'src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.0.2/img/svg/loader/trans.ajax-spinner-preloader.svg" onerror="imgError(this,1)" data-src=', get_avatar($comment->comment_author_email, '80', '', get_comment_author(), array('class' => array('lazyload')))); ?></a>
-                        </div>
-                        <div class="commentinfo">
-                            <section class="commeta">
-                                <div class="left">
-                                    <h4 class="author"><a href="<?php comment_author_url(); ?>" target="_blank" rel="nofollow"><?php echo get_avatar($comment->comment_author_email, '24', '', get_comment_author()); ?><span class="bb-comment isauthor" title="<?php _e('Author', 'sakura'); ?>"><?php _e('Blogger', 'sakura'); /*博主*/ ?></span> <?php comment_author(); ?> <?php echo get_author_class($comment->comment_author_email, $comment->user_id); ?></a></h4>
-                                </div>
-                                <?php comment_reply_link(array_merge($args, array('depth' => $depth, 'max_depth' => $args['max_depth']))); ?>
-                                <div class="right">
-                                    <div class="info"><time datetime="<?php comment_date('Y-m-d'); ?>"><?php echo poi_time_since(strtotime($comment->comment_date_gmt), true); //comment_date(get_option('date_format'));  
-                                                                                                        ?></time><?php echo siren_get_useragent($comment->comment_agent); ?><?php echo mobile_get_useragent_icon($comment->comment_agent); ?>&nbsp;<?php if (akina_option('open_location')) {
-                                                                                                                                                                                                                                                        _e('Location', 'sakura'); /*来自*/ ?>: <?php echo convertip(get_comment_author_ip());
-                                                                                                                                                                                                                                                                                            } ?>
-                                    <?php if (current_user_can('manage_options') and (wp_is_mobile() == false)) {
-                                        $comment_ID = $comment->comment_ID;
-                                        $i_private = get_comment_meta($comment_ID, '_private', true);
-                                        $flag = '';
-                                        $flag .= ' <i class="fa fa-snowflake-o" aria-hidden="true"></i> <a href="javascript:;" data-actionp="set_private" data-idp="' . get_comment_id() . '" id="sp">' . __("Private", "sakura") . ': <span class="has_set_private">';
-                                        if (!empty($i_private)) {
-                                            $flag .= __("Yes", "sakura") . ' <i class="fa fa-lock" aria-hidden="true"></i>';
-                                        } else {
-                                            $flag .= __("No", "sakura") . ' <i class="fa fa-unlock" aria-hidden="true"></i>';
-                                        }
-                                        $flag .= '</span></a>';
-                                        $flag .= edit_comment_link('<i class="fa fa-pencil-square-o" aria-hidden="true"></i> ' . __("Edit", "mashiro"), ' <span>', '</span>');
-                                        echo $flag;
-                                    } ?></div>
-                                </div>
-                            </section>
-                        </div>
-                        <div class="body">
-                            <?php comment_text(); ?>
-                        </div>
+                <div class="main shadow">
+                    <a class="profile" href="<?php comment_author_url(); ?>" target="_blank" rel="nofollow">
+                        <?php echo str_replace('src=', 'src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.0.2/img/svg/loader/trans.ajax-spinner-preloader.svg" onerror="imgError(this,1)" data-src=', get_avatar($comment->comment_author_email, '80', '', get_comment_author(), array('class' => array('lazyload')))); ?>
+                    </a>
+                    <div class="author">
+                        <a href="<?php comment_author_url(); ?>" target="_blank" rel="nofollow">
+                            <?php if ($comment->user_id === $post->post_author) { ?>
+                                <span class="bb-comment" title="<?php _e('Author', 'sakura'); ?>"><?php _e('Blogger', 'sakura'); /*博主*/ ?></span>
+                            <?php } ?>
+                            <span><?php comment_author(); ?></span>
+                        </a>
+                        <?php echo get_author_class($comment->comment_author_email, $comment->user_id); ?>
                     </div>
-                    <div class="arrow-left"></div>
+                    <div class="info">
+                        <time datetime="<?php comment_date('Y-m-d'); ?>">
+                            <?php echo poi_time_since(strtotime($comment->comment_date_gmt), true); ?>
+                        </time>
+                        <?php
+
+                        if (akina_option('open_useragent')) {
+                            $bo = siren_get_useragent($comment->comment_agent); ?>
+                            <span class="useragent-info">
+                                <img src="<?php echo $bo['brower_src'] ?>">
+                                <span class="ua-text"><?php echo $bo['brower_type'] ?></span>
+                                <img src="<?php echo $bo['os_src'] ?>">
+                                <span class="ua-text"><?php echo $bo['os_type'] ?></span>
+                            </span>
+                        <?php }
+
+                        if (akina_option('open_location')) { ?>
+                            <span><?php echo __('Location', 'sakura') /*来自*/ . ':' . convertip(get_comment_author_ip()) ?></span>
+                        <?php }
+
+                        if (current_user_can('manage_options') and (wp_is_mobile() == false)) { ?>
+                            <span>
+                                <?php edit_comment_link('<i class="fa fa-pencil-square-o" aria-hidden="true"></i> ' . __("Edit", "mashiro")); ?>
+                            </span>
+                            <span>·</span>
+                            <a href="javascript:;" data-actionp="set_private" data-idp="<?php get_comment_id() ?>" id="sp">
+                                <?php echo __("Private", "sakura") ?>:
+                                <span class="has_set_private">
+                                    <?php $is_private = get_comment_meta($comment->comment_ID, '_private', true);
+                                    echo $is_private ? __("Yes", "sakura") : __("No", "sakura"); ?><i class="fa <?php echo $is_private ? 'fa-lock' : 'fa-unlock' ?>" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                        <?php
+                        } ?>
+                    </div>
+                    <?php comment_reply_link(array('depth' => $depth, 'max_depth' => get_option('thread_comments_depth'))); ?>
+                </div>
+                <div class="body">
+                    <?php comment_text(); ?>
                 </div>
             </div>
-            <hr>
-        <?php
-    }
+        <?php }
 }
 
 /**

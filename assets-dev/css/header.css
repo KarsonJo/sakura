@@ -765,7 +765,7 @@ body.scroll-down .site-header:not(:only-child) .lower {
 
 .pc-menu {
     position: fixed;
-    right: 0;
+    right: 15px;
     bottom: 0;
     z-index: 99;
     transform: translateY(100%);
@@ -780,6 +780,7 @@ body.scroll-down .site-header:not(:only-child) .lower {
     cursor: url(https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/cursor/ayuda.cur), auto;
     border-radius: 10px 10px 0 0;
     transition: transform 0.5s;
+    box-shadow: 0 0 5px var(--theme-main-color);
 }
 
 body.scroll-down .pc-menu {

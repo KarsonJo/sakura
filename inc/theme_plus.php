@@ -138,29 +138,29 @@ if (!function_exists('siren_ajax_comment_err')) {
   }
 }
 // 机器评论验证
-function siren_robot_comment()
-{
-  if (!$_POST['no-robot'] && !is_user_logged_in()) {
-    siren_ajax_comment_err('上车请刷卡。<br>Please comfirm you are not a robot.');
-  }
-}
-if (akina_option('norobot')) add_action('pre_comment_on_post', 'siren_robot_comment');
-// 纯英文评论拦截
-function scp_comment_post($incoming_comment)
-{
-  // 为什么要拦自己呢？
-  global $user_ID;
-  if ($user_ID && current_user_can('level_10')) {
-    return ($incoming_comment);
-  } elseif (!preg_match('/[一-龥]/u', $incoming_comment['comment_content'])) {
-    siren_ajax_comment_err('写点汉字吧。You should add some Chinese words.');
-  }
-  return ($incoming_comment);
-}
-// add_filter('preprocess_comment', 'scp_comment_post');
-// 国际化很重要
+// karson_todo
+// rebuild this
+// function siren_robot_comment()
+// {
+//   if (!$_POST['no-robot'] && !is_user_logged_in()) {
+//     siren_ajax_comment_err('上车请刷卡。<br>Please comfirm you are not a robot.');
+//   }
+// }
+// if (akina_option('norobot')) add_action('pre_comment_on_post', 'siren_robot_comment');
+
 // 评论提交
 if (!function_exists('siren_ajax_comment_callback')) {
+  function rudr_get_comment_depth($my_comment_id)
+{
+	$depth_level = 0;
+	while ($my_comment_id > 0) {
+		$my_comment = get_comment($my_comment_id);
+		$my_comment_id = $my_comment->comment_parent;
+		$depth_level++;
+	}
+	return $depth_level;
+}
+
   function siren_ajax_comment_callback()
   {
     $comment = wp_handle_comment_submission(wp_unslash($_POST));
@@ -175,6 +175,8 @@ if (!function_exists('siren_ajax_comment_callback')) {
     $user = wp_get_current_user();
     do_action('set_comment_cookies', $comment, $user);
     $GLOBALS['comment'] = $comment; //根据你的评论结构自行修改，如使用默认主题则无需修改
+    akina_comment_format($comment, null, rudr_get_comment_depth(comment_ID()));
+    die();
 ?>
     <li <?php comment_class(); ?> id="comment-<?php echo esc_attr(comment_ID()); ?>">
       <div class="contents">
@@ -996,26 +998,15 @@ function siren_get_os($ua)
 
 function siren_get_useragent($ua)
 {
-  if (akina_option('open_useragent')) {
-    // $imgurl = get_bloginfo('template_directory') . '/images/ua/';
-    $imgurl = 'https://cdn.jsdelivr.net/gh/moezx/cdn@3.2.7/img/Sakura/images/ua/svg/';
-    $browser = siren_get_browsers($ua);
-    $os = siren_get_os($ua);
-    return '&nbsp;&nbsp;<span class="useragent-info">( <img src="' . $imgurl . $browser[1] . '.svg">&nbsp;' . $browser[0] . '&nbsp;&nbsp;<img src="' . $imgurl . $os[1] . '.svg">&nbsp;' . $os[0] . ' )</span>';
-  }
-  return false;
-}
-
-// UA 显示移动定制
-function mobile_get_useragent_icon($ua)
-{
-  if (akina_option('open_useragent')) {
-    $imgurl = 'https://cdn.jsdelivr.net/gh/moezx/cdn@3.2.7/img/Sakura/images/ua/svg/';
-    $browser = siren_get_browsers($ua);
-    $os = siren_get_os($ua);
-    return '<span class="useragent-info-m">( <img src="' . $imgurl . $browser[1] . '.svg">&nbsp;&nbsp;<img src="' . $imgurl . $os[1] . '.svg"> )</span>';
-  }
-  return false;
+  $imgurl = 'https://cdn.jsdelivr.net/gh/moezx/cdn@3.2.7/img/Sakura/images/ua/svg/';
+  $browser = siren_get_browsers($ua);
+  $os = siren_get_os($ua);
+  return array(
+    'brower_src' => $imgurl . $browser[1] . '.svg',
+    'brower_type' => $browser[0],
+    'os_src' => $imgurl . $os[1] . '.svg',
+    'os_type' => $os[0],
+  );
 }
 
 /*

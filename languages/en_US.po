@@ -102,10 +102,6 @@ msgstr ""
 msgid "Nickname or QQ number"
 msgstr ""
 
-#: comments.php:93
-msgid "Name* "
-msgstr ""
-
 #: comments.php:95
 msgid "You will receive notification by email"
 msgstr ""

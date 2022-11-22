@@ -41,7 +41,10 @@ function karson_requirejs_main()
     //load require.js config
     wp_enqueue_script('requirejs-cfg', $dir_url . '/assets-rjs/req-config.js', array('requirejs'), SAKURA_VERSION);
     */
-
+    
+    if (is_singular() && comments_open() && get_option('thread_comments')) {
+        wp_enqueue_script('comment-reply');
+    }
 
     // wp_enqueue_script("powermode", $dir_url . '/assets-dev/components/activate-power-mode.js', array('jQuery-CDN'), SAKURA_VERSION);
     wp_enqueue_script("lazyload-defer", $dir_url . '/assets-dev/components/lazyload.min.js', array('jQuery-CDN'), SAKURA_VERSION);
@@ -69,6 +72,7 @@ function karson_partial_debug_css()
     wp_enqueue_style('footer_css', get_template_directory_uri() . '/assets-dev/css/footer.css');
     wp_enqueue_style('header_css', get_template_directory_uri() . '/assets-dev/css/header.css');
     wp_enqueue_style('index_css', get_template_directory_uri() . '/assets-dev/css/index.css');
+    wp_enqueue_style('comment_css', get_template_directory_uri() . '/assets-dev/css/comment.css');
 }
 
 function karson_defer_css()

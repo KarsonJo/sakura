@@ -195,13 +195,13 @@ function showPopup(ele) {
     popup.classList.toggle("show");
 }
 
-function cmt_showPopup(ele) {
-    var popup = $(ele).find("#thePopup");
-    popup.addClass("show");
-    $(ele).find("input").blur(function () {
-        popup.removeClass("show");
-    });
-}
+// function cmt_showPopup(ele) {
+//     var popup = $(ele).find("#thePopup");
+//     popup.addClass("show");
+//     $(ele).find("input").blur(function () {
+//         popup.removeClass("show");
+//     });
+// }
 
 function no_right_click() {
     $('.post-thumb img').bind('contextmenu', function (e) {

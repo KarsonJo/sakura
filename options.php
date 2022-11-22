@@ -801,12 +801,12 @@ function optionsframework_options()
         'std' => '0',
         'type' => 'checkbox');
 
-    $options[] = array(
-        'name' => __('Human verification', 'sakura'), /*机器人验证*/
-        'desc' => __('Enable human verification', 'sakura'), /*开启机器人验证*/
-        'id' => 'norobot',
-        'std' => '0',
-        'type' => 'checkbox');
+    // $options[] = array(
+    //     'name' => __('Human verification', 'sakura'), /*机器人验证*/
+    //     'desc' => __('Enable human verification', 'sakura'), /*开启机器人验证*/
+    //     'id' => 'norobot',
+    //     'std' => '0',
+    //     'type' => 'checkbox');
 
     $options[] = array(
         'name' => __('QQ avatar link encryption', 'sakura'), /*QQ头像链接加密*/
