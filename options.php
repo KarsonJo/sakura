@@ -466,7 +466,7 @@ function optionsframework_options()
         'name' => __('Top-feature 1 link', 'sakura'), /*聚焦图一链接*/
         'desc' => __('Top-feature 1 link', 'sakura'), /*聚焦图一链接*/
         'id' => 'feature1_link',
-        'std' => '#',
+        'std' => '#!',
         'type' => 'text');
 
     $options[] = array(
@@ -494,7 +494,7 @@ function optionsframework_options()
         'name' => __('Top-feature 2 link', 'sakura'), /*聚焦图二链接*/
         'desc' => __('Top-feature 2 link', 'sakura'), /*聚焦图二链接*/
         'id' => 'feature2_link',
-        'std' => '#',
+        'std' => '#!',
         'type' => 'text');
 
     $options[] = array(
@@ -522,7 +522,7 @@ function optionsframework_options()
         'name' => __('Top-feature 3 link', 'sakura'), /*聚焦图三链接*/
         'desc' => __('Top-feature 3 link', 'sakura'), /*聚焦图三链接*/
         'id' => 'feature3_link',
-        'std' => '#',
+        'std' => '#!',
         'type' => 'text');
 
     //文章页
