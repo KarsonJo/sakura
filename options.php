@@ -5,16 +5,8 @@
  * If the identifier changes, it'll appear as if the options have been reset.
  */
 
-function optionsframework_option_name()
-{
-
-    // 从样式表获取主题名称
-    $themename = wp_get_theme();
-    $themename = preg_replace("/\W/", "_", strtolower($themename));
-
-    $optionsframework_settings = get_option('optionsframework');
-    $optionsframework_settings['id'] = $themename;
-    update_option('optionsframework', $optionsframework_settings);
+function optionsframework_option_name() {
+	return '#theme-nova';
 }
 
 /**
@@ -168,7 +160,7 @@ function optionsframework_options()
         'name' => __('Favicon', 'sakura'),
         'desc' => __('It is the small logo on the browser tab, fill in the url', 'sakura'), /*就是浏览器标签栏上那个小 logo，填写url*/
         'id' => 'favicon_link',
-        'std' => get_template_directory_uri().'/images/favicon.ico',
+        'std' => get_template_directory_uri().'/resources/images/favicon.ico',
         'type' => 'text');
 
     // $options[] = array(
@@ -304,13 +296,6 @@ function optionsframework_options()
         'id' => 'google_analytics_id',
         'std' => '',
         'type' => 'text');
-
-    $options[] = array(
-        'name' => __('CNZZ Statistics (not recommand)', 'sakura'), /*站长统计（不建议使用）*/
-        'desc' => __('Statistics code, which will be invisible in web page.', 'sakura'), /*填写统计代码，将被隐藏*/
-        'id' => 'site_statistics',
-        'std' => '',
-        'type' => 'textarea');
 
     $options[] = array(
         'name' => __('Customize CSS styles', 'sakura'), /*自定义CSS样式*/
@@ -754,7 +739,7 @@ function optionsframework_options()
 
     $options[] = array(
         'name' => __('Chevereto API v1 key', 'sakura'),
-        'desc' => __('Get your API key here: ' . akina_option('cheverto_url') . '/dashboard/settings/api', 'sakura'),
+        'desc' => __('Get your API key here: ' . of_get_option('cheverto_url') . '/dashboard/settings/api', 'sakura'),
         'id' => 'chevereto_api_key',
         'std' => '',
         'type' => 'text');

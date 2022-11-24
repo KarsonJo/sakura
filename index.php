@@ -1,94 +1,47 @@
-<?php
+<!doctype html>
+<html <?php language_attributes(); ?>>
 
-/**
- * The main template file.
- *
- * This is the most generic template file in a WordPress theme
- * and one of the two required files for a theme (the other being style.css).
- * It is used to display a page when nothing more specific matches a query.
- * E.g., it puts together the home page when no home.php file exists.
- *
- * @link https://codex.wordpress.org/Template_Hierarchy
- *
- * @package Akina
- */
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-namespace index;
+  <?php $description = ThemeNova\Site\get_page_description(); ?>
+  <?php $keywords = ThemeNova\Site\get_page_keyword(); ?>
+  <?php if ($description) { /* page description */ ?>
+    <meta name="description" content="<?php echo $description; ?>" /><?php } ?>
+  <?php if ($keywords) { /* page keyword */ ?>
+    <meta name="keywords" content="<?php echo $keywords; ?>" /><?php } ?>
 
-function title($icon_class, $title)
-{
-	ob_start() ?>
-	<h1 class="index-title">
-		<?php if ($icon_class) { ?>
-			<i class="<?php echo $icon_class ?>" aria-hidden="true"></i>
-		<?php }
-		echo $title; ?>
-	</h1>
-	<?php return ob_get_clean();
-}
+  <link rel="shortcut icon" href="<?php echo of_get_option('favicon_link', ''); ?>" />
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  
+  <?php wp_head(); ?>
 
-function article_list()
-{
-	ob_start();
-	if (have_posts()) {
-		/* Start the Loop */
-		if (akina_option('post_list_style') == 'standard') {
-			while (have_posts()) {
-				the_post();
-				get_template_part('tpl/content', get_post_format());
-			};
-		} else {
-			get_template_part('tpl/content', 'thumb');
-		}
-		/* load more */
-		if (akina_option('pagenav_style') == 'ajax') { ?>
-			<div id="pagination">
-				<?php
-				$link = get_next_posts_link('Previous');
-				if ($link) {
-					echo $link;
-				} else { ?>
-					<span>很高兴你翻到这里，但是真的没有了...</span>
-				<?php } ?>
-			</div>
-			<div id="add_post"></div>
-		<?php } else { ?>
-			<nav class="navigator">
-				<?php previous_posts_link('<i class="iconfont icon-back"></i>') ?>
-				<?php next_posts_link('<i class="iconfont icon-right"></i>') ?>
-			</nav>
-<?php
-		}
-	} else {
-		get_template_part('tpl/content', 'none');
-	}
+  <?php if (of_get_option('google_analytics_id', '')) { ?>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo of_get_option('google_analytics_id', ''); ?>"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
 
-	return ob_get_clean();
-}
+			function gtag() {
+				dataLayer.push(arguments)
+			}
+			gtag('js', new Date());
+			gtag('config', '<?php echo of_get_option('google_analytics_id', ''); ?>');
+		</script>
+	<?php } ?>
+</head>
 
-get_header();
-?>
-<div id="content" class="site-content">
-	<div id="primary" class="content-area">
-		<?php if (akina_option('head_notice') != '0') { ?>
-			<!-- notice -->
-			<div>
-				<?php echo title("iconfont icon-notification", "Notice"); ?>
-				<div class="notice notice-content"><?php echo akina_option('notice_title'); ?></div>
-			</div>
-		<?php } ?>
-		<!-- feature -->
-		<div class="top-feature-row">
-			<?php echo title("fa fa-anchor", akina_option('feature_title', 'Feature')); ?>
-			<?php get_template_part('layouts/feature_v2'); ?>
-		</div>
-		<!-- #main -->
-		<main id="main" class="site-main" role="main">
-			<?php echo title("fa fa-envira", "Discovery"); ?>
-			<?php echo article_list(); ?>
-		</main>
-	</div><!-- #primary -->
-</div>
-<?php
-karson_requirejs_package('/page-post');
-get_footer();
+<body <?php body_class(); ?>>
+  <?php wp_body_open(); ?>
+  <?php do_action('get_header'); ?>
+
+  <div id="app">
+    <?php echo view(app('sage.view'), app('sage.data'))->render(); ?>
+  </div>
+
+  <?php do_action('get_footer'); ?>
+  <?php wp_footer(); ?>
+</body>
+
+</html>
