@@ -1,5 +1,7 @@
 <?php
+
 namespace ThemeNova;
+
 /**
  * 订制时间样式
  * time_since(strtotime($post->post_date_gmt));
@@ -9,37 +11,76 @@ namespace ThemeNova;
  */
 function time_since($older_date, $comment_date = false, $text = false)
 {
-  $chunks = array(
-    array(24 * 60 * 60, __(' days ago', 'sakura')),/*天前*/
-    array(60 * 60, __(' hours ago', 'sakura')),/*小时前*/
-    array(60, __(' minutes ago', 'sakura')),/*分钟前*/
-    array(1, __(' seconds ago', 'sakura'))/*秒前*/
-  );
+    $chunks = array(
+        array(24 * 60 * 60, __(' days ago', 'sakura')),/*天前*/
+        array(60 * 60, __(' hours ago', 'sakura')),/*小时前*/
+        array(60, __(' minutes ago', 'sakura')),/*分钟前*/
+        array(1, __(' seconds ago', 'sakura'))/*秒前*/
+    );
 
-  $since = time() - $older_date;
-  if ($text) {
-    $output = '';
-  } else {
-    $output = __('Posted on ', 'sakura')/*发布于*/;
-  }
-
-  if ($since < 30 * 24 * 60 * 60) {
-    for ($i = 0, $j = count($chunks); $i < $j; $i++) {
-      $seconds = $chunks[$i][0];
-      $name    = $chunks[$i][1];
-      if (($count = floor($since / $seconds)) != 0) {
-        break;
-      }
+    $since = time() - $older_date;
+    if ($text) {
+        $output = '';
+    } else {
+        $output = __('Posted on ', 'sakura')/*发布于*/;
     }
-    $output .= $count . $name;
-  } else {
-    $output .= $comment_date ? date('Y-m-d H:i', $older_date) : date('Y-m-d', $older_date);
-  }
 
-  return $output;
+    if ($since < 30 * 24 * 60 * 60) {
+        for ($i = 0, $j = count($chunks); $i < $j; $i++) {
+            $seconds = $chunks[$i][0];
+            $name    = $chunks[$i][1];
+            if (($count = floor($since / $seconds)) != 0) {
+                break;
+            }
+        }
+        $output .= $count . $name;
+    } else {
+        $output .= $comment_date ? date('Y-m-d H:i', $older_date) : date('Y-m-d', $older_date);
+    }
+
+    return $output;
+}
+
+namespace ThemeNova\Assets;
+function js_asyncdefer_feature($tag, $handle, $src)
+{
+    // if the unique handle/name of the registered script has 'async' in it
+    if (strpos($handle, '-async') !== false) {
+        // return the tag with the async attribute
+        return str_replace('<script ', '<script async ', $tag);
+    }
+    // if the unique handle/name of the registered script has 'defer' in it
+    else if (strpos($handle, '-defer') !== false) {
+        // return the tag with the defer attribute
+        return str_replace('<script ', '<script defer ', $tag); //js
+    }
+    // otherwise skip
+    return $tag;
+}
+
+function css_defer_feature($tag, $handle)
+{
+    if (strpos($handle, '-defer') !== false) {
+        return str_replace("media='all'", 'media="print" onload="this.media=\'all\';"', $tag);
+    }
+    return $tag;
+}
+
+
+/**support async or defer attribute for script named with suffix -async or -defer
+/* https://www.filamentgroup.com/lab/load-css-simpler/
+ */
+function defet_load()
+{
+    if (!is_admin()) {
+
+
+
+    }
 }
 
 namespace ThemeNova\Preference;
+
 function get_statistics_number($number)
 {
     switch (of_get_option('statistics_format')) {
@@ -62,6 +103,7 @@ function get_statistics_number($number)
 }
 
 namespace ThemeNova\Site;
+
 /**
  * get experpt by a limit
  * @param int $limit
@@ -77,10 +119,8 @@ function get_excerpt($limit = 55)
  */
 function get_page_keyword()
 {
-    $merge_from_wp = function ($origin, $wp_term)
-    {
-        $get_name = function ($x)
-        {
+    $merge_from_wp = function ($origin, $wp_term) {
+        $get_name = function ($x) {
             return $x->name;
         };
         return $wp_term ? join(',', array_merge($origin, array_map($get_name, $wp_term))) : $origin;
@@ -94,11 +134,13 @@ function get_page_description()
 }
 
 namespace ThemeNova\Gallery;
+
 /**
  * get image for external link if post_covet api set,
  * otherwise get image from cover_gallery
  */
-function feature_image() {
+function feature_image()
+{
     if (of_get_option('post_cover_options') == "type_2") {
         $imgurl = of_get_option('post_cover');
     } else {
@@ -113,7 +155,7 @@ function feature_image() {
 function cover_gallery()
 {
     if (of_get_option('cover_cdn_options') == 'type_2') {
-        $img_array = glob(get_template_directory() . '/resources/images/gallary/*.{gif,jpg,png}', GLOB_BRACE);
+        $img_array = glob(get_template_directory() . '/resources/images/gallery/*.{gif,jpg,png}', GLOB_BRACE);
         $img = array_rand($img_array);
         $imgurl = trim($img_array[$img]);
         $imgurl = str_replace(get_template_directory(), get_template_directory_uri(), $imgurl);
@@ -142,15 +184,17 @@ function cover_gallery()
  */
 function karson_post_cover($size = 'full')
 {
-  $list = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), $size);
-  return $list ? $list[0] : false;
+    $list = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), $size);
+    return $list ? $list[0] : false;
 }
 
 namespace ThemeNova\Post;
+
 use ThemeNova;
+
 function time_since_post($comment_date = false, $text = false)
 {
-  return ThemeNova\time_since(get_post_time('U', true), $comment_date, $text);
+    return ThemeNova\time_since(get_post_time('U', true), $comment_date, $text);
 }
 
 /**

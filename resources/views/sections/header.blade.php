@@ -8,9 +8,10 @@
       {!! wp_nav_menu(['theme_location' => 'primary_navigation', 'menu_class' => 'nav', 'echo' => false]) !!}
     </nav>
   @endif --}}
-    <div class="header-container">
+    <div class="grid [&>*]:col-span-full [&>*]:row-span-full">
         @include('partials.navbar-top')
-        @include('partials.user-menu')
-        @include('partials.header.banner')
+        @if (!of_get_option('head_focus') && is_home())
+            @include('partials.header.banner')
+        @endif
     </div>
 </header>

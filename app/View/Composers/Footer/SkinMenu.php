@@ -7,14 +7,13 @@ use Roots\Acorn\View\Composer;
 class SkinMenu extends Composer
 {
     private $skins = [
-        ['white-bg', ['fa fa-television'], 'none'],
-        ['sakura-bg', ['icon-sakura'], 'https://cdn.jsdelivr.net/gh/spirit1431007/cdn@1.6/img/sakura.png'],
-        ['gribs-bg', ['fa fa-slack'], 'https://cdn.jsdelivr.net/gh/spirit1431007/cdn@1.6/img/plaid2dbf8.jpg'],
-        ['KAdots-bg', ['icon-dots'], 'https://cdn.jsdelivr.net/gh/spirit1431007/cdn@1.6/img/star02.png'],
-        ['totem-bg', ['fa fa-superpowers'], 'https://cdn.jsdelivr.net/gh/spirit1431007/cdn@1.6/img/kyotoanimation.png'],
-        ['pixiv-bg', ['icon-pixiv'], 'https://cdn.jsdelivr.net/gh/spirit1431007/cdn@1.6/img/dot_orange.gif'],
-        ['bing-bg',  ['icon-bing'], 'https://api.mashiro.top/bing/'],
-        ['dark-bg',  ['fa fa-moon-o', 'fa fa-sun-o'], 'https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.2/other-sites/api-index/images/me.png'],
+        ['white-bg', ['fa-light fa-tv'], 'none'],
+        ['sakura-bg', ['fa-light fa-star-christmas'], 'https://cdn.jsdelivr.net/gh/spirit1431007/cdn@1.6/img/sakura.png'],
+        ['gribs-bg', ['fa-brands fa-slack'], 'https://cdn.jsdelivr.net/gh/spirit1431007/cdn@1.6/img/plaid2dbf8.jpg'],
+        ['KAdots-bg', ['fa-solid fa-grip-dots'], 'https://cdn.jsdelivr.net/gh/spirit1431007/cdn@1.6/img/star02.png'],
+        ['totem-bg', ['fa-brands fa-superpowers'], 'https://cdn.jsdelivr.net/gh/spirit1431007/cdn@1.6/img/kyotoanimation.png'],
+        ['pixiv-bg', ['fa-light fa-star'], 'https://cdn.jsdelivr.net/gh/spirit1431007/cdn@1.6/img/dot_orange.gif'],
+        ['bing-bg',  ['fa-light fa-bangladeshi-taka-sign'], 'https://api.mashiro.top/bing/'],
     ];
 
     /**

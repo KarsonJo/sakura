@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('partials.page-header')
+    {{-- @include('partials.page-header') --}}
     @if (of_get_option('head_notice'))
         @include('partials.index.notice')
     @endif
@@ -20,7 +20,9 @@
         @includeFirst(['partials.content-' . get_post_type(), 'partials.content'])
     @endwhile --}}
 
-    {!! get_the_posts_navigation() !!}
+    <div class="flex justify-center [&_.nav-links]:flex [&_.nav-links]:flex-row-reverse [&_.nav-links]:gap-5 [&_a]:button-theme-solid [&_a]:block">
+        {!! get_the_posts_navigation() !!}
+    </div>
 @endsection
 
 @section('sidebar')

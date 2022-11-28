@@ -1,63 +1,47 @@
-<div class="pc-menu">
-    <div class="skin-menu no-select">
-        <ul class="menu-list">
+<div id="pc-menu" class="-sm:hidden fixed right-4 bottom-0 z-50 pointer-events-none [&>*]:pointer-events-auto">
+    {{-- skin menu content --}}
+    <div class="p-3 bg-bg-primary relative mb-3 rounded-md
+                scale-x-0 transition-transform duration-500 select-none
+                after:bubble-bottom after:border-[12px] after:border-t-bg-primary 
+                after:left-1/2 after:-translate-x-1/2 shadow-drop
+                [&_li.select]:bg-theme-primary
+                [&:not(.show)]:collapse [&.show]:scale-x-100">
+        <ul class="grid grid-cols-4">
+            {{-- skins --}}
             @foreach ($skins as $skin)
-                <li id="{{ $skin['id'] }}" class="selected" data-src="{{ $skin['url'] }}">
+                <li id="{{ $skin['id'] }}" data-src="{{ $skin['url'] }}" class="button-round m-2 btn-contrast">
                     @foreach ($skin['icons'] as $icon)
                         <i class="{{ $icon }}" aria-hidden="true"></i>
                     @endforeach
                 </li>
             @endforeach
-            {{-- <li id="white-bg" class="selected" data="none">
-                <i class="fa fa-television" aria-hidden="true"></i>
+            {{-- dark toggle --}}
+            <li id="dark-bg" class="button-round m-2 btn-contrast dark-toggle">
+                <i class="fa-light fa-moon" aria-hidden="true"></i>
+                <i class="fa-light fa-sun" aria-hidden="true"></i>
             </li>
-            <!--Default-->
-            <li id="sakura-bg" data-src="https://cdn.jsdelivr.net/gh/spirit1431007/cdn@1.6/img/sakura.png">
-                <i class="iconfont icon-sakura"></i>
-            </li>
-            <!--Sakura-->
-            <li id="gribs-bg" data-src="https://cdn.jsdelivr.net/gh/spirit1431007/cdn@1.6/img/plaid2dbf8.jpg">
-                <i class="fa fa-slack" aria-hidden="true"></i>
-            </li>
-            <!--Grids-->
-            <li id="KAdots-bg" data-src="https://cdn.jsdelivr.net/gh/spirit1431007/cdn@1.6/img/star02.png">
-                <i class="iconfont icon-dots"></i>
-            </li>
-            <!--Dots-->
-            <li id="totem-bg" data-src="https://cdn.jsdelivr.net/gh/spirit1431007/cdn@1.6/img/kyotoanimation.png">
-                <i class="fa fa-superpowers" aria-hidden="true"></i>
-            </li>
-            <!--Orange-->
-            <li id="pixiv-bg" data-src="https://cdn.jsdelivr.net/gh/spirit1431007/cdn@1.6/img/dot_orange.gif">
-                <i class="iconfont icon-pixiv"></i>
-            </li>
-            <!--Start-->
-            <li id="bing-bg" data-src="https://api.mashiro.top/bing/">
-                <i class="iconfont icon-bing"></i>
-            </li>
-            <!--Bing-->
-            <li id="dark-bg" class="dark-toggle" data-src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.2/other-sites/api-index/images/me.png">
-                <i class="fa fa-moon-o" aria-hidden="true"></i>
-                <i class="fa fa-sun-o" aria-hidden="true"></i>
-            </li>
-            <!--Night--> --}}
         </ul>
-        <ul class="font-family-controls">
-            <li id="font-btn1" data-tag="serif">Serif</li>
-            <li id="font-btn2" data-tag="sans-serif">Sans Serif</li>
+        {{-- font style --}}
+        <ul class="font-family-controls flex gap-2.5 mx-2.5 my-3">
+            <li id="font-btn1" class="button-basic rounded-md btn-contrast flex-1 h-11 p-1.5" data-tag="serif">Serif</li>
+            <li id="font-btn2" class="button-basic rounded-md btn-contrast flex-1 h-11 p-1.5" data-tag="sans-serif">Sans Serif</li>
         </ul>
     </div>
-    <div class="changeSkin-gear no-select">
+    {{-- skin menu toggle --}}
+    <div class="relative bg-bg-primary px-2 py-3 rounded-t-xl select-none
+                shadow-inner shadow-theme-primary cursor-pointer
+                transition-transform duration-500 translate-y-full scroll:translate-y-0">
         <span id="open-skinMenu">
-            <i class="iconfont icon-gear inline-block rotating"></i>切换主题 | SCHEME TOOL
+            <i class="fa-light fa-gear animate-spin-s mx-2"></i>切换主题 | SCHEME TOOL
         </span>
     </div>
 </div>
-<div class="mobile-menu">
-    <div id="mobileGoTop" title="Go to top"><i class="fa fa-chevron-up" aria-hidden="true"></i></div>
-    <div id="mobileDark" class="dark-toggle">
-        @foreach ($skin['icons'] as $icon)
-            <i class="{{ $icon }}" aria-hidden="true"></i>
-        @endforeach
+<div id="mb-menu" class="sm:hidden fixed bottom-0 right-0 z-50 flex flex-col m-3 gap-3">
+    <div id="mobileGoTop" class="p-4 rounded-xl shadow-lg button-basic btn-theme-primary" title="Go to top">
+        <i class="fa fa-chevron-up" aria-hidden="true"></i>
+    </div>
+    <div id="mobileDark" class="p-4 rounded-xl shadow-lg button-basic btn-theme-primary dark-toggle">
+        <i class="fa-light fa-moon" aria-hidden="true"></i>
+        <i class="fa-light fa-sun" aria-hidden="true"></i>
     </div>
 </div>

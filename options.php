@@ -160,7 +160,7 @@ function optionsframework_options()
         'name' => __('Favicon', 'sakura'),
         'desc' => __('It is the small logo on the browser tab, fill in the url', 'sakura'), /*就是浏览器标签栏上那个小 logo，填写url*/
         'id' => 'favicon_link',
-        'std' => get_template_directory_uri().'/resources/images/favicon.ico',
+        'std' => get_template_directory_uri().'/resources/images/favicon.svg',
         'type' => 'text');
 
     // $options[] = array(
@@ -287,7 +287,7 @@ function optionsframework_options()
         'name' => __('Footer info', 'sakura'), /*页脚信息*/
         'desc' => __('Footer description, support for HTML code', 'sakura'), /*页脚说明文字，支持HTML代码*/
         'id' => 'footer_info',
-        'std' => 'Copyright &copy; by Mashiro All Rights Reserved.',
+        'std' => 'Nova - rebirth of a wonderful theme.',
         'type' => 'textarea');
 
     $options[] = array(

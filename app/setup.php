@@ -137,12 +137,15 @@ add_action('widgets_init', function () {
 
 /* ========================= */
 
+/**
+ * constants
+ */
 define('SAKURA_VERSION', wp_get_theme()->get('Version'));
 define('NOVA_VERSION', wp_get_theme()->get('Version'));
 define('MAX_EXCERPT', 135);
 
 /**
- * Register the init setup.
+ * Register the init hook.
  *
  * @return void
  */
@@ -158,4 +161,8 @@ add_action('init', function () {
     // Loads options.php from child or parent theme
     $optionsfile = locate_template( 'options.php' );
     load_template( $optionsfile ); 
+});
+
+add_action('wp_enqueue_scripts', function () {
+wp_enqueue_style('font-awesome-defer', 'https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro-v6@44659d9/css/all.min.css');
 });

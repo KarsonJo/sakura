@@ -1,3 +1,282 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+@layer base {
+    :root {
+        --theme-r1: 136;
+        --theme-g1: 255;
+        --theme-b1: 136;
+
+        --threshold: 0.5;
+
+        --r1: calc(var(--theme-r1) * 0.2126);
+        --g1: calc(var(--theme-g1) * 0.7152);
+        --b1: calc(var(--theme-b1) * 0.0722);
+        --perceived-lightness1: calc((var(--r1) + var(--g1) + var(--b1)) / 255);
+
+        --color-primary: rgb(var(--theme-r1), var(--theme-g1), var(--theme-b1)) !important;
+        --theme-text-color: hsl(0, 0%, calc((var(--perceived-lightness1) - var(--threshold)) * -10000000%));
+
+        --color-secondary: 111 114 185;
+
+        --fg-color-primary: 27 27 27;
+        --fg-color-secondary: 85 85 85;
+        --fg-color-tertiary: 136 136 136;
+
+        --bg-color-primary: 255 255 255;
+        --bg-color-secondary: 249 249 251;
+        --bg-color-tertiary: 255 255 255;
+
+        --bg-color-trans-l: rgba(255, 255, 255, .6);
+        --bg-color-trans-m: rgba(255, 255, 255, .8);
+        --bg-color-trans-d: rgba(255, 255, 255, .95);
+        /* ... */
+    }
+}
+
+/* bubble popup */
+@layer components {
+    .bubble-basic {
+        @apply absolute border-transparent
+    }
+
+    .bubble-top {
+        @apply bubble-basic border-[10px] border-b-black/50;
+        bottom: calc(100% - 1px);
+    }
+
+    .bubble-bottom {
+        @apply bubble-basic border-[10px] border-t-black/50;
+        top: calc(100% - 1px);
+    }
+}
+
+/* paper container */
+@layer components {
+    .letter {
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        margin: 26px auto;
+        /* max-width: 550px; */
+        /* min-height: 300px; */
+        /* padding: 24px; */
+        position: relative;
+        width: 95%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .letter:before,
+    .letter:after {
+        content: "";
+        height: 98%;
+        position: absolute;
+        width: 100%;
+        z-index: -1;
+    }
+
+    .letter:before {
+        background: #fafafa;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        left: -5px;
+        top: 4px;
+        transform: rotate(-2.5deg);
+    }
+
+    .letter:after {
+        background: #f6f6f6;
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+        right: -3px;
+        top: 1px;
+        transform: rotate(1.4deg);
+    }
+
+    .under-deco {
+        position: relative;
+    }
+
+    .under-deco::after {
+        position: absolute;
+        content: '';
+        bottom: -12px;
+        left: 0;
+        right: 0;
+        width: 80%;
+        height: 2px;
+        margin: auto;
+        background-color: #000;
+    }
+}
+
+@layer components {
+    .flex-gallery {
+        display: flex;
+        overflow-anchor: none;
+        /* for only child vertically expanding */
+        justify-content: center;
+        align-items: stretch;
+        gap: 1rem;
+
+        padding: 0 20px;
+        margin: auto;
+        overflow: hidden;
+        transform: skew(5deg);
+        width: 100%;
+    }
+
+    .flex-gallery .g-card {
+        flex: 1 1 4rem;
+        transition: all 1s ease-in-out;
+        height: 100%;
+        max-width: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .flex-gallery .g-card .g-title {
+        color: black;
+        background: rgb(254 252 232 / 75%);
+        padding: 0.5rem;
+        min-width: 300px;
+        position: absolute;
+        bottom: 0;
+
+        transform: rotate(-90deg);
+        transform-origin: 0% 0%;
+
+        transition-property: transform, background, min-width;
+        transition-duration: 0.5s;
+        transition-timing-function: ease-in-out;
+
+        white-space: nowrap;
+    }
+
+    .flex-gallery .g-card:hover {
+        /* flex-grow: 10; */
+        flex-basis: 100%;
+    }
+
+    .flex-gallery .g-card:hover .g-title {
+        min-width: 100%;
+        color: white;
+        background: rgb(var(--theme-r1) var(--theme-g1) var(--theme-b1) / 50%);
+        font-size: 2rem;
+        box-sizing: content-box;
+        transform: rotate(0deg) skew(-5deg);
+    }
+
+    .flex-gallery .g-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: filter 1s ease-in-out;
+    }
+
+    .flex-gallery .g-card:not(:hover) img {
+        filter: grayscale(80%);
+    }
+
+    /* 
+    .flex-gallery>*:not(:last-child) {
+        margin-right: 1rem;
+    } */
+
+    .flex-gallery>div:only-of-type:not(:hover) {
+        /* max-width: 50%; */
+        flex-basis: 50%;
+        flex-grow: 0;
+    }
+}
+
+@layer components {
+
+    .button-basic {
+        @apply flex items-center justify-center cursor-pointer;
+    }
+
+    .button-round {
+        @apply aspect-square rounded-full button-basic;
+    }
+
+    .btn-theme-primary {
+        @apply text-theme-fg-primary bg-theme-primary transition hover:contrast-75;
+    }
+
+    .btn-contrast {
+        @apply backdrop-contrast-75 hover:backdrop-contrast-50;
+    }
+
+
+    .button-theme-solid {
+        @apply py-3 px-8 font-bold rounded-full shadow-md btn-theme-primary;
+    }
+
+}
+
+@layer components {
+    :root.dark .dark-toggle>*:nth-child(1) {
+        display: none;
+    }
+
+    :root:not(.dark) .dark-toggle>*:nth-child(2) {
+        display: none;
+    }
+}
+
+/* some relative selections
+ * not resuable, but keep for reducing the complexity 
+ */
+@layer components {
+    .search-panel>:first-child {
+        @apply max-w-2xl flex-1 my-16 mx-auto py-3 px-6;
+    }
+}
+
+@layer utilities {
+    .text-shadow {
+        text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+    }
+
+    .writing-v-rl {
+        writing-mode: vertical-rl;
+    }
+
+    .-webkit-ellipsis {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .-webkit-ellipsis-1 {
+        @apply -webkit-ellipsis;
+        -webkit-line-clamp: 1;
+    }
+
+    .-webkit-ellipsis-2 {
+        @apply -webkit-ellipsis;
+        -webkit-line-clamp: 2;
+    }
+
+    .-webkit-ellipsis-3 {
+        @apply -webkit-ellipsis;
+        -webkit-line-clamp: 3;
+    }
+}
+
+
+/* wordpress screen reader text */
+.screen-reader-text {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    word-wrap: normal !important;
+}

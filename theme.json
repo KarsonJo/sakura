@@ -1133,6 +1133,61 @@
           "name": "Rose 900",
           "slug": "rose-900",
           "color": "#881337"
+        },
+        {
+          "name": "Theme-primary",
+          "slug": "theme-primary",
+          "color": "rgb(var(--theme-r1) var(--theme-g1) var(--theme-b1) / <alpha-value>)"
+        },
+        {
+          "name": "Theme-fg-primary",
+          "slug": "theme-fg-primary",
+          "color": "var(--theme-text-color)"
+        },
+        {
+          "name": "Fg-primary",
+          "slug": "fg-primary",
+          "color": "rgb(var(--fg-color-primary) / <alpha-value>)"
+        },
+        {
+          "name": "Fg-secondary",
+          "slug": "fg-secondary",
+          "color": "rgb(var(--fg-color-secondary) / <alpha-value>)"
+        },
+        {
+          "name": "Fg-tertiary",
+          "slug": "fg-tertiary",
+          "color": "rgb(var(--fg-color-tertiary) / <alpha-value>)"
+        },
+        {
+          "name": "Bg-trans-l",
+          "slug": "bg-trans-l",
+          "color": "var(--bg-color-trans-l)"
+        },
+        {
+          "name": "Bg-trans-m",
+          "slug": "bg-trans-m",
+          "color": "var(--bg-color-trans-m)"
+        },
+        {
+          "name": "Bg-trans-d",
+          "slug": "bg-trans-d",
+          "color": "var(--bg-color-trans-d)"
+        },
+        {
+          "name": "Bg-primary",
+          "slug": "bg-primary",
+          "color": "rgb(var(--bg-color-primary) / <alpha-value>)"
+        },
+        {
+          "name": "Bg-secondary",
+          "slug": "bg-secondary",
+          "color": "rgb(var(--bg-color-secondary) / <alpha-value>)"
+        },
+        {
+          "name": "Bg-tertiary",
+          "slug": "bg-tertiary",
+          "color": "rgb(var(--bg-color-tertiary) / <alpha-value>)"
         }
       ]
     },

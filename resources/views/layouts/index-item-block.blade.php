@@ -1,5 +1,5 @@
-<div>
-    <h1 class="index-title">
+<div class="flex flex-col items-center">
+    <h1 class="text-2xl my-16 under-deco after:bg-theme-primary">
         <i class="{!! $icon_class !!}" aria-hidden="true"></i>{{ $title }}
     </h1>
 	@yield('block-content')

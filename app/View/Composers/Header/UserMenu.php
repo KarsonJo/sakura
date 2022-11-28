@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Composers;
+namespace App\View\Composers\Header;
 
 use Roots\Acorn\View\Composer;
 
@@ -12,7 +12,7 @@ class UserMenu extends Composer
      * @var array
      */
     protected static $views = [
-        'partials.user-menu',
+        'partials.header.user-menu',
     ];
 
     /**

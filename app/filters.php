@@ -24,3 +24,9 @@ add_filter('excerpt_length', function () {
 add_filter('excerpt_more', function () {
     return ' ...';
 });
+
+
+if (!is_admin()) {
+    add_filter('script_loader_tag', '\ThemeNova\Assets\js_asyncdefer_feature', 10, 3);
+    add_filter('style_loader_tag', '\ThemeNova\Assets\css_defer_feature', 10, 2);
+}

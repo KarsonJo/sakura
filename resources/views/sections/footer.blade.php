@@ -1,19 +1,23 @@
 @php(comments_template('', true))
-
-<footer id="colophon" class="site-footer" role="contentinfo">
-    <div class="site-info" theme-info="{{ $themeVersion }}">
+{{-- footer --}}
+<footer id="colophon" class="mt-10 p-5 pt-12 bg-fg-secondary bg-opacity-90" role="contentinfo">
+    <div class="flex flex-col gap-3 items-center p-5 text-bg-secondary text-sm" theme-info="{{ $themeVersion }}">
         <p>{!! of_get_option('footer_info', '') !!}</p>
-        <div class="footer-device Ubuntu-font">
-            <p>
-                <span>
-                    Theme <a href="https://2heng.xin/theme-sakura/" target="_blank">Nova</a> <i class="iconfont icon-sakura rotating"></i> by <a href="https://www.karsonjo.com/" target="_blank">KarsonJo</a>
-                </span>
-            </p>
-        </div>
+        <p class="text-bg-tertiary
+                    [&_svg]:w-6 [&_svg]:h-6 [&_svg]:inline [&_svg]:animate-spin-s">
+            <span>
+                Theme
+                <a class="hover:text-theme-primary" href="https://www.karsonjo.com/" target="_blank">Nova</a>
+                @include('partials.footer.icon-nova')
+                by
+                <a class="hover:text-theme-primary" href="https://www.karsonjo.com/" target="_blank">KarsonJo</a>
+            </span>
+        </p>
     </div><!-- .site-info -->
 </footer><!-- #colophon -->
 
-<div class="openNav no-select">
+{{-- nova-todo: mobile navigation --}}
+{{-- <div class="openNav no-select">
     <div class="iconflat no-select">
         <div class="icon"></div>
     </div>
@@ -27,7 +31,7 @@
             </a>
         </div>
     </div>
-</div><!-- m-nav-bar -->
+</div><!-- m-nav-bar --> --}}
 @include('partials.footer.skin-menu')
 @include('partials.footer.search-panel')
 

@@ -1,7 +1,7 @@
-@extends('layouts.index-item-block', ['title' => 'Discovery1'])
+@extends('layouts.index-item-block', ['title' => 'Articles'])
 @section('block-content')
     @if (have_posts())
-        <div class="article-list">
+        <div class="flex flex-col gap-5">
             @while (have_posts())
                 {{-- @includeFirst(['partials.content-' . get_post_type(), 'partials.content']) --}}
                 @php(the_post())
