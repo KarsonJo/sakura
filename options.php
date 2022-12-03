@@ -525,15 +525,15 @@ function optionsframework_options()
             'github' => __('GitHub', 'sakura'),
         ));
 
-    $options[] = array(
-        'name' => __('Post like', 'sakura'), /*文章点赞*/
-        'id' => 'post_like',
-        'std' => "yes",
-        'type' => "radio",
-        'options' => array(
-            'yes' => __('Open', 'sakura'), /*开启*/
-            'no' => __('Close', 'sakura'), /*关闭*/
-        ));
+    // $options[] = array(
+    //     'name' => __('Post like', 'sakura'), /*文章点赞*/
+    //     'id' => 'post_like',
+    //     'std' => "yes",
+    //     'type' => "radio",
+    //     'options' => array(
+    //         'yes' => __('Open', 'sakura'), /*开启*/
+    //         'no' => __('Close', 'sakura'), /*关闭*/
+    //     ));
 
     $options[] = array(
         'name' => __('Post share', 'sakura'), /*文章分享*/

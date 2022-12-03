@@ -4,9 +4,9 @@
 
 @layer base {
     :root {
-        --theme-r1: 136;
-        --theme-g1: 255;
-        --theme-b1: 136;
+        --theme-r1: 247;
+        --theme-g1: 140;
+        --theme-b1: 169;
 
         --threshold: 0.5;
 
@@ -15,8 +15,9 @@
         --b1: calc(var(--theme-b1) * 0.0722);
         --perceived-lightness1: calc((var(--r1) + var(--g1) + var(--b1)) / 255);
 
-        --color-primary: rgb(var(--theme-r1), var(--theme-g1), var(--theme-b1)) !important;
+        /* --color-primary: rgb(var(--theme-r1), var(--theme-g1), var(--theme-b1)) !important; */
         --theme-text-color: hsl(0, 0%, calc((var(--perceived-lightness1) - var(--threshold)) * -10000000%));
+        --theme-color-primary: var(--theme-r1) var(--theme-g1) var(--theme-b1);
 
         --color-secondary: 111 114 185;
 
@@ -31,7 +32,17 @@
         --bg-color-trans-l: rgba(255, 255, 255, .6);
         --bg-color-trans-m: rgba(255, 255, 255, .8);
         --bg-color-trans-d: rgba(255, 255, 255, .95);
+
+
+        --main-body-width: 1000px;
+
+        --image-placeholder: url(https://cdn.jsdelivr.net/gh/moezx/cdn@3.0.1/img/svg/loader/orange.progress-bar-stripe-loader.svg);
+        --image-rainbow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1200 800'%3E%3Cdefs%3E%3CradialGradient id='a' cx='0' cy='800' r='800' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23ff8000'/%3E%3Cstop offset='1' stop-color='%23ff8000' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='b' cx='1200' cy='800' r='800' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%2300ff19'/%3E%3Cstop offset='1' stop-color='%2300ff19' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='c' cx='600' cy='0' r='600' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%239900ff'/%3E%3Cstop offset='1' stop-color='%239900ff' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='d' cx='600' cy='800' r='600' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23ffff00'/%3E%3Cstop offset='1' stop-color='%23ffff00' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='e' cx='0' cy='0' r='800' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23FF0000'/%3E%3Cstop offset='1' stop-color='%23FF0000' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='f' cx='1200' cy='0' r='800' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%230CF'/%3E%3Cstop offset='1' stop-color='%230CF' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect fill='url(%23a)' width='1200' height='800'/%3E%3Crect fill='url(%23b)' width='1200' height='800'/%3E%3Crect fill='url(%23c)' width='1200' height='800'/%3E%3Crect fill='url(%23d)' width='1200' height='800'/%3E%3Crect fill='url(%23e)' width='1200' height='800'/%3E%3Crect fill='url(%23f)' width='1200' height='800'/%3E%3C/svg%3E");
         /* ... */
+    }
+
+    :root {
+        @apply text-fg-primary;
     }
 }
 
@@ -202,13 +213,20 @@
     }
 
     .btn-theme-primary {
-        @apply text-theme-fg-primary bg-theme-primary transition hover:contrast-75;
+        @apply text-theme-fg-primary bg-theme-primary transition;
+    }
+
+    .btn-theme-primary:hover {
+        @apply contrast-75;
     }
 
     .btn-contrast {
-        @apply backdrop-contrast-75 hover:backdrop-contrast-50;
+        @apply backdrop-contrast-75;
     }
 
+    .btn-contrast:hover {
+        @apply backdrop-contrast-50;
+    }
 
     .button-theme-solid {
         @apply py-3 px-8 font-bold rounded-full shadow-md btn-theme-primary;
@@ -226,12 +244,161 @@
     }
 }
 
-/* some relative selections
+/* image realted */
+@layer components {
+    .img-placeholder {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        background-origin: border-box;
+        background-image: var(--image-placeholder);
+    }
+
+    .img-fallback {
+        position: relative;
+    }
+
+    .img-fallback::after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        font-size: 1.2em;
+        line-height: 3;
+        text-align: center;
+        content: attr(alt);
+    }
+
+    .img-fallback.rainbow::after {
+        /* color: white; */
+        background: white;
+        background-image: var(--image-rainbow);
+        background-size: cover;
+        background-position: center;
+    }
+}
+
+/* some relative/component selections
  * not resuable, but keep for reducing the complexity 
  */
 @layer components {
     .search-panel>:first-child {
         @apply max-w-2xl flex-1 my-16 mx-auto py-3 px-6;
+    }
+}
+
+@layer components {
+
+
+
+    .comments .comment-reply-title {
+        @apply my-6 font-bold text-lg;
+    }
+
+    .comment-form .form-submit {
+        @apply my-4;
+    }
+
+    .comment-form .submit {
+        @apply w-full border border-slate-200 rounded px-6 py-3 text-sm cursor-pointer transition-colors;
+    }
+
+    .comment-form .submit:hover {
+        @apply border-theme-primary text-theme-primary;
+    }
+
+
+    .nova-comment a {
+        @apply transition-filter;
+    }
+
+    .nova-comment a:hover {
+        @apply !contrast-150;
+    }
+
+
+    .nova-comment .content {
+        @apply p-5 pb-px;
+    }
+
+    .nova-comment .content:hover {
+        @apply backdrop-contrast-[0.95];
+    }
+
+    .nova-comment .main {
+        @apply grid grid-rows-2 gap-2.5 items-center;
+        grid-template-columns: auto 1fr auto;
+    }
+
+
+    .nova-comment .profile {
+        @apply row-start-1 row-span-2 col-start-1 -sm:row-span-1;
+        @apply w-10 h-10 rounded-full overflow-hidden -sm:w-5 -sm:h-5 -sm:rounded-sm;
+    }
+
+
+    .nova-comment .author {
+        @apply row-start-1 col-start-2;
+    }
+
+    .nova-comment .author .name {
+        @apply text-theme-primary font-bold contrast-75;
+    }
+
+    .nova-comment .author .tag {
+        @apply border border-solid inline-block rounded-sm;
+        @apply border-pink-400 text-pink-400 font-normal text-xs;
+    }
+
+
+    .nova-comment .info {
+        @apply row-start-2 col-start-2 -sm:col-start-1 -sm:col-span-2;
+        @apply text-xs text-fg-tertiary;
+    }
+
+    .nova-comment .info>*:not(:last-child) {
+        @apply mr-2;
+    }
+
+    .nova-comment .info .useragent-info img {
+        @apply w-3.5 h-3.5 align-sub;
+    }
+
+    .nova-comment .info .useragent-info span {
+        @apply mx-1;
+    }
+
+
+    .nova-comment .comment-reply-link {
+        @apply row-start-1 row-span-2 col-start-3 transition-opacity duration-200;
+        @apply text-xs uppercase py-1 px-1.5 rounded-sm;
+        @apply bg-theme-primary text-theme-fg-primary opacity-0;
+    }
+
+    .nova-comment .content:hover .comment-reply-link {
+        @apply opacity-100;
+    }
+
+
+    .nova-comment .body {
+        @apply my-5 text-fg-secondary;
+    }
+
+    .nova-comment .body .comment-at {
+        @apply font-bold no-underline text-rose-500;
+    }
+
+    .nova-comment .body p {
+        @apply text-sm my-4;
+    }
+
+    .nova-comment .body p a {
+        @apply px-1 text-theme-primary underline contrast-75 decoration-dotted;
+    }
+
+    .nova-comment .children {
+        @apply pl-6 border-l-2 border-solid border-zinc-400 border-opacity-20;
     }
 }
 

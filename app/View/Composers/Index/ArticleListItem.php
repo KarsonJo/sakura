@@ -22,15 +22,15 @@ class ArticleListItem extends Composer
      */
     public function override()
     {
-
+        $cover = \ThemeNova\Post\post_cover(null, 'large') ?: \ThemeNova\Gallery\feature_image();
         $categories = get_the_category();
         return [
             'link' => get_permalink(),
             'title' => get_the_title(),
             'excerpt' => \ThemeNova\Site\get_excerpt(),
             'align_class' => $this->thumb_align_class(),
-            'cover' => \ThemeNova\Gallery\feature_image(),
-            'post_time' => \ThemeNova\Post\time_since_post(),
+            'cover' => $cover,
+            'post_time' => \ThemeNova\Post\post_display_time(),
             'heat' => $this->article_heat(),
             'echo_comment_link' =>  function () {
                 comments_popup_link('NOTHING', '1 ' . __('Comment', 'sakura') /*条评论*/, '% ' . __('Comments', 'sakura') /*条评论*/);

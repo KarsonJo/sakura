@@ -7,6 +7,7 @@
  * @param {import('@roots/bud').Bud} app
  */
 export default async (app) => {
+  app.cdn.setAllowedUris([`https://cdn.jsdelivr.net/`]);
   app
     /**
      * Application entrypoints

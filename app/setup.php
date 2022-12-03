@@ -155,14 +155,52 @@ add_action('init', function () {
      * 
      * @link https://github.com/devinsays/options-framework-theme
      */
-    define( 'OPTIONS_FRAMEWORK_DIRECTORY', get_template_directory_uri() . '/app/options-framework/' );
-    require_once dirname( __FILE__ ) . '/options-framework/options-framework.php';
-    
+    define('OPTIONS_FRAMEWORK_DIRECTORY', get_template_directory_uri() . '/app/options-framework/');
+    require_once dirname(__FILE__) . '/options-framework/options-framework.php';
+
     // Loads options.php from child or parent theme
-    $optionsfile = locate_template( 'options.php' );
-    load_template( $optionsfile ); 
+    $optionsfile = locate_template('options.php');
+    load_template($optionsfile);
 });
 
+
+/**
+ * Register css and js
+ */
 add_action('wp_enqueue_scripts', function () {
-wp_enqueue_style('font-awesome-defer', 'https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro-v6@44659d9/css/all.min.css');
+    wp_enqueue_style('font-awesome-defer', 'https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro-v6@44659d9/css/all.min.css');
+    if (of_get_option('entry_content_theme') == "sakura") {
+        wp_enqueue_style('md-sakura.css', get_template_directory_uri() . '/resources/styles/article/prettydoc-cayman.css');
+    } elseif (of_get_option('entry_content_theme') == "github") {
+        wp_enqueue_style('md-github.css', get_template_directory_uri() . '/resources/styles/article/github.css');
+    }
+
+    // wp_deregister_script('jQuery');
+    // wp_deregister_script('jquery');
+    // wp_deregister_script('jquery-core');
+    wp_register_script('jquery', 'https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js');
+    // wp_enqueue_style('prism', 'https://unpkg.com/dracula-prism/dist/css/dracula-prism.min.css');
+
 });
+
+// add_action( 'init', 'loadJQueryByCDN', 20 );
+
+// function loadJQueryByCDN(){
+// 	if ( is_admin() ) {
+// 		return;
+// 	}
+
+// 	$protocol = is_ssl() ? 'https' : 'http';
+
+// 	/** @var WP_Scripts $wp_scripts */
+// 	global $wp_scripts;
+
+// 	/** @var _WP_Dependency $core */
+// 	$core         = $wp_scripts->registered['jquery-core'];
+// 	$core_version = $core->ver;
+// 	$core->src    = "$protocol://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js";
+
+// 	/** @var _WP_Dependency $jquery */
+// 	$jquery       = $wp_scripts->registered['jquery'];
+// 	$jquery->deps = [ 'jquery-core' ];
+// }

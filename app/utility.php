@@ -3,13 +3,9 @@
 namespace ThemeNova;
 
 /**
- * 订制时间样式
- * time_since(strtotime($post->post_date_gmt));
- * time_since(strtotime($comment->comment_date_gmt), true );
- * time_since(strtotime($post->post_date));
- * time_since(strtotime($comment->comment_date), true );
+ * display the time span calculate before current time
  */
-function time_since($older_date, $comment_date = false, $text = false)
+function display_time($older_date, $comment_date = false, $text = false)
 {
     $chunks = array(
         array(24 * 60 * 60, __(' days ago', 'sakura')),/*天前*/
@@ -42,6 +38,7 @@ function time_since($older_date, $comment_date = false, $text = false)
 }
 
 namespace ThemeNova\Assets;
+
 function js_asyncdefer_feature($tag, $handle, $src)
 {
     // if the unique handle/name of the registered script has 'async' in it
@@ -64,19 +61,6 @@ function css_defer_feature($tag, $handle)
         return str_replace("media='all'", 'media="print" onload="this.media=\'all\';"', $tag);
     }
     return $tag;
-}
-
-
-/**support async or defer attribute for script named with suffix -async or -defer
-/* https://www.filamentgroup.com/lab/load-css-simpler/
- */
-function defet_load()
-{
-    if (!is_admin()) {
-
-
-
-    }
 }
 
 namespace ThemeNova\Preference;
@@ -175,26 +159,13 @@ function cover_gallery()
     return $imgurl;
 }
 
-/**
- * get first attachment image as post cover
- * @param string|int[] $size
- * Optional. Image size. 
- * Accepts any registered image size name, or an array of width and height values in pixels (in that order). 
- * Default 'thumbnail'.
- */
-function karson_post_cover($size = 'full')
-{
-    $list = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), $size);
-    return $list ? $list[0] : false;
-}
-
 namespace ThemeNova\Post;
 
 use ThemeNova;
 
-function time_since_post($comment_date = false, $text = false)
+function post_display_time($comment_date = false, $text = false)
 {
-    return ThemeNova\time_since(get_post_time('U', true), $comment_date, $text);
+    return ThemeNova\display_time(get_post_time('U', true), $comment_date, $text);
 }
 
 /**
@@ -217,4 +188,72 @@ function get_post_views($post_id)
             return $views;
         }
     }
+}
+
+/**
+ * generate a comment block for single comment.
+ * can be used as wp_list_comments callback.
+ * 
+ * the container lacks closing tag \</li>, which is by design because of usage in callback.
+ * @param WP_Comment $comment
+ * @param string|array $_ [discarded] tags that provided by callback.
+ * @param int $depth The depth of current comment
+ */
+function comment_block_generator($comment, $_, $depth)
+{
+    global $post;
+    $GLOBALS['comment'] = $comment;
+    echo view('partials.snippet.comment-block', ['depth' => $depth]);
+}
+
+/**
+ * Add @ for comment reply
+ */
+function comment_add_at($comment_text, $comment)
+{
+    if ($comment && $comment->comment_parent > 0) {
+        $add_link = '<a href="#comment-' . $comment->comment_parent . '" class="comment-at">@' . get_comment_author($comment->comment_parent) . '</a>';
+        if (substr($comment_text, 0, 3) === '<p>')
+            $comment_text = str_replace('<p>', '<p>' . $add_link, $comment_text);
+        else
+            $comment_text = $add_link . $comment_text;
+    }
+    return $comment_text;
+}
+
+/**
+ * get first attachment image as post cover
+ * @param int|WP_Post $post
+ * @param string|int[] $size
+ * Optional. Image size. 
+ * Accepts any registered image size name, or an array of width and height values in pixels (in that order). 
+ * Default 'thumbnail'.
+ */
+function post_cover($post = null, $size = 'full')
+{
+    $list = wp_get_attachment_image_src(get_post_thumbnail_id($post), $size);
+    return $list ? $list[0] : false;
+}
+
+/**
+ * get the first content image of post
+ * @param int|WP_Post $post
+ */
+function post_first_content_image($post = null)
+{
+    $post = get_post($post);
+    if ($post && preg_match('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches)) {
+        return $matches[1];
+    }
+    return false;
+}
+
+/**
+ * get the first of:
+ * cover image > first content image > cover gallery
+ * @param int|WP_Post $post
+ */
+function post_preview_image($post)
+{
+    return post_cover($post) ?: post_first_content_image($post) ?: \ThemeNova\Gallery\cover_gallery() ?: false;
 }

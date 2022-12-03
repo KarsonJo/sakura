@@ -1,4 +1,4 @@
-@php(comments_template('', true))
+{{-- @php(comments_template('', true)) --}}
 {{-- footer --}}
 <footer id="colophon" class="mt-10 p-5 pt-12 bg-fg-secondary bg-opacity-90" role="contentinfo">
     <div class="flex flex-col gap-3 items-center p-5 text-bg-secondary text-sm" theme-info="{{ $themeVersion }}">

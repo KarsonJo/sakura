@@ -6,7 +6,7 @@
                 -sm:!flex-col -sm:!h-auto" itemscope="" itemtype="http://schema.org/BlogPosting">
     {{-- psot image --}}
     <a class="basis-1/2" href="{{ $link }}">
-        <img class="lazyload pattern-attachment-img h-full w-full object-cover
+        <img class="lazyload img-placeholder h-full w-full object-cover aspect-video
                     hover:scale-110 transition-transform duration-500" data-src="{{ $cover }}" src="{{ $cover }}">
     </a>
     {{-- post info --}}

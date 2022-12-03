@@ -6,7 +6,11 @@ module.exports = {
     plugin(function ({ addVariant }) {
       addVariant('scroll', '.scroll &');
       addVariant('hover,scroll', ['&:hover', '.scroll &']);
-    })
+      addVariant('peer-text-prompt', ['.peer:focus ~ &', '.peer:not(:placeholder-shown) ~ &']);
+    }),
+    require('@tailwindcss/typography')({
+      className: 'entry-content',
+    }),
   ],
   content: ["./index.php", "./app/**/*.php", "./resources/**/*.{php,vue,js}"],
   theme: {
@@ -27,6 +31,12 @@ module.exports = {
         '-sm': { max: '639px' },
         // => @media (max-width: 639px) { ... }
       },
+      width: {
+        'main': 'var(--main-body-width)',
+      },
+      maxWidth: {
+        'main': 'var(--main-body-width)',
+      },
       colors: {
         'theme-primary': 'rgb(var(--theme-r1) var(--theme-g1) var(--theme-b1) / <alpha-value>)',
         'theme-fg-primary': 'var(--theme-text-color)',
@@ -46,19 +56,28 @@ module.exports = {
       }, // Extend Tailwind's default colors
       boxShadow: {
         'glow': '0 0 6px white',
-        'drop': '0 1px 40px -8px rgb(0 0 0 / 0.5)',
-        'spread': '0 0 40px -8px rgb(0 0 0 / 50%)',
+        'drop': '0 0 40px -8px rgb(0 0 0 / 0.5)',
       },
       animation: {
+        'fade-in': 'fade-in 1s',
         'bounce-light': 'bounce-light 0.8s infinite',
         'elastic-f': 'elastic 0.4s',
         'spin-s': 'spin 10s linear infinite',
         'peek-in-l': 'peek-in-l 1s',
         'peek-in-t': 'peek-in-t 1s',
         'peek-in-t-f': 'peek-in-t 0.4s',
+        'peek-in-b-f': 'peek-in-b 0.4s',
         'rotate': 'spin 1s',
       },
       keyframes: {
+        'fade-in': {
+          '0%': {
+            'opacity': 0,
+          },
+          '100%': {
+            'opacity': 1
+          }
+        },
         'peek-in-l': {
           '0%': {
             'transform': 'translateX(-30px)',
@@ -72,6 +91,16 @@ module.exports = {
         'peek-in-t': {
           '0%': {
             'transform': 'translateY(-30px)',
+            'opacity': 0,
+          },
+          '100%': {
+            'transform': 'translateY(0)',
+            'opacity': 1
+          }
+        },
+        'peek-in-b': {
+          '0%': {
+            'transform': 'translateY(30px)',
             'opacity': 0,
           },
           '100%': {
@@ -106,6 +135,16 @@ module.exports = {
             'transform': 'scale(1)',
           }
         }
+      },
+      transitionProperty: {
+        'filter': 'filter'
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            'max-width': 'none',
+          },
+        },
       },
     },
   },

@@ -9,7 +9,7 @@
     <div class="menu hidden group-hover:block animate-peek-in-t-f
                 absolute -right-4 w-28 text-xs text-center bg-bg-primary rounded-md text-fg-primary top-[125%]
                 after:bubble-top after:border-b-bg-primary after:right-6
-                py-1 shadow-spread">
+                py-1 shadow-drop">
         @if ($logged)
             <div class="px-3 my-3 break-all">
                 Signed in as<div class="text-sm font-bold">{!! $name !!}</div>

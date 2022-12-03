@@ -1,39 +1,40 @@
-@if (! post_password_required())
-  <section id="comments" class="comments">
-    @if (have_comments())
-      <h2>
-        {!! /* translators: %1$s is replaced with the number of comments and %2$s with the post title */ sprintf(_nx('%1$s response to &ldquo;%2$s&rdquo;', '%1$s responses to &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', 'sage'), get_comments_number() === 1 ? _x('One', 'comments title', 'sage') : number_format_i18n(get_comments_number()), '<span>' . get_the_title() . '</span>') !!}
-      </h2>
+@if (!post_password_required())
+    <section id="comments" class="comments py-5 px-[6%] animate-peek-in-b-f">
+        @if (have_comments())
+            {{-- <h2>
+                {!! /* translators: %1$s is replaced with the number of comments and %2$s with the post title */ sprintf(_nx('%1$s response to &ldquo;%2$s&rdquo;', '%1$s responses to &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', 'sage'), get_comments_number() === 1 ? _x('One', 'comments title', 'sage') : number_format_i18n(get_comments_number()), '<span>' . get_the_title() . '</span>') !!}
+            </h2> --}}
+            {{-- title --}}
+            <h3 class="text-fg-tertiary text-lg mb-5">Comments | <span class="text-sm"> {!! get_comments_number_text('NOTHING', '1' . __(' comment', 'sakura'), '%' . __(' comments', 'sakura')) !!}</span></h3>
+            {{-- comment list --}}
+            <ul class="comment-list">
+                {{-- comments --}}
+                {!! wp_list_comments(['type' => 'comment', 'callback' => '\ThemeNova\Post\comment_block_generator']) !!}
+            </ul>
 
-      <ol class="comment-list">
-        {!! wp_list_comments(['style' => 'ol', 'short_ping' => true]) !!}
-      </ol>
-
-      @if (get_comment_pages_count() > 1 && get_option('page_comments'))
-        <nav>
-          <ul class="pager">
-            @if (get_previous_comments_link())
-              <li class="previous">
-                {!! get_previous_comments_link(__('&larr; Older comments', 'sage')) !!}
-              </li>
+            {{-- navigation --}}
+            @if (get_comment_pages_count() > 1 && get_option('page_comments'))
+                @include('partials.snippet.page-nav', ['links' => paginate_comments_links(['echo' => 0, 'prev_text' => '«', 'next_text' => '»'])])
             @endif
+        @endif
 
-            @if (get_next_comments_link())
-              <li class="next">
-                {!! get_next_comments_link(__('Newer comments &rarr;', 'sage')) !!}
-              </li>
-            @endif
-          </ul>
-        </nav>
-      @endif
-    @endif
+        @if (!comments_open() && get_comments_number() != '0' && post_type_supports(get_post_type(), 'comments'))
+            <x-alert type="warning">
+                {!! __('Comments are closed.', 'sage') !!}
+            </x-alert>
+        @endif
 
-    @if (! comments_open() && get_comments_number() != '0' && post_type_supports(get_post_type(), 'comments'))
-      <x-alert type="warning">
-        {!! __('Comments are closed.', 'sage') !!}
-      </x-alert>
-    @endif
-
-    @php(comment_form())
-  </section>
+        @php
+            $args = [
+                'comment_field' => view('partials.comment.reply-textarea'),
+                'comment_notes_after' => '',
+                'comment_notes_before' => '',
+                'fields' => apply_filters('comment_form_default_fields', [
+                    'basic' => view('partials.comment.reply-fields'),
+                    'qq' => '<input type="text" placeholder="QQ" name="new_field_qq" id="qq" value="' . esc_attr($comment_author_url) . '" style="display:none" autocomplete="off"/><!--此栏不可见-->',
+                ]),
+            ];
+            comment_form($args);
+        @endphp
+    </section>
 @endif

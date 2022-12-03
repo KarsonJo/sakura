@@ -1,4 +1,4 @@
-<div class="h-[75vh] relative animate-peek-in-t {{ $bg_filter }}
+<div class="h-screen relative animate-peek-in-t {{ $bg_filter }}
             before:absolute before:inset-0 before:z-10">
     <img id="centerbg" class="absolute h-full w-full object-cover" src="{{ $bg_img }}">
     @if ($movie_enabled)
