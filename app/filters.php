@@ -19,7 +19,7 @@ add_filter('excerpt_more', function () {
  * excerpt
  */
 add_filter('excerpt_length', function () {
-    return defined(MAX_EXCERPT) ? MAX_EXCERPT : 55;
+    return defined('MAX_EXCERPT') ? MAX_EXCERPT : 55;
 }, 999);
 add_filter('excerpt_more', function () {
     return ' ...';

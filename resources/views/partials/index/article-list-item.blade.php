@@ -1,6 +1,6 @@
 {{-- card --}}
 <article class="group m-5 bg-theme-primary bg-opacity-5 transition-colors hover:bg-opacity-20
-                rounded-lg overflow-hidden animate-peek-in-l h-80 max-w-5xl shadow-xl {{ $align_class }}
+                rounded-lg overflow-hidden animate-peek-in-l h-80 shadow-xl {{ $align_class }}
                 flex flex-row-reverse [&.alternate:nth-child(2n)]:flex-row [&.reverse]:flex-row
                 [&.alternate:nth-child(2n)]:text-right [&.reverse]:text-right
                 -sm:!flex-col -sm:!h-auto" itemscope="" itemtype="http://schema.org/BlogPosting">
@@ -11,7 +11,7 @@
     </a>
     {{-- post info --}}
     <div class="flex flex-col
-                py-5 px-10 basis-0 grow post-content-wrap text-fg-tertiary text-xs 
+                py-5 px-10 basis-0 grow text-fg-tertiary text-xs 
                 [&_a]:transition-colors hover:[&_a]:text-theme-primary [&_i]:mx-1">
         <div>
             <i class="fa-light fa-clock"></i>{!! $post_time !!}

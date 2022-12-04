@@ -144,6 +144,7 @@ define('SAKURA_VERSION', wp_get_theme()->get('Version'));
 define('NOVA_VERSION', wp_get_theme()->get('Version'));
 define('MAX_EXCERPT', 135);
 
+
 /**
  * Register the init hook.
  *

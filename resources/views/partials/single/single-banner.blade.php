@@ -1,4 +1,3 @@
-@extends('layouts.title-banner', ['bannerImage' => \ThemeNova\Post\post_cover()])
 @php
     $authorId = get_the_author_meta('ID');
     $authorUrl = esc_url(get_author_posts_url($authorId, get_the_author_meta('user_nicename')));
@@ -6,7 +5,8 @@
     $postViewCount = \ThemeNova\Post\get_post_views(get_the_ID());
     $postViewStr = $postViewCount . ' ' . _n('View', 'Views', $postViewCount, 'sakura'); /*次阅读*/
 @endphp
-@section('banner-content')
+
+<x-title-banner :bannerImage="\ThemeNova\Post\post_cover()">
     <header class="single-header max-w-main w-full px-[4%] py-6 mx-auto z-10 
                     text-white font-medium text-3xl
                     flex flex-col items-start justify-end gap-5">
@@ -33,4 +33,4 @@
             </div>
         </div>
     </header>
-@endsection
+</x-title-banner>

@@ -13,6 +13,7 @@ class ArticleListItem extends Composer
      */
     protected static $views = [
         'partials.index.article-list-item',
+        'partials.snippet.article-item-lite'
     ];
 
     /**
@@ -27,7 +28,7 @@ class ArticleListItem extends Composer
         return [
             'link' => get_permalink(),
             'title' => get_the_title(),
-            'excerpt' => \ThemeNova\Site\get_excerpt(),
+            'excerpt' => \ThemeNova\Site\get_excerpt(100),
             'align_class' => $this->thumb_align_class(),
             'cover' => $cover,
             'post_time' => \ThemeNova\Post\post_display_time(),
