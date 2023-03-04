@@ -13,6 +13,6 @@
     </form>
 </div>
     @endif
-    <i class="fa-light fa-xmark absolute top-5 right-4 cursor-pointer text-5xl
+    <i class="search-close fa-light fa-xmark absolute top-5 right-4 cursor-pointer text-5xl
             text-fg-primary hover:text-theme-primary"></i>
 </div>

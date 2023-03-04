@@ -7,7 +7,7 @@
     {{-- psot image --}}
     <a class="basis-1/2" href="{{ $link }}">
         <img class="lazyload img-placeholder h-full w-full object-cover aspect-video
-                    hover:scale-110 transition-transform duration-500" data-src="{{ $cover }}" src="{{ $cover }}">
+                    hover:scale-110 transition-transform duration-500" data-src="{{ $cover }}" {{--src="{{ $cover }}"--}}>
     </a>
     {{-- post info --}}
     <div class="flex flex-col

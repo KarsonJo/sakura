@@ -23,8 +23,8 @@
     </x-title-banner>
 
     @if (have_posts())
-        <div class="flex flex-col items-center">
-            <div class="flex flex-col max-w-5xl w-full gap-6 m-5">
+        <div class="flex flex-col items-center p-8">
+            <div class="flex flex-col max-w-5xl w-full gap-6">
                 @while (have_posts())
                     {{-- @includeFirst(['partials.content-' . get_post_type(), 'partials.content']) --}}
                     @php(the_post())

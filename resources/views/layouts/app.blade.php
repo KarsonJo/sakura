@@ -2,16 +2,24 @@
     {{ __('Skip to content') }}
 </a>
 
-@include('sections.header')
+{{-- wrapper --}}
+<div class="min-h-screen flex flex-col justify-start">
+    @include('sections.header')
 
-<main id="main" class="main">
-    @yield('content')
-</main>
+    <div>
+        <div class="h-20"></div>
+        <main id="main" class="main">
+            @yield('content')
+        </main>
 
-@hasSection('sidebar')
-    <aside class="sidebar">
-        @yield('sidebar')
-    </aside>
-@endif
+        @hasSection('sidebar')
+            <aside class="sidebar">
+                @yield('sidebar')
+            </aside>
+        @endif
+    </div>
 
-@include('sections.footer')
+    <div class="mt-auto">
+        @include('sections.footer')
+    </div>
+</div>

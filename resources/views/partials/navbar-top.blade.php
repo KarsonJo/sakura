@@ -1,5 +1,5 @@
 <header class="px-5 flex items-stretch w-full h-20 z-30 transition duration-500 
-                hover,scroll:bg-bg-trans-d hover,scroll:shadow-drop scroll:fixed 
+                hover,scroll:bg-bg-trans-d hover,scroll:shadow-drop fixed 
                 [&_.lower]:hover,scroll:[&:not(:only-child)]:animate-peek-in-l 
                 [&_.lower]:hover,scroll:[&:not(:only-child)]:opacity-100
                 [&_.lower]:[&:not(:only-child)]:opacity-0
