@@ -10,8 +10,12 @@
   @endif --}}
     <div class="grid [&>*]:col-span-full [&>*]:row-span-full">
         @include('partials.navbar-top')
-        @if (!of_get_option('head_focus') && is_home())
+        {{-- 写在这里不太好，但为了跟header联动最好还是写在这 --}}
+        @if (!of_get_option('head_focus') && $isWelcomePage)
             @include('partials.header.banner')
         @endif
     </div>
+    @if (!(!of_get_option('head_focus') && $isWelcomePage))
+        <div class="h-20"></div>
+    @endif
 </header>

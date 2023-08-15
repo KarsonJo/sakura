@@ -27,6 +27,7 @@ class App extends Composer
             'siteUrl' => get_bloginfo('url'),
             'siteLogo' => of_get_option('akina_logo'),
             'themeVersion' => "Nova v" . NOVA_VERSION,
+            'isWelcomePage' => is_home() && !get_query_var('paged'),
         ];
     }
 

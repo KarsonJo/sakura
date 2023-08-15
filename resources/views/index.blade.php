@@ -2,10 +2,12 @@
 
 @section('content')
     {{-- @include('partials.page-header') --}}
-    @if (of_get_option('head_notice'))
-        @include('partials.index.notice')
+    @if ($isWelcomePage)
+        @if (of_get_option('head_notice'))
+            @include('partials.index.notice')
+        @endif
+        @include('partials.index.feature')
     @endif
-    @include('partials.index.feature')
     @include('partials.index.article-list')
     {{-- @if (!have_posts())
         <x-alert type="warning">

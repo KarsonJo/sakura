@@ -14,22 +14,29 @@
 
   <link rel="shortcut icon" href="<?php echo of_get_option('favicon_link', ''); ?>" />
   <meta http-equiv="x-dns-prefetch-control" content="on">
-  
+
+  <?php $analytics = of_get_option('analytics_code', ''); ?>
+  <?php if ($analytics) { ?>
+    <?php echo $analytics; ?>
+  <?php } ?>
+
+
+
   <?php wp_head(); ?>
 
   <?php if (of_get_option('google_analytics_id', '')) { ?>
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo of_get_option('google_analytics_id', ''); ?>"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo of_get_option('google_analytics_id', ''); ?>"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
 
-			function gtag() {
-				dataLayer.push(arguments)
-			}
-			gtag('js', new Date());
-			gtag('config', '<?php echo of_get_option('google_analytics_id', ''); ?>');
-		</script>
-	<?php } ?>
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date());
+      gtag('config', '<?php echo of_get_option('google_analytics_id', ''); ?>');
+    </script>
+  <?php } ?>
 </head>
 
 <body <?php body_class(); ?>>

@@ -169,7 +169,8 @@ add_action('init', function () {
  * Register css and js
  */
 add_action('wp_enqueue_scripts', function () {
-    wp_enqueue_style('font-awesome-defer', 'https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro-v6@44659d9/css/all.min.css');
+    // wp_enqueue_style('font-awesome-defer', 'https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro-v6@44659d9/css/all.min.css');
+    wp_enqueue_style('font-awesome-defer', 'https://site-assets.fontawesome.com/releases/v6.4.2/css/all.css');
     if (of_get_option('entry_content_theme') == "sakura") {
         wp_enqueue_style('md-sakura.css', get_template_directory_uri() . '/resources/styles/article/prettydoc-cayman.css');
     } elseif (of_get_option('entry_content_theme') == "github") {
@@ -184,24 +185,23 @@ add_action('wp_enqueue_scripts', function () {
 
 });
 
-// add_action( 'init', 'loadJQueryByCDN', 20 );
+/**
+ * include other files
+ */
+foreach (glob(__DIR__ . '/Theme/*.php') as $file) {
+    require_once($file);
+}
 
-// function loadJQueryByCDN(){
-// 	if ( is_admin() ) {
-// 		return;
-// 	}
+foreach (glob(__DIR__ . '/Theme/Analytics/*.php') as $file) {
+    require_once($file);
+}
 
-// 	$protocol = is_ssl() ? 'https' : 'http';
+require_once(__DIR__ . '/Services/Analytics/AnalyticsExport.php');
 
-// 	/** @var WP_Scripts $wp_scripts */
-// 	global $wp_scripts;
+use App\Services\Analytics as Analytics;
+use App\Services\Task\TaskManager;
 
-// 	/** @var _WP_Dependency $core */
-// 	$core         = $wp_scripts->registered['jquery-core'];
-// 	$core_version = $core->ver;
-// 	$core->src    = "$protocol://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js";
-
-// 	/** @var _WP_Dependency $jquery */
-// 	$jquery       = $wp_scripts->registered['jquery'];
-// 	$jquery->deps = [ 'jquery-core' ];
-// }
+Analytics\Analytics::setProvider(new Analytics\Umami\UmamiAnalyticsProvider());
+// setupStaticstics(StatisticsProvider::PAGE_VIEW_JOB_KEY);
+TaskManager::registerTask(Analytics\PageViewTask::$taskName);
+TaskManager::init();

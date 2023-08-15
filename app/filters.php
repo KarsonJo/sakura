@@ -38,3 +38,14 @@ if (!is_admin()) {
  * hide admin bar
  */
 add_filter( 'show_admin_bar', '__return_false' );
+
+/**
+ * suppress deprecated error log
+ */
+// add_filter( 'deprecated_constructor_trigger_error', '__return_false' );
+// add_filter( 'deprecated_function_trigger_error', '__return_false' );
+// add_filter( 'deprecated_file_trigger_error', '__return_false' );
+// add_filter( 'deprecated_argument_trigger_error', '__return_false' );
+// add_filter( 'deprecated_hook_trigger_error', '__return_false' );
+error_reporting(E_ALL & ~E_WARNING & ~E_DEPRECATED & ~E_USER_DEPRECATED & ~E_NOTICE);
+// error_reporting( E_ERROR | E_NOTICE | E_PARSE );

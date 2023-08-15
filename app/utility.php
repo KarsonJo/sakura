@@ -107,9 +107,9 @@ function get_page_keyword()
         $get_name = function ($x) {
             return $x->name;
         };
-        return $wp_term ? join(',', array_merge($origin, array_map($get_name, $wp_term))) : $origin;
+        return $wp_term ? array_merge($origin, array_map($get_name, $wp_term)) : $origin;
     };
-    return is_singular() ? $merge_from_wp($merge_from_wp(array(), get_the_tags()), get_the_category()) : of_get_option('akina_meta_keywords');
+    return is_singular() ? join(',', $merge_from_wp($merge_from_wp(array(), get_the_tags()), get_the_category())) : of_get_option('akina_meta_keywords');
 }
 
 function get_page_description()
@@ -139,7 +139,7 @@ function feature_image()
 function cover_gallery()
 {
     if (of_get_option('cover_cdn_options') == 'type_2') {
-        $img_array = glob(get_template_directory() . '/resources/images/gallery/*.{gif,jpg,png}', GLOB_BRACE);
+        $img_array = glob(get_template_directory() . '/resources/images/gallery/*.{gif,jpg,png,webp}', GLOB_BRACE);
         $img = array_rand($img_array);
         $imgurl = trim($img_array[$img]);
         $imgurl = str_replace(get_template_directory(), get_template_directory_uri(), $imgurl);
@@ -174,6 +174,7 @@ function post_display_time($comment_date = false, $text = false)
  */
 function get_post_views($post_id)
 {
+    return 0;
     if (of_get_option('statistics_api') == 'wp_statistics') {
         if (!function_exists('wp_statistics_pages')) {
             return __('Please install pulgin <a href="https://wordpress.org/plugins/wp-statistics/" target="_blank">WP-Statistics</a>', 'sakura');

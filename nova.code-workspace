@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"name": "nova",
+			"path": "."
+		},
+		{
+			"path": "../sakura"
+		},
+		{
+			"path": "../../../../.vscode-server/extensions/bmewburn.vscode-intelephense-client-1.9.5"
+		}
+	]
+}

@@ -7,7 +7,6 @@
     @include('sections.header')
 
     <div>
-        <div class="h-20"></div>
         <main id="main" class="main">
             @yield('content')
         </main>

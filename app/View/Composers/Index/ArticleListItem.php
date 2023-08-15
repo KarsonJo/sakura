@@ -55,8 +55,9 @@ class ArticleListItem extends Composer
 
     function article_heat()
     {
-        $view = \ThemeNova\Post\get_post_views(get_the_ID());
-        $view = \ThemeNova\Preference\get_statistics_number($view);
+        $view = \App\Services\Analytics\get_page_view(get_the_ID());
+        // $view = \ThemeNova\Preference\get_statistics_number($view);
+        // $view = 0;
         return $view  . ' ' . _n('Hit', 'Hits', $view, 'sakura')/*热度*/;
     }
 }

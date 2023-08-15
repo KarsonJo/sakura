@@ -172,7 +172,7 @@
 
     .flex-gallery .g-card:hover {
         /* flex-grow: 10; */
-        flex-basis: 100%;
+        flex-basis: 50%;
     }
 
     .flex-gallery .g-card:hover .g-title {
@@ -192,7 +192,7 @@
     }
 
     .flex-gallery .g-card:not(:hover) img {
-        filter: grayscale(80%);
+        filter: grayscale(30%);
     }
 
     /* 

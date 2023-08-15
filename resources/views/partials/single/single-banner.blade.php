@@ -2,7 +2,8 @@
     $authorId = get_the_author_meta('ID');
     $authorUrl = esc_url(get_author_posts_url($authorId, get_the_author_meta('user_nicename')));
     $postTime = \ThemeNova\Post\post_display_time();
-    $postViewCount = \ThemeNova\Post\get_post_views(get_the_ID());
+    $postViewCount = \App\Services\Analytics\get_page_view(get_the_ID());
+    // $postViewCount = 0;
     $postViewStr = $postViewCount . ' ' . _n('View', 'Views', $postViewCount, 'sakura'); /*次阅读*/
 @endphp
 
